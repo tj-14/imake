@@ -1,0 +1,15 @@
+.ProductPage{
+  display: flex;
+}
+
+.ProductPage-Left{
+  flex: 1;
+}
+
+.ProductPage-Mid{
+  flex: 3;
+}
+
+.ProductPage-Right{
+  flex: 1;
+}
