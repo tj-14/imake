@@ -3,6 +3,11 @@ import {BrowserRouter as Router, Route, browserHistory, Link} from 'react-router
 import './App.css';
 import StorePage from './StorePage';
 import ProductPage from './ProductPage';
+import image1 from './images/product_images/bag1.jpg'
+import image2 from './images/product_images/bag2.jpg'
+import image3 from './images/product_images/bag3.jpg'
+import image4 from './images/product_images/bag4.jpg'
+import image5 from './images/product_images/bag5.jpg'
 
 const data = [
     {
@@ -11,7 +16,7 @@ const data = [
       year: '2010',
       model: 'Accord Crosstour',
       make: 'Honda',
-      media: 'http://media.ed.edmunds-media.com/honda/accord-crosstour/2010/oem/2010_honda_accord-crosstour_4dr-hatchback_ex-l_fq_oem_4_500.jpg',
+      media: image1,
       price: '$16,811',
       uid: 'honda'
 
@@ -22,7 +27,7 @@ const data = [
       year: '2016',
       model: 'AMG',
       make: 'Mercedes Benz',
-      media: 'http://media.ed.edmunds-media.com/mercedes-benz/amg-gt/2016/oem/2016_mercedes-benz_amg-gt_coupe_s_fq_oem_1_717.jpg',
+      media: image2,
       price: '$138,157',
       uid: 'benz'
 
@@ -33,7 +38,7 @@ const data = [
       year: '2016',
       model: 'X6',
       make: 'BMW',
-      media: 'http://media.ed.edmunds-media.com/bmw/x6/2016/oem/2016_bmw_x6_4dr-suv_xdrive50i_fq_oem_1_717.jpg',
+      media: image3,
       price: '$68,999',
       uid: 'bmw'
     },
@@ -43,7 +48,7 @@ const data = [
       year: '2016',
       model: 'Edge',
       make: 'Ford',
-      media: 'http://media.ed.edmunds-media.com/ford/edge/2016/oem/2016_ford_edge_4dr-suv_sport_fq_oem_6_717.jpg',
+      media: image4,
       price: '$36,275',
       uid: 'ford'
     },
@@ -53,7 +58,7 @@ const data = [
       year: '2017',
       model: 'Viper',
       make: 'Dodge',
-      media: 'http://media.ed.edmunds-media.com/dodge/viper/2017/oem/2017_dodge_viper_coupe_acr_fq_oem_3_717.jpg',
+      media: image5,
       price: '$123,890',
       uid: 'viper'
     }

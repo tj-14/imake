@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import './StorePage.css';
 
 
-
 class Product extends Component {
   render() {
     return (
       <Link to={"/products/"+this.props.value.uid}>
         <button className="Product">
-          {this.props.value.name}
+          <img className="ImageGrid" src={this.props.value.media}/>
+          <p> {this.props.value.price}</p>
         </button>
       </Link>
     );

@@ -12,28 +12,20 @@ var componentConfig = {
 
 class Cube extends Component {
   render() {
+    const sid = parseInt(this.props.sid);
+    const cubeSides = [0,1,2,3,4,5].map((i) => {
+        const j = (sid+i)%6;
+        return (
+          <div className="side">
+            <div className="cube-image"><img src={this.props.img[j]} alt={j+1}/></div>
+          </div>
+        )
+    });
     return (
     <div id="wrapper">
       <div className="viewport">
         <div className="cube">
-          <div className="side">
-            <div className="cube-image">1</div>
-          </div>
-          <div className="side">
-            <div className="cube-image">2</div>
-          </div>
-          <div className="side">
-            <div className="cube-image">3</div>
-          </div>
-          <div className="side">
-            <div className="cube-image">4</div>
-          </div>
-          <div className="side">
-            <div className="cube-image">5</div>
-          </div>
-          <div className="side">
-            <div className="cube-image active">6</div>
-          </div>
+          {cubeSides}
         </div>
       </div>
     </div>
@@ -53,32 +45,44 @@ class NewProductPage extends Component {
   }
   onDrop(acceptedFiles){
     const img = this.state.img.slice();
-    const sid = this.props.match.params.sid;
-    img[sid] = acceptedFiles[0].preview;
+    const sid = parseInt(this.props.match.params.sid);
+    img[sid-1] = acceptedFiles[0].preview;
     this.setState({
       img: img,
     })
   }
   render(){
     const sid = this.props.match.params.sid;
-    const prev_sid = parseInt(sid)-1;
-    const next_sid = parseInt(sid)+1;
+    const next_sid = [
+      [6,3,4,5],
+      [1,4,5,6],
+      [2,5,6,1],
+      [3,6,1,2],
+      [4,1,2,3],
+      [5,2,3,4],
+    ][sid-1];
     return (
       <div className="DropPicBox">
+        <Cube sid={this.props.match.params.sid} img={this.state.img}/>
         <DropZone onDrop={this.onDrop}>
-          {this.state.img[sid] ? 
+          {this.state.img[sid-1] ? 
             <div>
-              <img className="PicBox" src={this.state.img[sid]} />
+              <img className="PicBox" src={this.state.img[sid-1]} />
             </div> 
             : null}
         </DropZone>
         <div>
-          <Link to={"/newproduct/"+prev_sid}>
-            prev
+          <Link to={"/newproduct/"+next_sid[0]}>
+            {"<"}
           </Link>
-          
-          <Link to={"/newproduct/"+next_sid}>
-            next
+          <Link to={"/newproduct/"+next_sid[1]}>
+            {"^"}
+          </Link>
+          <Link to={"/newproduct/"+next_sid[2]}>
+            {">"}
+          </Link>
+          <Link to={"/newproduct/"+next_sid[3]}>
+            {"v"}
           </Link>
         </div>
       </div>
@@ -143,5 +147,7 @@ class ProductPage extends Component {
     );
   }
 }
+
+
 
 export default ProductPage;
