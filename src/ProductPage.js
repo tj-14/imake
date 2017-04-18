@@ -14,28 +14,29 @@ var componentConfig = {
 
 
 class Cube extends Component {
+
   render() {
     return (
 <div id="wrapper">
   <div className="viewport">
     <div className="cube">
       <div className="side">
-        <div className="cube-image">1</div>
+        <div id = "cube1" className="cube-image">1</div>
       </div>
       <div className="side">
-        <div className="cube-image">2</div>
+        <div id = "cube2" className="cube-image">2</div>
       </div>
       <div className="side">
-        <div className="cube-image">3</div>
+        <div id = "cube3" className="cube-image">3</div>
       </div>
       <div className="side">
-        <div className="cube-image">4</div>
+        <div id = "cube4" className="cube-image active">4</div>
       </div>
       <div className="side">
-        <div className="cube-image">5</div>
+        <div id = "cube5" className="cube-image">5</div>
       </div>
       <div className="side">
-        <div className="cube-image active">6</div>
+        <div id = "cube6" className="cube-image">6</div>
       </div>
     </div>
   </div>
@@ -134,5 +135,7 @@ class ProductPage extends Component {
     );
   }
 }
+
+
 
 export default ProductPage;
