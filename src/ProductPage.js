@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import DropZone from 'react-dropzone';
 import './ProductPage.css';
 
@@ -10,36 +10,33 @@ var componentConfig = {
 };
 
 
-//const element = <h1>Hello, world</h1>;
-
-
 class Cube extends Component {
   render() {
     return (
-<div id="wrapper">
-  <div className="viewport">
-    <div className="cube">
-      <div className="side">
-        <div className="cube-image">1</div>
-      </div>
-      <div className="side">
-        <div className="cube-image">2</div>
-      </div>
-      <div className="side">
-        <div className="cube-image">3</div>
-      </div>
-      <div className="side">
-        <div className="cube-image">4</div>
-      </div>
-      <div className="side">
-        <div className="cube-image">5</div>
-      </div>
-      <div className="side">
-        <div className="cube-image active">6</div>
+    <div id="wrapper">
+      <div className="viewport">
+        <div className="cube">
+          <div className="side">
+            <div className="cube-image">1</div>
+          </div>
+          <div className="side">
+            <div className="cube-image">2</div>
+          </div>
+          <div className="side">
+            <div className="cube-image">3</div>
+          </div>
+          <div className="side">
+            <div className="cube-image">4</div>
+          </div>
+          <div className="side">
+            <div className="cube-image">5</div>
+          </div>
+          <div className="side">
+            <div className="cube-image active">6</div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
     );
   }
 }
@@ -50,29 +47,41 @@ class NewProductPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      img: null,
+      img: Array(6).fill(null),
     };
     this.onDrop = this.onDrop.bind(this);
   }
   onDrop(acceptedFiles){
+    const img = this.state.img.slice();
+    const sid = this.props.match.params.sid;
+    img[sid] = acceptedFiles[0].preview;
     this.setState({
-      img: acceptedFiles[0].preview,
+      img: img,
     })
   }
   render(){
+    const sid = this.props.match.params.sid;
+    const prev_sid = parseInt(sid)-1;
+    const next_sid = parseInt(sid)+1;
     return (
-      <div>
-        <Cube />
-        <div className="DropPicBox">
-          <DropZone onDrop={this.onDrop}>
-            {this.state.img ? 
-              <div>
-                <img className="PicBox" src={this.state.img} />
-              </div> 
-              : null}
-          </DropZone>
+      <div className="DropPicBox">
+        <DropZone onDrop={this.onDrop}>
+          {this.state.img[sid] ? 
+            <div>
+              <img className="PicBox" src={this.state.img[sid]} />
+            </div> 
+            : null}
+        </DropZone>
+        <div>
+          <Link to={"/newproduct/"+prev_sid}>
+            prev
+          </Link>
+          
+          <Link to={"/newproduct/"+next_sid}>
+            next
+          </Link>
         </div>
-        </div>
+      </div>
     );
   }
 }
@@ -109,7 +118,7 @@ class ProductDetail extends Component {
         </div>
       </div>
     );
-    }
+  }
 }
 
 class ProductPage extends Component {
@@ -122,8 +131,8 @@ class ProductPage extends Component {
         <div className="ProductPage-Mid">
           <Router>
             <div>
-              <Route path="/products/:uid" render={() => (<ProductDetail {...this.props} data={this.props.data}/>)}/>
-              <Route path="/newproduct" component={NewProductPage} />
+              <Route path="/products/:uid" render={(props) => (<ProductDetail {...props} data={this.props.data}/>)}/>
+              <Route path="/newproduct/:sid" render={(props) => (<NewProductPage {...props}/>)}/>
             </div>
           </Router>
         </div>

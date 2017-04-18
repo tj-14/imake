@@ -19,7 +19,7 @@ class Product extends Component {
 class NewProduct extends Component {
   render() {
     return (
-      <Link to="/newproduct/">
+      <Link to="/newproduct/1">
         <button className="Product">
           +
         </button>
