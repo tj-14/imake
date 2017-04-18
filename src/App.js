@@ -80,6 +80,7 @@ class App extends Component {
           <div>
             <Route path="/" component={AppHeader} />
             <Route exact path="/" render={() => (<StorePage data={data}/>)}/>
+            <Route path="/newproduct" component={ProductPage} />
             <Route path="/products/:uid" render={(props) => (<ProductPage {...props} data={data}/>)}/>
           </div>
         </Router>

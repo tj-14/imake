@@ -8,8 +8,15 @@
 
 .ProductPage-Mid{
   flex: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ProductPage-Right{
+  flex: 1;
+}
+
+.DropPicBox{
   flex: 1;
 }

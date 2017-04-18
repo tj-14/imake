@@ -1,5 +1,36 @@
 import React, { Component } from 'react';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+import DropZone from 'react-dropzone';
 import './ProductPage.css';
+
+class NewProductPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      files: [],
+    };
+  }
+  onDrop(acceptedFiles, rejectedFiles){
+    console.log(this.state.files);
+    console.log('Accepted files: ', acceptedFiles);
+    console.log('Rejected files: ', rejectedFiles);
+    console.log(acceptedFiles[0].preview);
+    this.setState({
+      files: acceptedFiles,
+    })
+    console.log(this.state);
+  }
+  render(){
+    return (
+      <div className="DropPicBox">
+        <DropZone onDrop={this.onDrop}>
+          test
+        </DropZone>
+        {this.state.files ? <div>{this.state.files.map((file) => <img src={file.preview} />)}</div> : null}
+      </div>
+    );
+  }
+}
 
 class ProductDetail extends Component {
   render(){
@@ -42,7 +73,12 @@ class ProductPage extends Component {
           View Store
         </div>
         <div className="ProductPage-Mid">
-          <ProductDetail {...this.props} data={this.props.data}/>
+          <Router>
+            <div>
+              <Route path="/products/:uid" render={() => (<ProductDetail {...this.props} data={this.props.data}/>)}/>
+              <Route path="/newproduct" component={NewProductPage} />
+            </div>
+          </Router>
         </div>
         <div className="ProductPage-Right">
           

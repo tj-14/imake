@@ -14,6 +14,18 @@ class Product extends Component {
   }
 }
 
+class NewProduct extends Component {
+  render() {
+    return (
+      <Link to="/newproduct/">
+        <button className="Product">
+          +
+        </button>
+      </Link>
+    );
+  }
+}
+
 class StorePage extends Component {
   render() {
     const productNode = this.props.data.map((product) => {
@@ -31,6 +43,7 @@ class StorePage extends Component {
             John Doe
           </div>
           <div className="Listing">
+            <NewProduct />
             {productNode}
           </div>
         </div>
