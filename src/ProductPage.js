@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import DropZone from 'react-dropzone';
 import './ProductPage.css';
 
@@ -10,36 +10,25 @@ var componentConfig = {
 };
 
 
-//const element = <h1>Hello, world</h1>;
-
-
 class Cube extends Component {
   render() {
+    const sid = parseInt(this.props.sid);
+    const cubeSides = [0,1,2,3,4,5].map((i) => {
+        const j = (sid+i)%6;
+        return (
+          <div className="side">
+            <div className="cube-image"><img src={this.props.img[j]} alt={j+1}/></div>
+          </div>
+        )
+    });
     return (
-<div id="wrapper">
-  <div className="viewport">
-    <div className="cube">
-      <div className="side">
-        <div className="cube-image">1</div>
-      </div>
-      <div className="side">
-        <div className="cube-image">2</div>
-      </div>
-      <div className="side">
-        <div className="cube-image">3</div>
-      </div>
-      <div className="side">
-        <div className="cube-image">4</div>
-      </div>
-      <div className="side">
-        <div className="cube-image">5</div>
-      </div>
-      <div className="side">
-        <div className="cube-image active">6</div>
+    <div id="wrapper">
+      <div className="viewport">
+        <div className="cube">
+          {cubeSides}
+        </div>
       </div>
     </div>
-  </div>
-</div>
     );
   }
 }
@@ -50,29 +39,53 @@ class NewProductPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      img: null,
+      img: Array(6).fill(null),
     };
     this.onDrop = this.onDrop.bind(this);
   }
   onDrop(acceptedFiles){
+    const img = this.state.img.slice();
+    const sid = parseInt(this.props.match.params.sid);
+    img[sid-1] = acceptedFiles[0].preview;
     this.setState({
-      img: acceptedFiles[0].preview,
+      img: img,
     })
   }
   render(){
+    const sid = this.props.match.params.sid;
+    const next_sid = [
+      [6,3,4,5],
+      [1,4,5,6],
+      [2,5,6,1],
+      [3,6,1,2],
+      [4,1,2,3],
+      [5,2,3,4],
+    ][sid-1];
     return (
-      <div>
-        <Cube />
-        <div className="DropPicBox">
-          <DropZone onDrop={this.onDrop}>
-            {this.state.img ? 
-              <div>
-                <img className="PicBox" src={this.state.img} />
-              </div> 
-              : null}
-          </DropZone>
+      <div className="DropPicBox">
+        <Cube sid={this.props.match.params.sid} img={this.state.img}/>
+        <DropZone onDrop={this.onDrop}>
+          {this.state.img[sid-1] ? 
+            <div>
+              <img className="PicBox" src={this.state.img[sid-1]} />
+            </div> 
+            : null}
+        </DropZone>
+        <div>
+          <Link to={"/newproduct/"+next_sid[0]}>
+            {"<"}
+          </Link>
+          <Link to={"/newproduct/"+next_sid[1]}>
+            {"^"}
+          </Link>
+          <Link to={"/newproduct/"+next_sid[2]}>
+            {">"}
+          </Link>
+          <Link to={"/newproduct/"+next_sid[3]}>
+            {"v"}
+          </Link>
         </div>
-        </div>
+      </div>
     );
   }
 }
@@ -157,7 +170,7 @@ class ProductDetail extends Component {
         </div>
       </div>
     );
-    }
+  }
 }
 
 class ProductPage extends Component {
@@ -170,8 +183,8 @@ class ProductPage extends Component {
         <div className="ProductPage-Mid">
           <Router>
             <div>
-              <Route path="/products/:uid" render={() => (<ProductDetail {...this.props} data={this.props.data}/>)}/>
-              <Route path="/newproduct" component={NewProductPage} />
+              <Route path="/products/:uid" render={(props) => (<ProductDetail {...props} data={this.props.data}/>)}/>
+              <Route path="/newproduct/:sid" render={(props) => (<NewProductPage {...props}/>)}/>
             </div>
           </Router>
         </div>
@@ -182,5 +195,7 @@ class ProductPage extends Component {
     );
   }
 }
+
+
 
 export default ProductPage;
