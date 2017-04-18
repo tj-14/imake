@@ -16,7 +16,7 @@
 
 .ShopTitle{
   font-size: 24px;
-  padding-top:20px;
+  /*padding-top:5px;*/
   padding-bottom: 20px;
 }
 
@@ -79,4 +79,9 @@
   padding-right: 0px;
   padding-top: 0px;
   padding-bottom: 0px;
+}
+
+.StoreLogo{
+  height: 100px;
+  width: 100px;
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './StorePage.css';
 import add_product from './images/add-product.png'
+import store_logo from './images/product_images/store-logo.jpg'
 
 class Product extends Component {
   constructor(props) {
@@ -88,8 +89,11 @@ class StorePage extends Component {
           View Story
         </div>
         <div className="StorePage-Mid">
+          <div>
+            <img className="StoreLogo" src={store_logo}/>
+          </div>
           <div className="ShopTitle">
-            John Doe
+            <b>Spring Naturals by John Doe</b>
           </div>
           <div className="Listing">
             <NewProduct />
