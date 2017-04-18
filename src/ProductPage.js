@@ -3,6 +3,14 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import DropZone from 'react-dropzone';
 import './ProductPage.css';
 
+// this thing sets what the drop zone for pictures accepts and looks like
+var componentConfig = {
+    iconFiletypes: ['.jpg', '.png', '.gif'],
+    showFiletypeIcon: true,
+};
+
+
+
 class NewProductPage extends Component {
   constructor(props) {
     super(props);

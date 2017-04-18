@@ -63,8 +63,8 @@ class AppHeader extends Component {
   render(){
     return (
       <div className="App-header">
-        <Link to="/" className="Logo">iMake</Link>
-        <p className="SearchBox">SearchBox</p>
+        <Link to="/" className="Logo"><img src={require('./images/logo-search.png')} /></Link>
+        <div className="SearchBox"><img src={require('./images/search-box.png')} /></div>
       </div>
     );
   }

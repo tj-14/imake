@@ -3,8 +3,8 @@
 }
 
 .App-header {
-  background-color: #222;
-  height: 60px;
+  background-color: #f4f4f4;
+  height: 120px;
   padding: 20px;
   color: white;
   display: flex;
@@ -16,4 +16,6 @@
 
 .SearchBox{
   flex: 5;
+  padding-top: 30px;
+  text-align: left;
 }
