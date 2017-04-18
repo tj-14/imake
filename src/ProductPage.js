@@ -7,26 +7,25 @@ class NewProductPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      files: [],
+      img: null,
     };
+    this.onDrop = this.onDrop.bind(this);
   }
-  onDrop(acceptedFiles, rejectedFiles){
-    console.log(this.state.files);
-    console.log('Accepted files: ', acceptedFiles);
-    console.log('Rejected files: ', rejectedFiles);
-    console.log(acceptedFiles[0].preview);
+  onDrop(acceptedFiles){
     this.setState({
-      files: acceptedFiles,
+      img: acceptedFiles[0].preview,
     })
-    console.log(this.state);
   }
   render(){
     return (
       <div className="DropPicBox">
         <DropZone onDrop={this.onDrop}>
-          test
+          {this.state.img ? 
+            <div>
+              <img className="PicBox" src={this.state.img} />
+            </div> 
+            : null}
         </DropZone>
-        {this.state.files ? <div>{this.state.files.map((file) => <img src={file.preview} />)}</div> : null}
       </div>
     );
   }

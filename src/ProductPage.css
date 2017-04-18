@@ -11,6 +11,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+/*  border: 1px solid #999;*/
+  height: 400px;
 }
 
 .ProductPage-Right{
@@ -19,4 +21,9 @@
 
 .DropPicBox{
   flex: 1;
+  width: 100%;
+}
+
+.PicBox{
+  width: 100%;
 }
