@@ -4,12 +4,36 @@ import './StorePage.css';
 
 
 class Product extends Component {
+  constructor(props) {
+        super(props);
+        // 1. bind your functions in the constructor.
+        this.mouseOver = this.mouseOver.bind(this);
+        this.mouseOut = this.mouseOut.bind(this);
+        this.state = {
+            hover: false
+        };
+    }
+
+    // 2. bind it with fat arrows.
+    mouseOver = () => {
+        this.setState({hover: true});
+    }
+    mouseOut() {
+        this.setState({hover: false});
+    }
+
   render() {
     return (
       <Link to={"/products/"+this.props.value.uid}>
-        <button className="Product">
+        <button className="Product" onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
           <img className="ImageGrid" src={this.props.value.media}/>
-          <p> {this.props.value.price}</p>
+          {this.state.hover ? (
+            <div className="ImageOverlay"> 
+              <div className="TextOverlay">
+                <p><b> {this.props.value.name}</b></p>
+                <p> {this.props.value.price}</p>
+              </div>
+            </div>) : null}  
         </button>
       </Link>
     );

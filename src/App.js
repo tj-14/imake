@@ -12,24 +12,27 @@ import image5 from './images/product_images/bag5.jpg'
 const data = [
     {
       id: 1,
-      name: 'Honda Accord Crosstour',
+      name: 'Straw Tote',
       year: '2010',
-      model: 'Accord Crosstour',
-      make: 'Honda',
+      model: 'Tote',
+      make: 'Straw',
       media: image1,
-      price: '$16,811',
-      uid: 'honda'
+      price: '$98.00',
+      uid: 'bag1',
+      description: "Fancy shmancy straw for divas! Available only in beige and black, but fabulous with any outifts."
 
     },
     {
       id: 2,
-      name: 'Mercedes-Benz AMG GT Coupe',
+      name: 'Handwoven Picnic Bag',
       year: '2016',
-      model: 'AMG',
-      make: 'Mercedes Benz',
+      model: 'Picnic Bag',
+      make: 'Straw',
       media: image2,
-      price: '$138,157',
-      uid: 'benz'
+      price: '$87.00',
+      uid: 'bag2',
+      description: "Fancy shmancy straw for divas! Available only in beige and black, but fabulous with any outifts."
+
 
     },
     {
