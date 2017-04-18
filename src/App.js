@@ -8,6 +8,10 @@ import image2 from './images/product_images/bag2.jpg'
 import image3 from './images/product_images/bag3.jpg'
 import image4 from './images/product_images/bag4.jpg'
 import image5 from './images/product_images/bag5.jpg'
+import image6 from './images/product_images/bag6.jpg'
+import image7 from './images/product_images/bag7.jpg'
+import image8 from './images/product_images/bag8.jpg'
+import image9 from './images/product_images/bag9.jpg'
 
 const data = [
     {
@@ -37,33 +41,73 @@ const data = [
     },
     {
       id: 3,
-      name: 'BMW X6 SUV',
-      year: '2016',
-      model: 'X6',
-      make: 'BMW',
+      name: 'Red Glamour Bag',
+      year: '2017',
+      model: 'Glamour',
+      make: 'Staw',
       media: image3,
-      price: '$68,999',
-      uid: 'bmw'
+      price: '$76.00',
+      uid: 'bag3'
     },
     {
       id: 4,
-      name: 'Ford Edge SUV',
-      year: '2016',
-      model: 'Edge',
-      make: 'Ford',
+      name: 'Brown Pull-Over Tote',
+      year: '2015',
+      model: 'Pull-Over',
+      make: 'Staw',
       media: image4,
-      price: '$36,275',
-      uid: 'ford'
+      price: '$55.00',
+      uid: 'bag4'
     },
     {
       id: 5,
-      name: 'Dodge Viper Coupe',
+      name: 'Blue Chic Handbag',
       year: '2017',
-      model: 'Viper',
-      make: 'Dodge',
+      model: 'Chic',
+      make: 'Straw',
       media: image5,
-      price: '$123,890',
-      uid: 'viper'
+      price: '$76.00',
+      uid: 'bag5'
+    },
+    {
+      id: 6,
+      name: 'Summer Orange Handbag',
+      year: '2017',
+      model: 'Summer',
+      make: 'Straw',
+      media: image6,
+      price: '$88.00',
+      uid: 'bag6'
+    },
+    {
+      id: 7,
+      name: 'Banana Picnic Bag',
+      year: '2017',
+      model: 'Banana',
+      make: 'Straw',
+      media: image7,
+      price: '$109.00',
+      uid: 'bag7'
+    },
+    {
+      id: 8,
+      name: 'Pretty and Purple Handbag',
+      year: '2017',
+      model: 'Pretty and Purple',
+      make: 'Straw',
+      media: image8,
+      price: '$76.00',
+      uid: 'bag8'
+    },
+    {
+      id: 9,
+      name: 'Classic Picnic Bag',
+      year: '2017',
+      model: 'Classic',
+      make: 'Straw',
+      media: image9,
+      price: '$56.00',
+      uid: 'bag9'
     }
 ];
 

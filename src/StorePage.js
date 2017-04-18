@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './StorePage.css';
-
+import add_product from './images/add-product.png'
 
 class Product extends Component {
   constructor(props) {
@@ -41,11 +41,34 @@ class Product extends Component {
 }
 
 class NewProduct extends Component {
+  constructor(props) {
+        super(props);
+        // 1. bind your functions in the constructor.
+        this.mouseOver = this.mouseOver.bind(this);
+        this.mouseOut = this.mouseOut.bind(this);
+        this.state = {
+            hover: false
+        };
+    }
+
+    // 2. bind it with fat arrows.
+    mouseOver = () => {
+        this.setState({hover: true});
+    }
+    mouseOut() {
+        this.setState({hover: false});
+    }
   render() {
     return (
       <Link to="/newproduct/1">
-        <button className="Product">
-          +
+        <button className="Product" onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
+          <img className="ImageGrid" src={add_product} />
+          {this.state.hover ? (
+            <div className="ImageOverlay"> 
+              <div className="TextOverlay">
+                <p><b>Add Item</b></p>
+              </div>
+            </div>) : null}  
         </button>
       </Link>
     );
