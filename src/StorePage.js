@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './StorePage.css';
 
 
+
 class Product extends Component {
   render() {
     return (

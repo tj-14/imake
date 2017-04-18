@@ -10,8 +10,43 @@ var componentConfig = {
 };
 
 
+//const element = <h1>Hello, world</h1>;
+
+
+class Cube extends Component {
+  render() {
+    return (
+<div id="wrapper">
+  <div className="viewport">
+    <div className="cube">
+      <div className="side">
+        <div className="cube-image">1</div>
+      </div>
+      <div className="side">
+        <div className="cube-image">2</div>
+      </div>
+      <div className="side">
+        <div className="cube-image">3</div>
+      </div>
+      <div className="side">
+        <div className="cube-image">4</div>
+      </div>
+      <div className="side">
+        <div className="cube-image">5</div>
+      </div>
+      <div className="side">
+        <div className="cube-image active">6</div>
+      </div>
+    </div>
+  </div>
+</div>
+    );
+  }
+}
+
 
 class NewProductPage extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -26,18 +61,23 @@ class NewProductPage extends Component {
   }
   render(){
     return (
-      <div className="DropPicBox">
-        <DropZone onDrop={this.onDrop}>
-          {this.state.img ? 
-            <div>
-              <img className="PicBox" src={this.state.img} />
-            </div> 
-            : null}
-        </DropZone>
-      </div>
+      <div>
+        <Cube />
+        <div className="DropPicBox">
+          <DropZone onDrop={this.onDrop}>
+            {this.state.img ? 
+              <div>
+                <img className="PicBox" src={this.state.img} />
+              </div> 
+              : null}
+          </DropZone>
+        </div>
+        </div>
     );
   }
 }
+
+
 
 class ProductDetail extends Component {
   render(){
