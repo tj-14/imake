@@ -77,7 +77,43 @@ class NewProductPage extends Component {
   }
 }
 
-
+class ReviewButton extends Component {
+  constructor(){
+    super();
+    this.state = {
+      isExpanded: false,
+      label: "\u25bc",
+    };
+  }
+  
+  reviewClick(){
+    const newLabel = this.state.isExpanded ? '\u25bc' : '\u25b2';
+    this.setState({
+      isExpanded: !this.state.isExpanded,
+      label: newLabel,
+    });
+  }
+  
+  render() {
+    let reviewTextDiv;
+    if (this.state.isExpanded) {
+      reviewTextDiv = 
+        <div className="reviewText">
+          <p>Pros - Exactly as described and depicted - works with phones and laptops as a quick card reader</p>
+          <p>Cons - Lack of instruction for memory card insertion & microUSB is a bit difficult to utilize.</p>
+        </div>;
+    }
+    
+    return (
+      <div>
+        <button type="button" className="btn btn-secondary reviewBtn" onClick={() => this.reviewClick()}>
+          {this.state.label}
+        </button>
+        {reviewTextDiv}
+      </div>
+    );
+  }
+}
 
 class ProductDetail extends Component {
   render(){
@@ -88,24 +124,36 @@ class ProductDetail extends Component {
             return product;
         }
     });
+    
+    const reviewBox = [5,4,3,2,1].map((i) => {
+      return(
+        <div className="reviewCol">
+          <div className="stars">
+            {Array(i+1).join("\u2605 ")}
+          </div>
+          <ReviewButton/>
+        </div>
+      ) 
+    });
 
     return (
       <div>
-        <h1>{product[0].name}</h1>
-        <div className="row">
-          <div className="col-sm-6 col-md-4">
-            <div className="thumbnail">
-              <img src={product[0].media} alt={product[0].name} />
-            </div>
+        <div className="productName">{product[0].name}</div>
+        <div className="detailBox">
+          <div className="thumbnail">
+            <img src={product[0].media} alt={product[0].name} />
           </div>
-          <div className="col-sm-6 col-md-4">
+          <div className="description">
             <ul>
-              <li><strong>Model</strong>: {product[0].model}</li>
-              <li><strong>Make</strong>: {product[0].make}</li>
-              <li><strong>Year</strong>: {product[0].year}</li>
-              <li><strong>Price</strong>: {product[0].price}</li>
+              <li><span className="label">Price</span>: {product[0].price}</li>
+              <li><span className="label">Model</span>: {product[0].model}</li>
+              <li><span className="label">Make</span>: {product[0].make}</li>
+              <li><span className="label">Year</span>: {product[0].year}</li>
             </ul>
           </div>
+        </div>
+        <div className="reviews">
+          {reviewBox}
         </div>
       </div>
     );
