@@ -9,13 +9,25 @@
 .ProductPage-Mid{
   flex: 3;
   display: flex;
+  align-items: center;
   justify-content: center;
   text-align: left;
+}
+
+.ProductPage-Mid-Child{
+  width: 100%;
+  display: flex;
+}
+
+.ProductPage-Right{
+  flex: 1;
 }
 
 .DropPicBox{
   flex: 1;
   width: 100%;
+  display: flex;
+  border: 1px solid red;
 }
 
 .PicBox{
@@ -100,6 +112,11 @@
   height: 250px;
   font-size: 0.8em;
   text-align: left;
+}
+
+.DropZone {
+  flex: 1;
+  border: 1px dashed #999;
 }
 
 *, *:before, *:after {
