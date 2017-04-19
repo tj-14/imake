@@ -16,6 +16,17 @@
 
 .SearchBox{
   flex: 5;
-  padding-top: 30px;
-  text-align: left;
+  display: flex;
+  margin-top: 40px;
+}
+
+.searchBtn {
+  width: 5em;
+  background-color: #a94d25;
+  height: 34px;
+  margin-left: 3px;
+}
+
+.headerRightColumn {
+  flex: 1;
 }
