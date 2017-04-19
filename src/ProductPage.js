@@ -112,6 +112,7 @@ class ReviewButton extends Component {
     if (this.state.isExpanded) {
       reviewTextDiv = 
         <div className="reviewText">
+          <p>Example Review</p>
           <p>Pros - Exactly as described and depicted - works with phones and laptops as a quick card reader</p>
           <p>Cons - Lack of instruction for memory card insertion & microUSB is a bit difficult to utilize.</p>
         </div>;
@@ -134,7 +135,7 @@ class ProductDetail extends Component {
     const uid = this.props.match.params.uid;
     const product = products.filter(product => {
         if(product.uid == uid) {
-            return product;
+          return product;
         }
     });
     
@@ -144,29 +145,34 @@ class ProductDetail extends Component {
           <div className="stars">
             {Array(i+1).join("\u2605 ")}
           </div>
-          <ReviewButton/>
+          <ReviewButton />
         </div>
       ) 
     });
 
     return (
       <div>
-        <div className="productName">{product[0].name}</div>
-        <div className="detailBox">
+        <div className="productNameRow">
+          <div className="productName">{product[0].name}</div>
+          <div className="ProductPage-Right"></div>
+        </div>
+        
+        <div className="detailRow">
           <div className="thumbnail">
             <img src={product[0].media} alt={product[0].name} />
           </div>
-          <div className="description">
-            <ul>
-              <li><span className="label">Price</span>: {product[0].price}</li>
-              <li><span className="label">Model</span>: {product[0].model}</li>
-              <li><span className="label">Make</span>: {product[0].make}</li>
-              <li><span className="label">Year</span>: {product[0].year}</li>
-            </ul>
+          <div className="ProductPage-Right">
+            <div className="descriptionBox">
+              <span className="label">Price:</span><span className="labelData">{product[0].price}</span>
+              <br></br>
+              <span className="description">{product[0].description}</span>
+            </div>
           </div>
         </div>
-        <div className="reviews">
-          {reviewBox}
+        
+        <div className="reviewsRow">
+          <div className="reviews">{reviewBox}</div>
+          <div className="ProductPage-Right"></div>
         </div>
       </div>
     );
@@ -187,9 +193,6 @@ class ProductPage extends Component {
               <Route path="/newproduct/:sid" render={(props) => (<NewProductPage {...props}/>)}/>
             </div>
           </Router>
-        </div>
-        <div className="ProductPage-Right">
-          
         </div>
       </div>
     );
