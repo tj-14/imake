@@ -125,7 +125,13 @@ class AppHeader extends Component {
     return (
       <div className="App-header">
         <Link to="/" className="Logo"><img src={require('./images/logo-search.png')} /></Link>
-        <div className="SearchBox"><img src={require('./images/search-box.png')} /></div>
+        <div className="SearchBox">
+          <input className="searchInput form-control" placeholder="Search for items or shops" type="text" />
+          <button type="button" className="searchBtn btn btn-secondary">
+            Search
+          </button>
+        </div>
+        <div className="headerRightColumn"></div>
       </div>
     );
   }
