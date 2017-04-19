@@ -31,8 +31,8 @@ class Product extends Component {
           {this.state.hover ? (
             <div className="ImageOverlay"> 
               <div className="TextOverlay">
-                <p><b> {this.props.value.name}</b></p>
-                <p> {this.props.value.price}</p>
+                <p><b>{this.props.value.name}</b></p>
+                <p>${this.props.value.price}</p>
               </div>
             </div>) : null}  
         </button>

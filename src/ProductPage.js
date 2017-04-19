@@ -17,7 +17,7 @@ class Cube extends Component {
         const j = (sid+i)%6;
         return (
           <div className="side">
-            <div className="cube-image"><img src={this.props.img[j]} alt={j+1}/></div>
+            <div className="cube-image"><img src={this.props.img[j]} alt={j+1} className="cubeimg"/></div>
           </div>
         )
     });
@@ -33,13 +33,15 @@ class Cube extends Component {
   }
 }
 
-
 class NewProductPage extends Component {
-
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       img: Array(6).fill(null),
+      productNameInput: "",
+      priceInput: 0,
+      descriptionInput: "",
+      isEditing: true,
     };
     this.onDrop = this.onDrop.bind(this);
   }
@@ -51,6 +53,31 @@ class NewProductPage extends Component {
       img: img,
     })
   }
+  
+  handleClick() {
+    this.setState({
+      isEditing: !this.state.isEditing,
+    });
+  }
+                  
+  handleChangeProductName(event) {
+    this.setState({
+      productNameInput: event.target.value,
+    });
+  }
+  
+  handleChangePrice(event) {
+    this.setState({
+      priceInput: event.target.value,
+    });
+  }
+  
+  handleChangeDescription(event) {
+    this.setState({
+      descriptionInput: event.target.value,
+    });
+  }
+  
   render(){
     const sid = this.props.match.params.sid;
     const next_sid = [
@@ -61,29 +88,72 @@ class NewProductPage extends Component {
       [4,1,2,3],
       [5,2,3,4],
     ][sid-1];
+    
+    const productNameDiv = this.state.isEditing ? 
+      <input className="productNameInput form-control input-lg" placeholder="Product name" type="text" value={this.state.productNameInput} onChange={this.handleChangeProductName.bind(this)} />
+      : <div className="productName">{this.state.productNameInput}</div>;
+    
+    const priceDiv = this.state.isEditing ? 
+      <input className="priceInput form-control" placeholder="price" type="number" min="0" step="0.01" value={this.state.priceInput} onChange={this.handleChangePrice.bind(this)}/>
+      : <span className="labelData">${this.state.priceInput}</span>
+    
+    const descriptionDiv = this.state.isEditing ?
+      <textarea rows="10" className="descriptionInput form-control" placeholder="Description" type="text" value={this.state.descriptionInput} onChange={this.handleChangeDescription.bind(this)}/>
+      : <span className="description">{this.state.descriptionInput}</span>
+    
+    const buttonLabel = this.state.isEditing ? "OK" : "Edit";
+    
     return (
-      <div className="DropPicBox">
-        <Cube sid={this.props.match.params.sid} img={this.state.img}/>
-        <DropZone className="DropZone" onDrop={this.onDrop} accept='image/*'>
-          {this.state.img[sid-1] ? 
-            <div>
-              <img className="PicBox" src={this.state.img[sid-1]} />
-            </div> 
-            : null}
-        </DropZone>
-        <div>
-          <Link to={"/newproduct/"+next_sid[0]}>
-            {"<"}
-          </Link>
-          <Link to={"/newproduct/"+next_sid[1]}>
-            {"^"}
-          </Link>
-          <Link to={"/newproduct/"+next_sid[2]}>
-            {">"}
-          </Link>
-          <Link to={"/newproduct/"+next_sid[3]}>
-            {"v"}
-          </Link>
+      <div style={{width: "100%"}}>
+        <div className="productNameRow">
+          {productNameDiv}
+          <div className="ProductPage-Right"></div>
+        </div>
+
+        <div className="detailRow">
+          <div className="DropPicBox">
+            <DropZone className="DropZone" onDrop={this.onDrop} accept='image/*'>
+              {this.state.img[sid-1] ? 
+                <div>
+                  <img className="PicBox" src={this.state.img[sid-1]} />
+                </div> 
+                : <div className="plusSign">+</div>}
+            </DropZone>
+            
+            <div className="cubeDiv">
+              <Cube sid={this.props.match.params.sid} img={this.state.img} />
+            </div>
+            
+            <Link to={"/newproduct/"+next_sid[0]}>
+              <div className="arrowLeft">{"\u25c0"}</div>
+            </Link>
+            <Link to={"/newproduct/"+next_sid[1]}>
+              <div className="arrowUp">{"\u25b2"}</div>
+            </Link>
+            <Link to={"/newproduct/"+next_sid[2]}>
+              <div className="arrowRight">{"\u25b6"}</div>
+            </Link>
+            <Link to={"/newproduct/"+next_sid[3]}>
+              <div className="arrowDown">{"\u25bc"}</div>
+            </Link>
+          </div>
+          <div className="ProductPage-Right">
+            <div className="descriptionBox">
+              <span className="label">Price:</span>
+              {priceDiv}
+              <br></br>
+              {descriptionDiv}
+            </div>
+          </div>
+        </div>
+        
+        <div className="reviewsRow">
+          <div className="okButtonDiv">
+            <button type="button" className="btn btn-secondary submitBtn" onClick={() => this.handleClick()}>
+            {buttonLabel}
+          </button>
+          </div>
+          <div className="ProductPage-Right"></div>
         </div>
       </div>
     );
@@ -91,7 +161,7 @@ class NewProductPage extends Component {
 }
 
 class ReviewButton extends Component {
-  constructor(){
+  constructor() {
     super();
     this.state = {
       isExpanded: false,
@@ -99,7 +169,7 @@ class ReviewButton extends Component {
     };
   }
   
-  reviewClick(){
+  reviewClick() {
     const newLabel = this.state.isExpanded ? '\u25bc' : '\u25b2';
     this.setState({
       isExpanded: !this.state.isExpanded,
@@ -151,7 +221,7 @@ class ProductDetail extends Component {
     });
 
     return (
-      <div>
+      <div style={{width: "100%"}}>
         <div className="productNameRow">
           <div className="productName">{product[0].name}</div>
           <div className="ProductPage-Right"></div>
@@ -159,11 +229,11 @@ class ProductDetail extends Component {
         
         <div className="detailRow">
           <div className="thumbnail">
-            <img src={product[0].media} alt={product[0].name} />
+            <img src={product[0].media} alt={product[0].name}/>
           </div>
           <div className="ProductPage-Right">
             <div className="descriptionBox">
-              <span className="label">Price:</span><span className="labelData">{product[0].price}</span>
+              <span className="label">Price:</span><span className="labelData">${product[0].price}</span>
               <br></br>
               <span className="description">{product[0].description}</span>
             </div>
@@ -188,7 +258,7 @@ class ProductPage extends Component {
         </div>
         <div className="ProductPage-Mid">
           <Router>
-            <div className="ProductPage-Mid-Child">
+            <div style={{width: "100%"}}>
               <Route path="/products/:uid" render={(props) => (<ProductDetail {...props} data={this.props.data}/>)}/>
               <Route path="/newproduct/:sid" render={(props) => (<NewProductPage {...props}/>)}/>
             </div>

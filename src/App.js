@@ -21,7 +21,7 @@ const data = [
       model: 'Tote',
       make: 'Straw',
       media: image1,
-      price: '$98.00',
+      price: '98.00',
       uid: 'bag1',
       description: "Fancy shmancy straw for divas! Available only in beige and black, but fabulous with any outifts."
 
@@ -33,7 +33,7 @@ const data = [
       model: 'Picnic Bag',
       make: 'Straw',
       media: image2,
-      price: '$87.00',
+      price: '87.00',
       uid: 'bag2',
       description: "Fancy shmancy straw for divas! Available only in beige and black, but fabulous with any outifts."
 
@@ -46,7 +46,7 @@ const data = [
       model: 'Glamour',
       make: 'Straw',
       media: image3,
-      price: '$76.00',
+      price: '76.00',
       uid: 'bag3'
     },
     {
@@ -56,7 +56,7 @@ const data = [
       model: 'Pull-Over',
       make: 'Straw',
       media: image4,
-      price: '$55.00',
+      price: '55.00',
       uid: 'bag4'
     },
     {
@@ -66,7 +66,7 @@ const data = [
       model: 'Chic',
       make: 'Straw',
       media: image5,
-      price: '$76.00',
+      price: '76.00',
       uid: 'bag5'
     },
     {
@@ -76,7 +76,7 @@ const data = [
       model: 'Summer',
       make: 'Straw',
       media: image6,
-      price: '$88.00',
+      price: '88.00',
       uid: 'bag6'
     },
     {
@@ -86,7 +86,7 @@ const data = [
       model: 'Banana',
       make: 'Straw',
       media: image7,
-      price: '$109.00',
+      price: '109.00',
       uid: 'bag7'
     },
     {
@@ -96,7 +96,7 @@ const data = [
       model: 'Pretty and Purple',
       make: 'Straw',
       media: image8,
-      price: '$76.00',
+      price: '76.00',
       uid: 'bag8'
     },
     {
@@ -106,7 +106,7 @@ const data = [
       model: 'Classic',
       make: 'Straw',
       media: image9,
-      price: '$56.00',
+      price: '56.00',
       uid: 'bag9'
     }
 ];
