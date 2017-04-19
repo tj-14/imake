@@ -37,6 +37,12 @@ class Cube extends Component {
 class NewProductPage extends Component {
   constructor() {
     super();
+    this.mouseOverOriginal = this.mouseOverOriginal.bind(this);
+    this.mouseOverFilter1 = this.mouseOverFilter1.bind(this);
+    this.mouseOverFilter2 = this.mouseOverFilter2.bind(this);
+    this.mouseOverFilter2 = this.mouseOverFilter3.bind(this);
+    this.mouseOverDone = this.mouseOverDone.bind(this);
+
     this.state = {
       img: Array(6).fill(null),
       productNameInput: "",
@@ -48,6 +54,11 @@ class NewProductPage extends Component {
       curX: null,
       curY: null,
       hoveredHotSpotImg: null,
+      original: true,
+      filter1: false,
+      filter2: false,
+      filter3: false,
+      doneFilter: false
     };
     this.onDrop = this.onDrop.bind(this);
     this.handleAddHotSpotDiv = 
@@ -60,6 +71,23 @@ class NewProductPage extends Component {
       this.hotspotMouseOut.bind(this);
   }
   
+
+    // 2. bind it with fat arrows.
+  mouseOverOriginal = () => {
+        this.setState({original: true, filter1: false, filter2: false, filter3: false});}
+
+  mouseOverFilter1 = () => {
+        this.setState({original: false, filter1: true, filter2: false, filter3: false});}
+
+  mouseOverFilter2 = () => {
+        this.setState({original: false, filter1: false, filter2: true, filter3: false});}
+
+  mouseOverFilter3 = () => {
+        this.setState({original: false, filter1: false, filter2: false, filter3: true});}
+
+  mouseOverDone = () => {
+    this.setState({doneFilter: true});}
+
   onDrop(acceptedFiles){
     const img = this.state.img.slice();
     const sid = parseInt(this.props.match.params.sid);
@@ -193,11 +221,40 @@ class NewProductPage extends Component {
               </DropZone> 
               :
               <DropZone className="DropZone" onDrop={this.onDrop} accept='image/*'>
-                {this.state.img[sid-1] ? 
+                {this.state.img[sid-1] ? (
                   <div>
-                    <img className="PicBox" src={this.state.img[sid-1]} />
+                    {this.state.doneFilter? null : (
+                      <div>
+                      <div className = "WhiteColumn"> </div>
+
+                      <div className = "Original" onClick={this.mouseOverOriginal}>
+                        <img className="PicBox" src={this.state.img[sid-1]} />
+                      </div>
+
+                      <div className = "Filter1" onClick={this.mouseOverFilter1}>
+                        <img className="PicBoxGrayscale" src={this.state.img[sid-1]} />
+                      </div>
+
+                      <div className = "Filter2" onClick={this.mouseOverFilter2}>
+                        <img className="PicBoxBrightness" src={this.state.img[sid-1]} />
+                      </div>
+
+                      <div className = "Filter3" onClick={this.mouseOverFilter3}>
+                        <img className="PicBoxSepia" src={this.state.img[sid-1]} />
+                      </div>
+
+                      <div className = "DoneFilter" onClick={this.mouseOverDone}>
+                        Done Editing
+                      </div></div>
+                    )}
+
+                    {this.state.original ? (<img className="PicBox" src={this.state.img[sid-1]} />) : null }
+                    {this.state.filter1 ? (<img className="PicBoxGrayscale" src={this.state.img[sid-1]} />) : null}
+                    {this.state.filter2 ? (<img className="PicBoxBrightness" src={this.state.img[sid-1]} />) : null}
+                    {this.state.filter3 ? (<img className="PicBoxSepia" src={this.state.img[sid-1]} />) : null}
+
                     {hotSpots}
-                  </div> 
+                  </div>) 
                   : <div className="plusSign">+</div>}
               </DropZone>
             }
@@ -253,6 +310,7 @@ class NewProductPage extends Component {
     );
   }
 }
+
 
 class ReviewButton extends Component {
   constructor() {
