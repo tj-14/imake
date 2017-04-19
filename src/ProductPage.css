@@ -7,7 +7,7 @@
 }
 
 .ProductPage-Mid{
-  flex: 3;
+  flex: 5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,6 +37,8 @@
   flex: 1;
   background-color: #EEE;
   position: relative;
+  height: 570px;
+  overflow: hidden;
 }
 
 .DropZone:hover {
