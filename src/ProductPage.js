@@ -54,11 +54,11 @@ class NewProductPage extends Component {
       curX: null,
       curY: null,
       hoveredHotSpotImg: null,
+      isChoosingFilter: false,
       original: true,
       filter1: false,
       filter2: false,
       filter3: false,
-      doneFilter: false
     };
     this.onDrop = this.onDrop.bind(this);
     this.handleAddHotSpotDiv = 
@@ -86,7 +86,7 @@ class NewProductPage extends Component {
         this.setState({original: false, filter1: false, filter2: false, filter3: true});}
 
   mouseOverDone = () => {
-    this.setState({doneFilter: true});}
+    this.setState({isChoosingFilter: false});}
 
   onDrop(acceptedFiles){
     const img = this.state.img.slice();
@@ -94,6 +94,7 @@ class NewProductPage extends Component {
     img[sid-1] = acceptedFiles[0].preview;
     this.setState({
       img: img,
+      isChoosingFilter: true,
     })
   }
   
@@ -205,6 +206,64 @@ class NewProductPage extends Component {
       hotspotButtonLabel = "Add a hotspot";
     }
     
+    let dropPicBoxChild;
+    if (this.state.isAddingHotspot) {
+      dropPicBoxChild = 
+        <DropZone className="HotSpotZone" onClick={this.handleAddHotSpotDiv} onDrop={this.hotSpotOnDrop} accept='image/*'>
+              {this.state.original ? (<img className="PicBox" src={this.state.img[sid-1]} />) : null }
+              {this.state.filter1 ? (<img className="PicBoxGrayscale" src={this.state.img[sid-1]} />) : null}
+              {this.state.filter2 ? (<img className="PicBoxBrightness" src={this.state.img[sid-1]} />) : null}
+              {this.state.filter3 ? (<img className="PicBoxSepia" src={this.state.img[sid-1]} />) : null}
+          </DropZone> ;
+    } else if (this.state.isChoosingFilter) {
+      dropPicBoxChild = 
+        <div className= "HotSpotZone">
+                  <div className = "WhiteColumn"> </div>
+                  <div className = "Original" onClick={this.mouseOverOriginal}>
+                    <img className="PicBox" src={this.state.img[sid-1]} />
+                  </div>
+
+                  <div className = "Filter1" onClick={this.mouseOverFilter1}>
+                    <img className="PicBoxGrayscale" src={this.state.img[sid-1]} />
+                  </div>
+
+                  <div className = "Filter2" onClick={this.mouseOverFilter2}>
+                    <img className="PicBoxBrightness" src={this.state.img[sid-1]} />
+                  </div>
+
+                  <div className = "Filter3" onClick={this.mouseOverFilter3}>
+                    <img className="PicBoxSepia" src={this.state.img[sid-1]} />
+                  </div>
+
+                  <div className = "DoneFilter" onClick={this.mouseOverDone}>
+                    Done Editing
+                  </div>
+                  <div>
+                    {this.state.original ? (<img className="PicBox" src={this.state.img[sid-1]} />) : null }
+                    {this.state.filter1 ? (<img className="PicBoxGrayscale" src={this.state.img[sid-1]} />) : null}
+                    {this.state.filter2 ? (<img className="PicBoxBrightness" src={this.state.img[sid-1]} />) : null}
+                    {this.state.filter3 ? (<img className="PicBoxSepia" src={this.state.img[sid-1]} />) : null}
+                  </div> 
+                </div>
+    } else {
+      dropPicBoxChild = 
+        <DropZone className="DropZone" onDrop={this.onDrop} accept='image/*'>
+                  {
+                    this.state.img[sid-1] ? (
+                    <div>
+                      {this.state.original ? (<img className="PicBox" src={this.state.img[sid-1]} />) : null }
+                      {this.state.filter1 ? (<img className="PicBoxGrayscale" src={this.state.img[sid-1]} />) : null}
+                      {this.state.filter2 ? (<img className="PicBoxBrightness" src={this.state.img[sid-1]} />) : null}
+                      {this.state.filter3 ? (<img className="PicBoxSepia" src={this.state.img[sid-1]} />) : null}
+
+                      {hotSpots}
+                    </div>) 
+                    : 
+                    <div className="plusSign">+</div>
+                  }
+                </DropZone>
+    }
+    
     return (
       <div style={{width: "100%"}}>
         <div className="productNameRow">
@@ -214,54 +273,9 @@ class NewProductPage extends Component {
 
         <div className="detailRow">
           <div className="DropPicBox">
-            {
-              this.state.isAddingHotspot ? 
-              <DropZone className="HotSpotZone" onClick={this.handleAddHotSpotDiv} onDrop={this.hotSpotOnDrop} accept='image/*'>
-                    {this.state.original ? (<img className="PicBox" src={this.state.img[sid-1]} />) : null }
-                    {this.state.filter1 ? (<img className="PicBoxGrayscale" src={this.state.img[sid-1]} />) : null}
-                    {this.state.filter2 ? (<img className="PicBoxBrightness" src={this.state.img[sid-1]} />) : null}
-                    {this.state.filter3 ? (<img className="PicBoxSepia" src={this.state.img[sid-1]} />) : null}
-              </DropZone> 
-              :
-              <DropZone className="DropZone" onDrop={this.onDrop} accept='image/*'>
-                {this.state.img[sid-1] ? (
-                  <div>
-                    {this.state.doneFilter? null : (
-                      <div>
-                      <div className = "WhiteColumn"> </div>
+            {dropPicBoxChild}
 
-                      <div className = "Original" onClick={this.mouseOverOriginal}>
-                        <img className="PicBox" src={this.state.img[sid-1]} />
-                      </div>
-
-                      <div className = "Filter1" onClick={this.mouseOverFilter1}>
-                        <img className="PicBoxGrayscale" src={this.state.img[sid-1]} />
-                      </div>
-
-                      <div className = "Filter2" onClick={this.mouseOverFilter2}>
-                        <img className="PicBoxBrightness" src={this.state.img[sid-1]} />
-                      </div>
-
-                      <div className = "Filter3" onClick={this.mouseOverFilter3}>
-                        <img className="PicBoxSepia" src={this.state.img[sid-1]} />
-                      </div>
-
-                      <div className = "DoneFilter" onClick={this.mouseOverDone}>
-                        Done Editing
-                      </div></div>
-                    )}
-
-                    {this.state.original ? (<img className="PicBox" src={this.state.img[sid-1]} />) : null }
-                    {this.state.filter1 ? (<img className="PicBoxGrayscale" src={this.state.img[sid-1]} />) : null}
-                    {this.state.filter2 ? (<img className="PicBoxBrightness" src={this.state.img[sid-1]} />) : null}
-                    {this.state.filter3 ? (<img className="PicBoxSepia" src={this.state.img[sid-1]} />) : null}
-
-                    {hotSpots}
-                  </div>) 
-                  : <div className="plusSign">+</div>}
-              </DropZone>
-            }
-            
+           
             <div className="cubeDiv">
               <Cube sid={this.props.match.params.sid} img={this.state.img} />
             </div>
