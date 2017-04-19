@@ -254,7 +254,11 @@ class ProductPage extends Component {
     return (
       <div className="ProductPage">
         <div className="ProductPage-Left">
-          View Store
+          <div className="leftViewTab">
+            <div className="leftViewText">
+              View Store
+            </div>
+          </div>
         </div>
         <div className="ProductPage-Mid">
           <Router>

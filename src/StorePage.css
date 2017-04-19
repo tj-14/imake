@@ -4,6 +4,7 @@
 
 .StorePage-Left{
   flex: 1;
+  position: relative;
 }
 
 .StorePage-Mid{
@@ -12,6 +13,27 @@
 
 .StorePage-Right{
   flex: 1;
+}
+
+.leftViewTab {
+  position: relative;
+  top: 100px;
+  background-color: #FFE3C8;
+  height: 3em;
+  width: 80%;
+}
+
+.leftViewTab:hover {
+  background-color: #FFCE9F;
+  cursor: pointer;
+}
+
+.leftViewText {
+  position: absolute;
+  top: 50%;
+  line-height: 0;
+  left: 0;
+  right: 0;
 }
 
 .ShopTitle{
