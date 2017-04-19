@@ -44,7 +44,7 @@ const data = [
       name: 'Red Glamour Bag',
       year: '2017',
       model: 'Glamour',
-      make: 'Staw',
+      make: 'Straw',
       media: image3,
       price: '$76.00',
       uid: 'bag3'
@@ -54,7 +54,7 @@ const data = [
       name: 'Brown Pull-Over Tote',
       year: '2015',
       model: 'Pull-Over',
-      make: 'Staw',
+      make: 'Straw',
       media: image4,
       price: '$55.00',
       uid: 'bag4'
