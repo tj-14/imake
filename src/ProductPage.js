@@ -64,7 +64,7 @@ class NewProductPage extends Component {
     return (
       <div className="DropPicBox">
         <Cube sid={this.props.match.params.sid} img={this.state.img}/>
-        <DropZone onDrop={this.onDrop}>
+        <DropZone className="DropZone" onDrop={this.onDrop} accept='image/*'>
           {this.state.img[sid-1] ? 
             <div>
               <img className="PicBox" src={this.state.img[sid-1]} />
@@ -188,7 +188,7 @@ class ProductPage extends Component {
         </div>
         <div className="ProductPage-Mid">
           <Router>
-            <div>
+            <div className="ProductPage-Mid-Child">
               <Route path="/products/:uid" render={(props) => (<ProductDetail {...props} data={this.props.data}/>)}/>
               <Route path="/newproduct/:sid" render={(props) => (<NewProductPage {...props}/>)}/>
             </div>
