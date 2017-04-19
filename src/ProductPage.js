@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import DropZone from 'react-dropzone';
 import './ProductPage.css';
 import CurrencyInput from 'react-currency-input';
+import ReactDOM from 'react-dom'
 
 // this thing sets what the drop zone for pictures accepts and looks like
 var componentConfig = {
@@ -98,9 +99,18 @@ class NewProductPage extends Component {
   }
   
   handleAddHotSpotDiv(event) {
+    
+//    console.log(c.y, c.top, c.bottom, c.height);
+//    console.log(c.x, c.left, c.right, c.width);
+//    console.log(event.nativeEvent.pageX, event.nativeEvent.pageY);
+//    console.log("Final", event.nativeEvent.pageX-c.left, event.nativeEvent.pageY-c.top);
+    
+    const node = ReactDOM.findDOMNode(this.refs.HotSpotZoneRef);
+    const rect = node.getBoundingClientRect();
+    
     this.setState({
-      curX: event.nativeEvent.offsetX,
-      curY: event.nativeEvent.offsetY,
+      curX: event.nativeEvent.pageX - (rect.left + window.scrollX),
+      curY: event.nativeEvent.pageY - (rect.top + window.scrollY),
     })
   }
   
@@ -189,7 +199,7 @@ class NewProductPage extends Component {
     const hotSpots = this.state.hotSpots.map((hotSpot) => {
       const styles = {
         top: hotSpot.curY,
-        right: hotSpot.curX,
+        left: hotSpot.curX,
       }
       return (
         <div className="HotSpot" style={styles} onMouseEnter={this.hotspotMouseOver.bind(this, hotSpot.img)} onMouseLeave={this.hotspotMouseOut}/>
@@ -216,7 +226,7 @@ class NewProductPage extends Component {
           <div className="DropPicBox">
             {
               this.state.isAddingHotspot ? 
-              <DropZone className="HotSpotZone" onClick={this.handleAddHotSpotDiv} onDrop={this.hotSpotOnDrop} accept='image/*'>
+              <DropZone className="HotSpotZone" ref="HotSpotZoneRef" onClick={this.handleAddHotSpotDiv} onDrop={this.hotSpotOnDrop} accept='image/*'>
                     {this.state.original ? (<img className="PicBox" src={this.state.img[sid-1]} />) : null }
                     {this.state.filter1 ? (<img className="PicBoxGrayscale" src={this.state.img[sid-1]} />) : null}
                     {this.state.filter2 ? (<img className="PicBoxBrightness" src={this.state.img[sid-1]} />) : null}
@@ -255,7 +265,7 @@ class NewProductPage extends Component {
                     {this.state.filter1 ? (<img className="PicBoxGrayscale" src={this.state.img[sid-1]} />) : null}
                     {this.state.filter2 ? (<img className="PicBoxBrightness" src={this.state.img[sid-1]} />) : null}
                     {this.state.filter3 ? (<img className="PicBoxSepia" src={this.state.img[sid-1]} />) : null}
-
+                    
                     {hotSpots}
                   </div>) 
                   : <div className="plusSign">+</div>}
