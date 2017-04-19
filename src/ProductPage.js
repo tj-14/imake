@@ -40,7 +40,7 @@ class NewProductPage extends Component {
     this.mouseOverOriginal = this.mouseOverOriginal.bind(this);
     this.mouseOverFilter1 = this.mouseOverFilter1.bind(this);
     this.mouseOverFilter2 = this.mouseOverFilter2.bind(this);
-    this.mouseOverFilter2 = this.mouseOverFilter3.bind(this);
+    this.mouseOverFilter3 = this.mouseOverFilter3.bind(this);
     this.mouseOverDone = this.mouseOverDone.bind(this);
 
     this.state = {
@@ -217,7 +217,10 @@ class NewProductPage extends Component {
             {
               this.state.isAddingHotspot ? 
               <DropZone className="HotSpotZone" onClick={this.handleAddHotSpotDiv} onDrop={this.hotSpotOnDrop} accept='image/*'>
-                <img className="PicBox" src={this.state.img[sid-1]} />
+                    {this.state.original ? (<img className="PicBox" src={this.state.img[sid-1]} />) : null }
+                    {this.state.filter1 ? (<img className="PicBoxGrayscale" src={this.state.img[sid-1]} />) : null}
+                    {this.state.filter2 ? (<img className="PicBoxBrightness" src={this.state.img[sid-1]} />) : null}
+                    {this.state.filter3 ? (<img className="PicBoxSepia" src={this.state.img[sid-1]} />) : null}
               </DropZone> 
               :
               <DropZone className="DropZone" onDrop={this.onDrop} accept='image/*'>
