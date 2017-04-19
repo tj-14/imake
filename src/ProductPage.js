@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import DropZone from 'react-dropzone';
 import './ProductPage.css';
+import CurrencyInput from 'react-currency-input';
 
 // this thing sets what the drop zone for pictures accepts and looks like
 var componentConfig = {
@@ -39,7 +40,7 @@ class NewProductPage extends Component {
     this.state = {
       img: Array(6).fill(null),
       productNameInput: "",
-      priceInput: 0,
+      priceInput: "$0.00",
       descriptionInput: "",
       isEditing: true,
       isAddingHotspot: false,
@@ -116,9 +117,9 @@ class NewProductPage extends Component {
     });
   }
   
-  handleChangePrice(event) {
+  handleChangePrice(newValue) {
     this.setState({
-      priceInput: event.target.value,
+      priceInput: newValue,
     });
   }
   
@@ -144,12 +145,16 @@ class NewProductPage extends Component {
       : <div className="productName">{this.state.productNameInput}</div>;
     
     const priceDiv = this.state.isEditing ? 
-      <input className="priceInput form-control" placeholder="price" type="number" min="0" step="0.01" value={this.state.priceInput} onChange={this.handleChangePrice.bind(this)}/>
-      : <span className="labelData">${this.state.priceInput}</span>
+      <div className="priceDataDiv">
+        <CurrencyInput className="priceInput form-control" prefix="$" value={this.state.priceInput} onChange={this.handleChangePrice.bind(this)}/>
+      </div>
+      : <div className="priceDataDiv">{this.state.priceInput}</div>
     
     const descriptionDiv = this.state.isEditing ?
-      <textarea rows="10" className="descriptionInput form-control" placeholder="Description" type="text" value={this.state.descriptionInput} onChange={this.handleChangeDescription.bind(this)}/>
-      : <span className="description">{this.state.descriptionInput}</span>
+      <div className="descriptionDiv">
+        <textarea rows="10" className="descriptionInput form-control" placeholder="Description" type="text" value={this.state.descriptionInput} onChange={this.handleChangeDescription.bind(this)}/>
+      </div>
+      : <div className="descriptionDiv">{this.state.descriptionInput}</div>
     
     const submitButtonLabel = this.state.isEditing ? "OK" : "Edit";
     
@@ -218,10 +223,9 @@ class NewProductPage extends Component {
             {
               (this.state.hoveredHotSpotImg == null)
               ?
-              <div className="descriptionBox">
-                <span className="label">Price:</span>
+              <div className="dataBox">
+                <div className="priceLabel">Price:</div>
                 {priceDiv}
-                <br></br>
                 {descriptionDiv}
               </div>
               :
@@ -322,10 +326,9 @@ class ProductDetail extends Component {
             <img src={product[0].media} alt={product[0].name}/>
           </div>
           <div className="ProductPage-Right">
-            <div className="descriptionBox">
-              <span className="label">Price:</span><span className="labelData">${product[0].price}</span>
-              <br></br>
-              <span className="description">{product[0].description}</span>
+            <div className="dataBox">
+              <div className="priceLabel">Price:</div><div className="priceDataDiv">{product[0].price}</div>
+              <div className="descriptionDiv">{product[0].description}</div>
             </div>
           </div>
         </div>
