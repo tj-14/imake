@@ -43,9 +43,22 @@ class NewProductPage extends Component {
       descriptionInput: "",
       isEditing: true,
       isAddingHotspot: false,
+      hotSpots: Array(0),
+      curX: null,
+      curY: null,
+      hoveredHotSpotImg: null,
     };
     this.onDrop = this.onDrop.bind(this);
+    this.handleAddHotSpotDiv = 
+      this.handleAddHotSpotDiv.bind(this);
+    this.hotSpotOnDrop = 
+      this.hotSpotOnDrop.bind(this);
+    this.hotspotMouseOver = 
+      this.hotspotMouseOver.bind(this);
+    this.hotspotMouseOut =
+      this.hotspotMouseOut.bind(this);
   }
+  
   onDrop(acceptedFiles){
     const img = this.state.img.slice();
     const sid = parseInt(this.props.match.params.sid);
@@ -53,6 +66,36 @@ class NewProductPage extends Component {
     this.setState({
       img: img,
     })
+  }
+  
+  handleAddHotSpotDiv(event) {
+    this.setState({
+      curX: event.nativeEvent.offsetX,
+      curY: event.nativeEvent.offsetY,
+    })
+  }
+  
+  hotSpotOnDrop(acceptedFiles){
+    const hotSpots = this.state.hotSpots.slice();
+    this.setState({
+      hotSpots: hotSpots.concat([{
+        curX: this.state.curX,
+        curY: this.state.curY,
+        img: acceptedFiles[0].preview,
+      }]),
+    })
+  }
+  
+  hotspotMouseOver = (img) => {
+    this.setState({
+      hoveredHotSpotImg: img
+    });
+  }
+  
+  hotspotMouseOut() {
+    this.setState({
+      hoveredHotSpotImg: null
+    });
   }
   
   handleClickOkBtn() {
@@ -110,6 +153,16 @@ class NewProductPage extends Component {
     
     const submitButtonLabel = this.state.isEditing ? "OK" : "Edit";
     
+    const hotSpots = this.state.hotSpots.map((hotSpot) => {
+      const styles = {
+        top: hotSpot.curY,
+        right: hotSpot.curX,
+      }
+      return (
+        <div className="HotSpot" style={styles} onMouseEnter={this.hotspotMouseOver.bind(this, hotSpot.img)} onMouseLeave={this.hotspotMouseOut}/>
+      )
+    });
+    
     let hotspotButtonLabel;
     if (!this.state.img[sid-1]) {
       hotspotButtonLabel = "Add photo first!";
@@ -128,14 +181,21 @@ class NewProductPage extends Component {
 
         <div className="detailRow">
           <div className="DropPicBox">
-            <DropZone className="DropZone" onDrop={this.onDrop} accept='image/*'>
-              {this.state.img[sid-1] ? 
-                <div>
-                  <span className="PicBox-helper" />
-                  <img className="PicBox" src={this.state.img[sid-1]} />
-                </div> 
-                : <div className="plusSign">+</div>}
-            </DropZone>
+            {
+              this.state.isAddingHotspot ? 
+              <DropZone className="HotSpotZone" onClick={this.handleAddHotSpotDiv} onDrop={this.hotSpotOnDrop} accept='image/*'>
+                <img className="PicBox" src={this.state.img[sid-1]} />
+              </DropZone> 
+              :
+              <DropZone className="DropZone" onDrop={this.onDrop} accept='image/*'>
+                {this.state.img[sid-1] ? 
+                  <div>
+                    <img className="PicBox" src={this.state.img[sid-1]} />
+                    {hotSpots}
+                  </div> 
+                  : <div className="plusSign">+</div>}
+              </DropZone>
+            }
             
             <div className="cubeDiv">
               <Cube sid={this.props.match.params.sid} img={this.state.img} />
@@ -155,12 +215,20 @@ class NewProductPage extends Component {
             </Link>
           </div>
           <div className="ProductPage-Right">
-            <div className="descriptionBox">
-              <span className="label">Price:</span>
-              {priceDiv}
-              <br></br>
-              {descriptionDiv}
-            </div>
+            {
+              (this.state.hoveredHotSpotImg == null)
+              ?
+              <div className="descriptionBox">
+                <span className="label">Price:</span>
+                {priceDiv}
+                <br></br>
+                {descriptionDiv}
+              </div>
+              :
+              <div>
+                <img className="HotSpotImg" src={this.state.hoveredHotSpotImg} />
+              </div>
+            }
           </div>
         </div>
         
