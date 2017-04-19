@@ -86,11 +86,13 @@ class StorePage extends Component {
     return (
       <div className="StorePage">
         <div className="StorePage-Left">
-          <div className="leftViewTab">
-            <div className="leftViewText">
-              View Story
+          <Link to="/story">
+            <div className="leftViewTab">
+              <div className="leftViewText">
+                View Story
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
         <div className="StorePage-Mid">
           <div>

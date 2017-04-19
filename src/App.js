@@ -111,6 +111,15 @@ const data = [
     }
 ];
 
+class StoryPage extends Component {
+  render(){
+    return (
+    <div>
+      Story Page is now in construction...
+    </div>)
+  }
+}
+
 class AppHeader extends Component {
   render(){
     return (
@@ -134,6 +143,7 @@ class App extends Component {
             <Route exact path="/" render={() => (<StorePage data={data}/>)}/>
             <Route path="/newproduct/:sid" render={(props) => (<ProductPage {...props} />)}/>
             <Route path="/products/:uid" render={(props) => (<ProductPage {...props} data={data}/>)}/>
+            <Route path="/story" component={StoryPage} />
           </div>
         </Router>
       </div>

@@ -115,6 +115,7 @@ class NewProductPage extends Component {
             <DropZone className="DropZone" onDrop={this.onDrop} accept='image/*'>
               {this.state.img[sid-1] ? 
                 <div>
+                  <span className="PicBox-helper" />
                   <img className="PicBox" src={this.state.img[sid-1]} />
                 </div> 
                 : <div className="plusSign">+</div>}
@@ -254,11 +255,13 @@ class ProductPage extends Component {
     return (
       <div className="ProductPage">
         <div className="ProductPage-Left">
-          <div className="leftViewTab">
-            <div className="leftViewText">
-              View Store
+          <Link to="/">
+            <div className="leftViewTab">
+              <div className="leftViewText">
+                    View Store
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
         <div className="ProductPage-Mid">
           <Router>
