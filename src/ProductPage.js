@@ -42,6 +42,7 @@ class NewProductPage extends Component {
       priceInput: 0,
       descriptionInput: "",
       isEditing: true,
+      isAddingHotspot: false,
     };
     this.onDrop = this.onDrop.bind(this);
   }
@@ -54,9 +55,15 @@ class NewProductPage extends Component {
     })
   }
   
-  handleClick() {
+  handleClickOkBtn() {
     this.setState({
       isEditing: !this.state.isEditing,
+    });
+  }
+  
+  handleClickHotspotBtn() {
+    this.setState({
+      isAddingHotspot: !this.state.isAddingHotspot,
     });
   }
                   
@@ -101,7 +108,16 @@ class NewProductPage extends Component {
       <textarea rows="10" className="descriptionInput form-control" placeholder="Description" type="text" value={this.state.descriptionInput} onChange={this.handleChangeDescription.bind(this)}/>
       : <span className="description">{this.state.descriptionInput}</span>
     
-    const buttonLabel = this.state.isEditing ? "OK" : "Edit";
+    const submitButtonLabel = this.state.isEditing ? "OK" : "Edit";
+    
+    let hotspotButtonLabel;
+    if (!this.state.img[sid-1]) {
+      hotspotButtonLabel = "Add photo first!";
+    } else if (this.state.isAddingHotspot) {
+      hotspotButtonLabel = "Adding a hotspot";
+    } else {
+      hotspotButtonLabel = "Add a hotspot";
+    }
     
     return (
       <div style={{width: "100%"}}>
@@ -149,10 +165,15 @@ class NewProductPage extends Component {
         </div>
         
         <div className="reviewsRow">
-          <div className="okButtonDiv">
-            <button type="button" className="btn btn-secondary submitBtn" onClick={() => this.handleClick()}>
-            {buttonLabel}
-          </button>
+          <div className="hotspotButtonDiv">
+            <button type="button" className="btn btn-secondary hotspotBtn" onClick={() => this.handleClickHotspotBtn()}>
+              {hotspotButtonLabel}
+            </button>
+          </div>
+          <div className="submitButtonDiv">
+            <button type="button" className="btn btn-secondary submitBtn" onClick={() => this.handleClickOkBtn()}>
+              {submitButtonLabel}
+            </button>
           </div>
           <div className="ProductPage-Right"></div>
         </div>
