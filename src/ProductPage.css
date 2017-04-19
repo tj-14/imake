@@ -86,11 +86,6 @@
   width: 10px;
   height: 10px;
   background: black;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
   animation: HotSpotBlink 1s infinite; /* IE 10+, Fx 29+ */
 }
 
