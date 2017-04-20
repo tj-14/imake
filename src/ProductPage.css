@@ -156,8 +156,18 @@
   left: 49%;
 }
 
+.hotspotButtonDiv{
+  flex: 1;
+}
+
+.submitButtonDiv{
+  position: absolute;
+  right: 0;
+}
+
 .productNameRow, .reviewsRow {
   display: flex;
+  margin-top: 15px;
 }
 
 .productName, .productNameInput {
@@ -220,6 +230,7 @@ input.currency {
 .reviews {
   flex: 2;
   display: flex;
+  position: relative;
 }
 
 .okButtonDiv {
@@ -229,11 +240,11 @@ input.currency {
 }
 
 .submitBtn {
-  width: 50px;
+  width: 100px;
 }
 
 .hotspotBtn {
-  width: 150px;
+  width: 180px;
 }
 
 .reviewCol {

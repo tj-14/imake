@@ -100,12 +100,6 @@ class NewProductPage extends Component {
   }
   
   handleAddHotSpotDiv(event) {
-    
-//    console.log(c.y, c.top, c.bottom, c.height);
-//    console.log(c.x, c.left, c.right, c.width);
-//    console.log(event.nativeEvent.pageX, event.nativeEvent.pageY);
-//    console.log("Final", event.nativeEvent.pageX-c.left, event.nativeEvent.pageY-c.top);
-    
     const node = ReactDOM.findDOMNode(this.refs.HotSpotZoneRef);
     const rect = node.getBoundingClientRect();
     
@@ -195,7 +189,7 @@ class NewProductPage extends Component {
       </div>
       : <div className="descriptionDiv">{this.state.descriptionInput}</div>
     
-    const submitButtonLabel = this.state.isEditing ? "OK" : "Edit";
+    const submitButtonLabel = this.state.isEditing ? "Preview" : "Edit";
     
     const hotSpots = this.state.hotSpots.map((hotSpot) => {
       const styles = {
@@ -208,18 +202,24 @@ class NewProductPage extends Component {
     });
     
     let hotspotButtonLabel;
+    let isHotspotButtonDisable;
     if (!this.state.img[sid-1]) {
       hotspotButtonLabel = "Add photo first!";
+      isHotspotButtonDisable = true;
     } else if (this.state.isAddingHotspot) {
-      hotspotButtonLabel = "Adding a hotspot";
+      hotspotButtonLabel = "Done adding hotspots";
+      isHotspotButtonDisable = false;
     } else {
-      hotspotButtonLabel = "Add a hotspot";
+      hotspotButtonLabel = "Add hotspots";
+      isHotspotButtonDisable = false;
     }
+    
+    let isSubmitButtonDisable = (this.state.productNameInput == "") || (this.state.descriptionInput == "");
     
     let dropPicBoxChild;
     if (this.state.isAddingHotspot) {
       dropPicBoxChild = 
-        <DropZone className="HotSpotZone" onClick={this.handleAddHotSpotDiv} onDrop={this.hotSpotOnDrop} accept='image/*'>
+        <DropZone className="HotSpotZone" ref="HotSpotZoneRef" onClick={this.handleAddHotSpotDiv} onDrop={this.hotSpotOnDrop} accept='image/*'>
               {this.state.original ? (<img className="PicBox" src={this.state.img[sid-1]} />) : null }
               {this.state.filter1 ? (<img className="PicBoxGrayscale" src={this.state.img[sid-1]} />) : null}
               {this.state.filter2 ? (<img className="PicBoxBrightness" src={this.state.img[sid-1]} />) : null}
@@ -319,15 +319,17 @@ class NewProductPage extends Component {
         </div>
         
         <div className="reviewsRow">
-          <div className="hotspotButtonDiv">
-            <button type="button" className="btn btn-secondary hotspotBtn" onClick={() => this.handleClickHotspotBtn()}>
-              {hotspotButtonLabel}
-            </button>
-          </div>
-          <div className="submitButtonDiv">
-            <button type="button" className="btn btn-secondary submitBtn" onClick={() => this.handleClickOkBtn()}>
-              {submitButtonLabel}
-            </button>
+          <div className="reviews">
+            <div className="hotspotButtonDiv">
+              <button type="button" className="btn btn-secondary hotspotBtn" onClick={() => this.handleClickHotspotBtn()} disabled={isHotspotButtonDisable}>
+                {hotspotButtonLabel}
+              </button>
+            </div>
+            <div className="submitButtonDiv">
+              <button type="button" className="btn btn-secondary submitBtn" onClick={() => this.handleClickOkBtn()} disabled={isSubmitButtonDisable}>
+                {submitButtonLabel}
+              </button>
+            </div>
           </div>
           <div className="ProductPage-Right"></div>
         </div>
