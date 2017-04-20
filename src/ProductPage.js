@@ -201,6 +201,7 @@ class NewProductPage extends Component {
       )
     });
     
+    var hotspotHint = null;
     let hotspotButtonLabel;
     let isHotspotButtonDisable;
     if (!this.state.img[sid-1]) {
@@ -208,6 +209,7 @@ class NewProductPage extends Component {
       isHotspotButtonDisable = true;
     } else if (this.state.isAddingHotspot) {
       hotspotButtonLabel = "Done adding hotspots";
+      hotspotHint = "Click on image to add hotspot!";
       isHotspotButtonDisable = false;
     } else {
       hotspotButtonLabel = "Add hotspots";
@@ -217,14 +219,24 @@ class NewProductPage extends Component {
     let isSubmitButtonDisable = (this.state.productNameInput == "") || (this.state.descriptionInput == "");
     
     let dropPicBoxChild;
-    if (this.state.isAddingHotspot) {
+    if (!this.state.isEditing) {
+      dropPicBoxChild = 
+        <div className="ImgZone">
+        {this.state.original ? (<img className="PicBox" src={this.state.img[sid-1]} />) : null }
+        {this.state.filter1 ? (<img className="PicBoxGrayscale" src={this.state.img[sid-1]} />) : null}
+        {this.state.filter2 ? (<img className="PicBoxBrightness" src={this.state.img[sid-1]} />) : null}
+        {this.state.filter3 ? (<img className="PicBoxSepia" src={this.state.img[sid-1]} />) : null}
+        {hotSpots}
+      </div> 
+    } else if (this.state.isAddingHotspot) {
       dropPicBoxChild = 
         <DropZone className="HotSpotZone" ref="HotSpotZoneRef" onClick={this.handleAddHotSpotDiv} onDrop={this.hotSpotOnDrop} accept='image/*'>
-              {this.state.original ? (<img className="PicBox" src={this.state.img[sid-1]} />) : null }
-              {this.state.filter1 ? (<img className="PicBoxGrayscale" src={this.state.img[sid-1]} />) : null}
-              {this.state.filter2 ? (<img className="PicBoxBrightness" src={this.state.img[sid-1]} />) : null}
-              {this.state.filter3 ? (<img className="PicBoxSepia" src={this.state.img[sid-1]} />) : null}
-          </DropZone> ;
+            {this.state.original ? (<img className="PicBox" src={this.state.img[sid-1]} />) : null }
+            {this.state.filter1 ? (<img className="PicBoxGrayscale" src={this.state.img[sid-1]} />) : null}
+            {this.state.filter2 ? (<img className="PicBoxBrightness" src={this.state.img[sid-1]} />) : null}
+            {this.state.filter3 ? (<img className="PicBoxSepia" src={this.state.img[sid-1]} />) : null}
+            {hotSpots}
+        </DropZone> ;
     } else if (this.state.isChoosingFilter) {
       dropPicBoxChild = 
         <div className= "HotSpotZone">
@@ -245,9 +257,9 @@ class NewProductPage extends Component {
                     <img className="PicBoxSepia" src={this.state.img[sid-1]} />
                   </div>
 
-                  <div className = "DoneFilter" onClick={this.mouseOverDone}>
+                  <button type="button" className="btn btn-secondary DoneFilter" onClick={this.mouseOverDone}>
                     Done Editing
-                  </div>
+                  </button>
                   <div>
                     {this.state.original ? (<img className="PicBox" src={this.state.img[sid-1]} />) : null }
                     {this.state.filter1 ? (<img className="PicBoxGrayscale" src={this.state.img[sid-1]} />) : null}
@@ -324,6 +336,7 @@ class NewProductPage extends Component {
               <button type="button" className="btn btn-secondary hotspotBtn" onClick={() => this.handleClickHotspotBtn()} disabled={isHotspotButtonDisable}>
                 {hotspotButtonLabel}
               </button>
+              {hotspotHint}
             </div>
             <div className="submitButtonDiv">
               <button type="button" className="btn btn-secondary submitBtn" onClick={() => this.handleClickOkBtn()} disabled={isSubmitButtonDisable}>
