@@ -66,7 +66,6 @@
 
 .DropZone:hover {
   cursor: pointer;
-  /*cursor: url('images/cursor.png'), auto; */
   background-color: #DDD;
 }
 
@@ -80,6 +79,7 @@
 
 .HotSpotZone:hover {
   cursor: pointer;
+  cursor: url('images/cursor.png'), auto; 
 }
 
 .ImgZone {
@@ -138,6 +138,7 @@
 
 .arrowLeft:hover, .arrowUp:hover, .arrowRight:hover, .arrowDown:hover {
   color: #333;
+  cursor: pointer;
 }
 
 .arrowLeft {
@@ -344,11 +345,11 @@ body {
   -ms-transform-style: preserve-3d;
   -o-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  -webkit-transform: rotateX(120deg) rotateY(1112deg);
-  -moz-transform: rotateX(120deg) rotateY(1112deg);
-  -ms-transform: rotateX(120deg) rotateY(1112deg);
-  -o-transform: rotateX(120deg) rotateY(1112deg);
-  transform: rotateX(120deg) rotateY(1112deg); }
+  -webkit-transform: rotateX(145deg) rotateY(1102deg);
+  -moz-transform: rotateX(145deg) rotateY(1102deg);
+  -ms-transform: rotateX(145deg) rotateY(1102deg);
+  -o-transform: rotateX(145deg) rotateY(1102deg);
+  transform: rotateX(145deg) rotateY(1102deg); }
 
 .cube > div {
   overflow: hidden;
@@ -507,6 +508,10 @@ object:hover {
       z-index:4;
     }
 
+.Original:hover, .Filter1:hover, .Filter2:hover, .Filter3:hover{
+  cursor: pointer;
+}
+
 .DoneFilter{
       position: absolute;
       left: 10px;
@@ -551,5 +556,17 @@ object:hover {
   left: 0;
   right: 0;
   margin: auto;
+  filter: sepia(100%);
+}
+
+.PicBoxGrayscaleSamePos{
+  filter: grayscale(100%);
+}
+
+.PicBoxBrightnessSamePos{
+  filter: brightness(3);
+}
+
+.PicBoxSepiaSamePos{
   filter: sepia(100%);
 }

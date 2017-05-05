@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {HashRouter as Router, Route, Link, Redirect} from 'react-router-dom';
 import DropZone from 'react-dropzone';
 import './ProductPage.css';
 import CurrencyInput from 'react-currency-input';
@@ -13,13 +13,34 @@ var componentConfig = {
 
 
 class Cube extends Component {
+  nextside(cur, n) {
+    return (cur+n-1)%4+1
+  }
   render() {
     const sid = parseInt(this.props.sid);
+    const lsid = parseInt(this.props.lastsid);
+    const cubeOrder = 
+          [[5,3,2,1,4,6],
+           [5,4,3,2,1,6],
+           [5,1,4,3,2,6],
+           [5,2,1,4,3,6],
+           [this.nextside(lsid,2),
+            6,
+            this.nextside(lsid,1),
+            5,
+            this.nextside(lsid,3),
+            lsid],
+           [lsid,
+            5,
+            this.nextside(lsid,1),
+            6,
+            this.nextside(lsid,3),
+            this.nextside(lsid,2)]]
     const cubeSides = [0,1,2,3,4,5].map((i) => {
-        const j = (sid+i)%6;
+        const j = cubeOrder[sid-1][i];
         return (
           <div className="side">
-            <div className="cube-image"><img src={this.props.img[j]} alt={j+1} className="cubeimg"/></div>
+            <div className="cube-image"><img src={this.props.img[j-1]} alt={j} className={"cubeimg "+this.props.picBoxClass}/></div>
           </div>
         )
     });
@@ -38,14 +59,14 @@ class Cube extends Component {
 class NewProductPage extends Component {
   constructor() {
     super();
-    this.mouseOverOriginal = this.mouseOverOriginal.bind(this);
-    this.mouseOverFilter1 = this.mouseOverFilter1.bind(this);
-    this.mouseOverFilter2 = this.mouseOverFilter2.bind(this);
-    this.mouseOverFilter3 = this.mouseOverFilter3.bind(this);
+    this.mouseOverFilter = this.mouseOverFilter.bind(this);
     this.mouseOverDone = this.mouseOverDone.bind(this);
+    this.arrowButton = this.arrowButton.bind(this);
 
     this.state = {
       img: Array(6).fill(null),
+      lastsid: null,
+      sid: 1,
       productNameInput: "",
       priceInput: "$0.00",
       descriptionInput: "",
@@ -56,10 +77,8 @@ class NewProductPage extends Component {
       curY: null,
       hoveredHotSpotImg: null,
       isChoosingFilter: false,
-      original: true,
-      filter1: false,
-      filter2: false,
-      filter3: false,
+      filter: 0,
+      redirect: null,
     };
     this.onDrop = this.onDrop.bind(this);
     this.handleAddHotSpotDiv = 
@@ -70,28 +89,29 @@ class NewProductPage extends Component {
       this.hotspotMouseOver.bind(this);
     this.hotspotMouseOut =
       this.hotspotMouseOut.bind(this);
+    this.handleSave =
+      this.handleSave.bind(this);
   }
   
+  mouseOverFilter(sf){
+    this.setState({
+      filter: sf,
+    })
+  }
 
-    // 2. bind it with fat arrows.
-  mouseOverOriginal = () => {
-        this.setState({original: true, filter1: false, filter2: false, filter3: false});}
-
-  mouseOverFilter1 = () => {
-        this.setState({original: false, filter1: true, filter2: false, filter3: false});}
-
-  mouseOverFilter2 = () => {
-        this.setState({original: false, filter1: false, filter2: true, filter3: false});}
-
-  mouseOverFilter3 = () => {
-        this.setState({original: false, filter1: false, filter2: false, filter3: true});}
-
-  mouseOverDone = () => {
+  mouseOverDone(){
     this.setState({isChoosingFilter: false});}
+  
+  arrowButton(next_sid){
+    this.setState({
+      lastsid: this.state.sid,
+      sid: next_sid,
+    })
+  }
 
   onDrop(acceptedFiles){
     const img = this.state.img.slice();
-    const sid = parseInt(this.props.match.params.sid);
+    const sid = this.state.sid;
     img[sid-1] = acceptedFiles[0].preview;
     this.setState({
       img: img,
@@ -120,7 +140,7 @@ class NewProductPage extends Component {
     })
   }
   
-  hotspotMouseOver = (img) => {
+  hotspotMouseOver(img){
     this.setState({
       hoveredHotSpotImg: img
     });
@@ -162,16 +182,35 @@ class NewProductPage extends Component {
     });
   }
   
+  handleSave() {
+    const newDataDetail = {
+      name: this.state.productNameInput,
+      media: this.state.img,
+      price: this.state.priceInput,
+      description: this.state.descriptionInput,
+      uid: this.state.productNameInput+'xx',
+      hotspots: this.state.hotSpots,
+    };
+    this.props.addNewData(newDataDetail);
+    this.setState({
+      redirect: "/products/"+newDataDetail.uid,
+    })
+  }
+  
   render(){
-    const sid = this.props.match.params.sid;
+    if (this.state.redirect != null) {
+      return <Redirect push to={this.state.redirect} />;
+    }
+    
+    const sid = this.state.sid;
     const next_sid = [
-      [6,3,4,5],
-      [1,4,5,6],
-      [2,5,6,1],
-      [3,6,1,2],
-      [4,1,2,3],
-      [5,2,3,4],
-    ][sid-1];
+      [4,6,2,5],
+      [1,6,3,5],
+      [2,6,4,5],
+      [3,6,1,5],
+      [null,this.state.lastsid,null,null],
+      [null,null,null,this.state.lastsid],
+    ][sid-1]; // left, up, right, down
     
     const productNameDiv = this.state.isEditing ? 
       <input className="productNameInput form-control input-lg" placeholder="Product name" type="text" value={this.state.productNameInput} onChange={this.handleChangeProductName.bind(this)} />
@@ -218,42 +257,37 @@ class NewProductPage extends Component {
     
     let isSubmitButtonDisable = (this.state.productNameInput == "") || (this.state.descriptionInput == "");
     
+    const picBoxClass = ["PicBox","PicBoxGrayscale","PicBoxBrightness","PicBoxSepia"][this.state.filter];
     let dropPicBoxChild;
     if (!this.state.isEditing) {
       dropPicBoxChild = 
         <div className="ImgZone">
-        {this.state.original ? (<img className="PicBox" src={this.state.img[sid-1]} />) : null }
-        {this.state.filter1 ? (<img className="PicBoxGrayscale" src={this.state.img[sid-1]} />) : null}
-        {this.state.filter2 ? (<img className="PicBoxBrightness" src={this.state.img[sid-1]} />) : null}
-        {this.state.filter3 ? (<img className="PicBoxSepia" src={this.state.img[sid-1]} />) : null}
+          <img className={picBoxClass} src={this.state.img[sid-1]} />
         {hotSpots}
       </div> 
     } else if (this.state.isAddingHotspot) {
       dropPicBoxChild = 
         <DropZone className="HotSpotZone" ref="HotSpotZoneRef" onClick={this.handleAddHotSpotDiv} onDrop={this.hotSpotOnDrop} accept='image/*'>
-            {this.state.original ? (<img className="PicBox" src={this.state.img[sid-1]} />) : null }
-            {this.state.filter1 ? (<img className="PicBoxGrayscale" src={this.state.img[sid-1]} />) : null}
-            {this.state.filter2 ? (<img className="PicBoxBrightness" src={this.state.img[sid-1]} />) : null}
-            {this.state.filter3 ? (<img className="PicBoxSepia" src={this.state.img[sid-1]} />) : null}
+            <img className={picBoxClass} src={this.state.img[sid-1]} />
             {hotSpots}
         </DropZone> ;
     } else if (this.state.isChoosingFilter) {
       dropPicBoxChild = 
-        <div className= "HotSpotZone">
+        <div className= "ImgZone">
                   <div className = "WhiteColumn"> </div>
-                  <div className = "Original" onClick={this.mouseOverOriginal}>
+                  <div className = "Original" onClick={this.mouseOverFilter.bind(this, 0)}>
                     <img className="PicBox" src={this.state.img[sid-1]} />
                   </div>
 
-                  <div className = "Filter1" onClick={this.mouseOverFilter1}>
+                  <div className = "Filter1" onClick={this.mouseOverFilter.bind(this, 1)}>
                     <img className="PicBoxGrayscale" src={this.state.img[sid-1]} />
                   </div>
 
-                  <div className = "Filter2" onClick={this.mouseOverFilter2}>
+                  <div className = "Filter2" onClick={this.mouseOverFilter.bind(this, 2)}>
                     <img className="PicBoxBrightness" src={this.state.img[sid-1]} />
                   </div>
 
-                  <div className = "Filter3" onClick={this.mouseOverFilter3}>
+                  <div className = "Filter3" onClick={this.mouseOverFilter.bind(this, 3)}>
                     <img className="PicBoxSepia" src={this.state.img[sid-1]} />
                   </div>
 
@@ -261,29 +295,22 @@ class NewProductPage extends Component {
                     Done Editing
                   </button>
                   <div>
-                    {this.state.original ? (<img className="PicBox" src={this.state.img[sid-1]} />) : null }
-                    {this.state.filter1 ? (<img className="PicBoxGrayscale" src={this.state.img[sid-1]} />) : null}
-                    {this.state.filter2 ? (<img className="PicBoxBrightness" src={this.state.img[sid-1]} />) : null}
-                    {this.state.filter3 ? (<img className="PicBoxSepia" src={this.state.img[sid-1]} />) : null}
+                    <img className={picBoxClass} src={this.state.img[sid-1]} />
                   </div> 
                 </div>
     } else {
       dropPicBoxChild = 
         <DropZone className="DropZone" onDrop={this.onDrop} accept='image/*'>
-                  {
-                    this.state.img[sid-1] ? (
-                    <div>
-                      {this.state.original ? (<img className="PicBox" src={this.state.img[sid-1]} />) : null }
-                      {this.state.filter1 ? (<img className="PicBoxGrayscale" src={this.state.img[sid-1]} />) : null}
-                      {this.state.filter2 ? (<img className="PicBoxBrightness" src={this.state.img[sid-1]} />) : null}
-                      {this.state.filter3 ? (<img className="PicBoxSepia" src={this.state.img[sid-1]} />) : null}
-
-                      {hotSpots}
-                    </div>) 
-                    : 
-                    <div className="plusSign">+</div>
-                  }
-                </DropZone>
+          {
+            this.state.img[sid-1] ? (
+            <div>
+              <img className={picBoxClass} src={this.state.img[sid-1]} />
+              {hotSpots}
+            </div>) 
+            : 
+            <div className="plusSign">+</div>
+          }
+        </DropZone>
     }
     
     return (
@@ -297,21 +324,13 @@ class NewProductPage extends Component {
           <div className="DropPicBox">
             {dropPicBoxChild}
             <div className="cubeDiv">
-              <Cube sid={this.props.match.params.sid} img={this.state.img} />
+              <Cube sid={this.state.sid} img={this.state.img} lastsid={this.state.lastsid} picBoxClass={picBoxClass}/>
             </div>
             
-            <Link to={"/newproduct/"+next_sid[0]}>
-              <div className="arrowLeft">{"\u25c0"}</div>
-            </Link>
-            <Link to={"/newproduct/"+next_sid[1]}>
-              <div className="arrowUp">{"\u25b2"}</div>
-            </Link>
-            <Link to={"/newproduct/"+next_sid[2]}>
-              <div className="arrowRight">{"\u25b6"}</div>
-            </Link>
-            <Link to={"/newproduct/"+next_sid[3]}>
-              <div className="arrowDown">{"\u25bc"}</div>
-            </Link>
+            {next_sid[0] != null ? <div className="arrowLeft" onClick={this.arrowButton.bind(this, next_sid[0])}>{"\u25c0"}</div> : null}
+            {next_sid[1] != null ? <div className="arrowUp" onClick={this.arrowButton.bind(this, next_sid[1])}>{"\u25b2"}</div> : null}
+            {next_sid[2] != null ? <div className="arrowRight" onClick={this.arrowButton.bind(this, next_sid[2])}>{"\u25b6"}</div> : null}
+            {next_sid[3] != null ? <div className="arrowDown" onClick={this.arrowButton.bind(this, next_sid[3])}>{"\u25bc"}</div> : null}
           </div>
           <div className="ProductPage-Right">
             {
@@ -324,7 +343,7 @@ class NewProductPage extends Component {
               </div>
               :
               <div>
-                <img className="HotSpotImg" src={this.state.hoveredHotSpotImg} />
+                <img className={"HotSpotImg "+picBoxClass+"SamePos"} src={this.state.hoveredHotSpotImg} />
               </div>
             }
           </div>
@@ -341,6 +360,12 @@ class NewProductPage extends Component {
             <div className="submitButtonDiv">
               <button type="button" className="btn btn-secondary submitBtn" onClick={() => this.handleClickOkBtn()} disabled={isSubmitButtonDisable}>
                 {submitButtonLabel}
+              </button>
+            </div>
+            <div>
+             <br/><br/>
+              <button type="button" className="btn btn-secondary submitBtn" onClick={() => this.handleSave()}> 
+                Save
               </button>
             </div>
           </div>
@@ -421,7 +446,7 @@ class ProductDetail extends Component {
         
         <div className="detailRow">
           <div className="thumbnail">
-            <img src={product[0].media} alt={product[0].name}/>
+            <img src={product[0].media[0]} alt={product[0].name}/>
           </div>
           <div className="ProductPage-Right">
             <div className="dataBox">
@@ -457,7 +482,7 @@ class ProductPage extends Component {
           <Router>
             <div style={{width: "100%"}}>
               <Route path="/products/:uid" render={(props) => (<ProductDetail {...props} data={this.props.data}/>)}/>
-              <Route path="/newproduct/:sid" render={(props) => (<NewProductPage {...props}/>)}/>
+              <Route path="/newproduct" render={(props) => (<NewProductPage {...props} addNewData={this.props.addNewData}/>)}/>
             </div>
           </Router>
         </div>
