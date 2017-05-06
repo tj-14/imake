@@ -585,8 +585,3 @@ object:hover {
 .PicBoxSepiaSamePos{
   filter: sepia(100%);
 }
-
-
-.map-selected:hover, .map-unselected:hover {
-  cursor: pointer;
-}
