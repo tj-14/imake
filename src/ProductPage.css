@@ -256,12 +256,6 @@ input.currency {
   height: "315px";
 }
 
-.reviews {
-  flex: 2;
-  display: flex;
-  position: relative;
-}
-
 .okButtonDiv {
   flex: 2;
   text-align: center;
@@ -277,14 +271,18 @@ input.currency {
   margin-right: 20px;
 }
 
-.reviewCol {
-  flex: 1;
-  text-align: center
+.reviews {
+  flex: 2;
+  position: relative;
 }
 
-.stars {
-  color: #E88540;
-  font-size: 0.8em;
+.reviewTabs {
+  display: flex;
+}
+
+.reviewTab {
+  flex: 1;
+  text-align: center
 }
 
 .reviewBtn {
@@ -307,9 +305,9 @@ input.currency {
 .reviewText {
   border: 1px solid #666;
   margin: auto;
+  margin-bottom: 10px;
   padding: 5px;
   width: 95%;
-  font-size: 0.8em;
   text-align: left;
 }
 

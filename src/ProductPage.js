@@ -389,39 +389,95 @@ class NewProductPage extends Component {
 
 
 class ReviewButton extends Component {
-  constructor() {
-    super();
-    this.state = {
-      isExpanded: false,
-      label: "\u25bc",
-    };
-  }
+//  constructor() {
+//    super();
+//    this.state = {
+//      isExpanded: false,
+//      label: null,
+//    };
+//  }
   
-  reviewClick() {
-    const newLabel = this.state.isExpanded ? '\u25bc' : '\u25b2';
-    this.setState({
-      isExpanded: !this.state.isExpanded,
-      label: newLabel,
-    });
-  }
+//  reviewClick0() {
+//    const newLabel = this.state.isExpanded ? '\u25bc' : '\u25b2';
+//    this.setState({
+//      isExpanded: !this.state.isExpanded,
+//      label: newLabel,
+//    });
+//  }
   
   render() {
-    let reviewTextDiv;
-    if (this.state.isExpanded) {
-      reviewTextDiv = 
-        <div className="reviewText">
-          <p>Example Review</p>
-          <p>Pros - Exactly as described and depicted - works with phones and laptops as a quick card reader</p>
-          <p>Cons - Lack of instruction for memory card insertion & microUSB is a bit difficult to utilize.</p>
-        </div>;
-    }
+    
+//    let reviewTextDiv;
+//    if (this.state.isExpanded) {
+//      reviewTextDiv = 
+//        <div className="reviewText">
+//          Example Review
+//        </div>;
+//    }
     
     return (
       <div>
-        <button type="button" className="btn btn-secondary reviewBtn" onClick={() => this.reviewClick()}>
-          {this.state.label}
+        <button type="button" className="btn btn-secondary reviewBtn" onClick={() => this.props.onClick()}>
+          {this.props.label}
         </button>
-        {reviewTextDiv}
+      </div>
+    );
+  }
+}
+
+class ReviewBlock extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isShowing: 5,
+    };
+  }
+  
+  reviewClick(i) {
+    this.setState({
+      isShowing: i,
+    });
+  }
+  
+  renderReviewButton(i) {
+    return (
+      <ReviewButton
+        label={Array(i+1).join("\u2605 ")}
+        onClick={() => this.reviewClick(i)}
+      />
+    );
+  }
+  
+  render() {
+    const reviewTabs = [5,4,3,2,1].map((i) => {
+      return(
+        <div className="reviewTab">
+          {this.renderReviewButton(i)}
+        </div>
+      ) 
+    });
+    
+    const reviewData = this.props.reviewData;
+    const matchedReviews = reviewData.filter(review => {
+        if(review.stars == this.state.isShowing) {
+          return review;
+        }
+    });
+    const reviewDivs = [];
+    for (var i=0; i < matchedReviews.length; i++) {
+      reviewDivs.push(
+        <div className="reviewText">
+          {matchedReviews[i].text}
+        </div>
+      );
+    }
+    
+    
+    return (
+      <div className="reviews">
+        Reviews
+        <div className="reviewTabs">{reviewTabs}</div>
+        {reviewDivs}
       </div>
     );
   }
@@ -517,7 +573,7 @@ class ProductDetail extends Component {
         </div>
         
         <div className="reviewsRow">
-          <div className="reviews">{reviewBox}</div>
+          <ReviewBlock reviewData={this.props.reviewData}/>
           <div className="ProductPage-Right"></div>
         </div>
       </div>
@@ -541,7 +597,7 @@ class ProductPage extends Component {
         <div className="ProductPage-Mid">
           <Router>
             <div style={{width: "100%"}}>
-              <Route path="/products/:uid" render={(props) => (<ProductDetail {...props} data={this.props.data}/>)}/>
+              <Route path="/products/:uid" render={(props) => (<ProductDetail {...props} data={this.props.data} reviewData={this.props.reviewData}/>)}/>
               <Route path="/newproduct" render={(props) => (<NewProductPage {...props} addNewData={this.props.addNewData}/>)}/>
             </div>
           </Router>
