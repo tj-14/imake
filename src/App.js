@@ -13,6 +13,54 @@ import image7 from './images/product_images/bag7.jpg'
 import image8 from './images/product_images/bag8.jpg'
 import image9 from './images/product_images/bag9.jpg'
 
+const reviewData = [
+  {
+    id: 1,
+    stars: 1,
+    text: "I did not like it, the color was not as shown and it was larger then described on the web site, I also did not receive any paperwork in the package."
+  },
+  {
+    id: 2,
+    stars: 2,
+    text: "after one use the inside lining had holes in it! so disappointed because I love the look of it!"
+  },
+  {
+    id: 3,
+    stars: 3,
+    text: "i doubt it will last more than a few months of the season,pretty cheaply made.price ok but i would pay more for a better bag,this is why i dont shop that much on sites that carry no name products."
+  },
+  {
+    id: 4,
+    stars: 4,
+    text: "Who doesn't love a summer straw purse? This one is very roomy, the straps go comfortably on the shoulder or in the hand, and it's lined for extra sturdiness. The construction is the standard loose straw weave, and it should last a few years with care. I wish it had feet on the bottom and that the lining fabric was thicker, but for a classic summer bag this is it. I will heed the listing warning not to overload. I do adore the casual look and feel, as well as the pliability and softness of the straw. I'm torn between a four and five star rating. Five for looks, four for practicality. Really like, don't love this bag. If you're looking for a large bag for moderate use, get this."
+  },
+  {
+    id: 5,
+    stars: 5,
+    text: "This bag is a perfect summer tote. It can be carried as a tote or as a hobo satchel. Perfect if your are into the bohemian look. Color is a natural looking straw with dark brown straps. It also has clasp on both in ends so that you can change the look from tote to satchel. It's lined with a paisley satin look fabric with two inside pouches. I would use caution with liquids inside the tote. Overall you won't regret your purchase."
+  },
+  {
+    id: 6,
+    stars: 5,
+    text: "Straw bag arrived when it was supposed to. It is made of paper straw and does not fall out. It is somewhat stiff, but holds shape well. Lining is pretty paisley acetate and has helpful pockets and zipper."
+  },
+    {
+    id: 7,
+    stars: 5,
+    text: "I ordered this item for a trip. When it first arrived I wondered how durable it would be. The first part of my trip involved an air flight. The bag can be used 2 ways and I chose to use it as a Hobo bag and carry it as my main purse. It was easy to open and get things in and out. The second part of my trip was a drive frim WA to FL. It not only survived but lives to travel again, even after a water spill. Well worth the price!"
+  },
+  {
+    id: 8,
+    stars: 4,
+    text: "It's really cute inside and out just a little too big for my liking :("
+  },
+  {
+    id: 9,
+    stars: 1,
+    text: "Color is totally off from online pic. It's much whiter than expected"
+  },
+];
+
 class StoryPage extends Component {
   render(){
     return (
@@ -137,7 +185,7 @@ class App extends Component {
             <Route path="/" component={AppHeader} />
             <Route exact path="/" render={() => (<StorePage data={this.state.data}/>)}/>
             <Route path="/newproduct" render={(props) => (<ProductPage {...props} addNewData={(detail) => this.addNewData(detail)}/>)}/>
-            <Route path="/products/:uid" render={(props) => (<ProductPage {...props} data={this.state.data}/>)}/>
+            <Route path="/products/:uid" render={(props) => (<ProductPage {...props} data={this.state.data} reviewData={reviewData}/>)}/>
             <Route path="/story" component={StoryPage} />
           </div>
         </Router>
