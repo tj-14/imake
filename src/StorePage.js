@@ -27,14 +27,17 @@ class Product extends Component {
     return (
       <Link to={"/products/"+this.props.value.uid}>
         <button className="Product" onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
-          <img className="ImageGrid" src={this.props.value.media[0]}/>
           {this.state.hover ? (
-            <div className="ImageOverlay"> 
+            <div className="ImageOverlay">
+              <img className="ImageGrid" src={this.props.value.media[0]}/>
               <div className="TextOverlay">
                 <p><b>{this.props.value.name}</b></p>
                 <p>{this.props.value.price}</p>
               </div>
-            </div>) : null}  
+            </div>) 
+            : 
+            <img className="ImageGrid" src={this.props.value.media[0]}/>
+          }  
         </button>
       </Link>
     );
@@ -63,13 +66,16 @@ class NewProduct extends Component {
     return (
       <Link to="/newproduct">
         <button className="Product" onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
-          <img className="ImageGrid" src={add_product} />
           {this.state.hover ? (
-            <div className="ImageOverlay"> 
+            <div className="ImageOverlay">
+              <img className="ImageGrid" src={add_product} />
               <div className="TextOverlay">
                 <p><b>Add Item</b></p>
               </div>
-            </div>) : null}  
+            </div>) 
+          :
+          <img className="ImageGrid" src={add_product} />
+        }
         </button>
       </Link>
     );

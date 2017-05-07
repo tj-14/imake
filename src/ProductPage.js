@@ -545,7 +545,7 @@ class NewProductPage extends Component {
         <div className="detailRow">
           <div className="DropPicBox">
             {dropPicBoxChild}
-            <div className="heatMap">{heatmap_insert}</div>
+            
             <div className="cubeDiv">
               <Cube sid={this.state.sid} img={this.state.img} lastsid={this.state.lastsid} picBoxClass={picBoxClass}/>
             </div>
