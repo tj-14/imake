@@ -468,8 +468,7 @@ class NewProductPage extends Component {
                         { x: 68, y: 24, value: 5},
                         { x: 69, y: 23, value: 5}, 
                         { x: 70, y: 25, value: 5}, 
-                        { x: 55, y: 25, value: 5},
-                        
+                        { x: 70, y: 25, value: 5},
                         { x: 20, y: 20, value: 1},
                         { x: 20, y: 20, value: 2},
                         { x: 20, y: 27, value: 3},
@@ -545,7 +544,7 @@ class NewProductPage extends Component {
         <div className="detailRow">
           <div className="DropPicBox">
             {dropPicBoxChild}
-            <div className="heatMap">{heatmap_insert}</div>
+
             <div className="cubeDiv">
               <Cube sid={this.state.sid} img={this.state.img} lastsid={this.state.lastsid} picBoxClass={picBoxClass}/>
             </div>

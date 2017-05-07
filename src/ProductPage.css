@@ -329,7 +329,7 @@ input.currency {
   padding: 1px;
   width: 80%;
   color: #E88540;
-  font-size: 0.7em;
+  font-size: 1.0em;
   margin: 5px;
 }
 
@@ -639,7 +639,7 @@ object:hover {
 /* Orientation-dependent styles for the content of the menu */
 
 .cbp-spmenu-left {
-  left: -240px;
+  left: -280px;
 }
 
 .cbp-spmenu-left.cbp-spmenu-open {
@@ -648,7 +648,7 @@ object:hover {
 
 
 .cbp-spmenu-vertical {
-  width: 240px;
+  width: 280px;
   height: 100%;
   top: 0;
   z-index: 1000;
@@ -685,7 +685,7 @@ object:hover {
   background-color: #FFE3C8;
   height: 7em;
   width: 50%;
-  left: 240px;
+  left: 280px;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   transition: all 0.3s ease;
