@@ -392,35 +392,12 @@ class NewProductPage extends Component {
 
 
 class ReviewButton extends Component {
-//  constructor() {
-//    super();
-//    this.state = {
-//      isExpanded: false,
-//      label: null,
-//    };
-//  }
-  
-//  reviewClick0() {
-//    const newLabel = this.state.isExpanded ? '\u25bc' : '\u25b2';
-//    this.setState({
-//      isExpanded: !this.state.isExpanded,
-//      label: newLabel,
-//    });
-//  }
   
   render() {
-    
-//    let reviewTextDiv;
-//    if (this.state.isExpanded) {
-//      reviewTextDiv = 
-//        <div className="reviewText">
-//          Example Review
-//        </div>;
-//    }
-    
+    const reviewBtnClassName = "btn btn-secondary reviewBtn " + (this.props.isClicked ? "reviewBtnClicked" : "");
     return (
       <div>
-        <button type="button" className="btn btn-secondary reviewBtn" onClick={() => this.props.onClick()}>
+        <button type="button" className={reviewBtnClassName} onClick={() => this.props.onClick()}>
           {this.props.label}
         </button>
       </div>
@@ -447,6 +424,7 @@ class ReviewBlock extends Component {
       <ReviewButton
         label={Array(i+1).join("\u2605 ")}
         onClick={() => this.reviewClick(i)}
+        isClicked={this.state.isShowing==i}
       />
     );
   }
