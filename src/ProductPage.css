@@ -210,11 +210,31 @@
   flex: 2;
 }
 
-.priceLabel, .priceDataDiv, .continentLabel {
+.priceLabel, .priceDataDiv, .continentLabel, .genderDistributionLabel {
   color: black;
   font-size: 1em;
   font-weight: 700;
   display: inline-block;
+}
+
+.genderDistributionLabel {
+  margin-top:35px;
+  position: absolute;
+}
+
+.genderDistributionChart {
+  margin-top:65px;
+  margin-left:30px;
+  width:250px;
+  float:left;
+}
+
+.genderDistributionValues {
+  margin-top:150px;
+  text-align: center;
+  margin-left: 20px;
+  float:left;
+
 }
 
 .priceLabel {
@@ -227,7 +247,7 @@
 
 .continentLabel {
   margin-top:20px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 input.currency {

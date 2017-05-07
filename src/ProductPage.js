@@ -5,6 +5,7 @@ import './ProductPage.css';
 import CurrencyInput from 'react-currency-input';
 import ReactDOM from 'react-dom'
 import ReactTooltip from 'react-tooltip'
+import PieChart from "react-svg-piechart"
 
 
 // this thing sets what the drop zone for pictures accepts and looks like
@@ -84,7 +85,8 @@ class NewProductPage extends Component {
       filter: 0,
       redirect: null,
       continentSales: ['0', '0', '0', '0', '0', '0'],
-      continentSalesTxt: ['0', '0', '0', '0', '0', '0']
+      continentSalesTxt: ['0', '0', '0', '0', '0', '0'],
+      genderDistribution: [ 50, 50]
     };
     this.onDrop = this.onDrop.bind(this);
     this.handleAddHotSpotDiv = 
@@ -200,7 +202,8 @@ class NewProductPage extends Component {
       hotspots: this.state.hotSpots,
       filter: this.state.filter,
       continentSales: this.state.continentSales,
-      continentSalesTxt: this.state.continentSalesTxt
+      continentSalesTxt: this.state.continentSalesTxt,
+      genderDistribution: this.state.genderDistribution
     };
     this.props.addNewData(newDataDetail);
     this.setState({
@@ -489,26 +492,40 @@ class ProductDetail extends Component {
         // 1. bind your functions in the constructor.
         this.mouseOver = this.mouseOver.bind(this);
         this.state = {
-            hover: false
+            hover: false,
+            expandedSector: null
         };
-    }
 
-    mouseOver = (the_id) => {
-        this.setState({hover: true});
-    }
+        this.handleMouseEnterOnSector = this.handleMouseEnterOnSector.bind(this);
+  }
+
+  mouseOver = (the_id) => {
+      this.setState({hover: true});
+  }
+
+  handleMouseEnterOnSector(sector) {
+      this.setState({expandedSector: sector})
+  }
 
   render(){
     const products = this.props.data;
     const uid = this.props.match.params.uid;
 
     const product = products.filter(product => {
-        if(product.uid == uid) {
-          return product;
-        }
+      if(product.uid == uid) {
+        return product;
+      }
     });
 
     // Colors for continents:
     const colors=['0', '0', '0', '0', '0', '0'];
+
+    const genderData = [
+      {label: "Female", value: product[0].genderDistribution[0], color: "#FF0000"},
+      {label: "Male", value: product[0].genderDistribution[1], color: "#0000FF"}
+    ]
+
+    const {expandedSector} = this.state
 
     // Set colors for continents:
     for (var i=0; i < 6; i++) {
@@ -567,6 +584,22 @@ class ProductDetail extends Component {
                   <g id="OC" fill={colors[5]} data-tip={"Oceanica<br/>"+product[0].continentSalesTxt[5]} onMouseEnter={this.mouseOver.bind(this, "OC")}><path id="path5922" d="M610.708 211.614c.172.126.34.26.523.37.01.007.13-.17.2-.258l-.623-.226c-.46-1.705-2.208-2.034-3.295-3.07-1.68-1.608-3.786-3.635-3.54-5.62.317-2.562-.706-3.446-2.328-4.708-3.884-3.022-8.545-4.387-12.83-6.534-3.37-1.687-5.854-1.676-8.62.578-.462.377-1.037.58-1.298 1.19-.503 1.158-1.074.737-1.73.096-.643-.632-1.07-1.378-1.33-2.202-1.307-4.2-2.23-4.577-6.12-2.304 1.053.553 2.037 1.08 3.027 1.59.912.464 1.798.676.42 1.897-1.092.97-.305 2.38.94 2.37 3.283-.023 5.667 1.99 8.368 3.24 3.533 1.637 3.98 3.92 1.485 6.636.308.17.658.536.902.475 2.053-.51 3.39.376 4.9 1.75 1.926 1.75 4.35 1.064 5.673-1.215.897-1.55 1.967-2.29 3.804-1.422 1.38.648 2.74 1.452 3.376 2.74 1.695 3.452 4.824 4.104 8.102 4.626z"></path><path id="path5914" d="M592.347 212.718c-1.676 2.43-2.453 5.122-2.457 7.982-.006 3.14-1.982 5.24-4.06 6.847-1.767 1.366-2.935-1.346-4.49-2.004-1.08-.454-1.958-1.396-2.918-2.132-2.44-1.88-2.515-2.87-.924-5.604.38-.647 2.353-1.68.255-2.57-2.424-1.025-4.905-2.29-7.548-.388-.61.44-1.395.78-2.138.87-2.26.28-3.21 2.044-3.962 3.71-1.127 2.478-1.507 2.736-3.595 1.14-2.285-1.748-4.63-1.7-6.173.748-1.194 1.892-4.147 2.463-3.94 5.35.02.276-.532.43-.865.197-1.774-1.23-2.21.234-2.686 1.388-1.02 2.47-2.693 4.645-5.26 4.99-4.41.6-8.13 2.735-12.14 4.26-1.81.69-2.414 1.916-3.26 3.34-1.2 2.03.01 4.028-.254 6.067-.45 3.537-1.448 7.133-.29 10.78.97 3.06.118 5.71-2.35 7.803-.924.782-.376 1.512.292 1.857 1.262.657 2.492 1.344 4.14.71 2.96-1.14 5.92-2.315 9.157-2.606 1.604-.143 3.296.19 4.813-.79 2.807-1.8 5.988-2.915 9.225-3.215 3.582-.334 7.445-2.246 10.774 1.222 1.4 1.453 1.902 3.224 2.844 4.9 1.102-1.456 3.03-1.817 4.276-3.156.256-.275.86-.69 1.378-.13.493.537.197.984-.205 1.34-.818.725-.554 1.23-.27 2.266.414 1.504 1.616 2.935 1.132 4.65-.258.91-1.392 1.8.07 2.652 1.74 1.007 3.446 2.66 5.585 1.563 1.336-.685 2.163-.796 3.026.434.8 1.14 1.438.854 2.465.062 1.682-1.302 3.51-2.626 5.914-1.677.73.287 1.11-.235 1.412-.804 1.926-3.653 6.05-5.412 7.892-9.154.2-.403.81-.608 1.24-.89 5.444-3.58 8.532-8.59 9.14-15.088.186-1.985 1.023-4.063-.876-5.775-1.838-1.658-2.853-3.83-3.833-6.078-.955-2.2-1.692-4.64-3.733-6.162-1.716-1.277-1.858-2.765-1.342-4.688.656-2.435.15-4.96-1.388-6.782-1.402-1.66-2.373-3.34-2.843-5.39-.17-.75-.325-1.51-1.227-2.04z"></path><path id="path5894" d="M613.547 295.613c.733.085 1.64-.095 2.505-.57 5.202-2.86 9.813-6.66 15.065-9.452.816-.43 1.155-1.26.443-2.395-.89-1.412-1.636-.475-2.192-.015-3.34 2.77-6.926 5.095-11.045 6.518-2.13.734-4.122 1.716-6.004 2.955-.804.526-1.974 1.013-1.68 2.03.33 1.155 1.663.89 2.906.93z"></path><path id="path5888" d="M640.457 268.668c.056 1.076.002 1.865.153 2.614.73 3.616.495 4.213-2.614 6.003-.913.528-2.353 1.445-1.988 2.11 1.18 2.146-.315 3.026-1.733 4.145 2.273.347 11.038-5.828 11.682-7.96-2.444.634-4.858-1.664-4.232-4.24.296-1.22.275-1.972-1.268-2.672z"></path><path id="path5868" d="M575.345 288.723c1.727-.734 3.34-1.59 4.624-2.88.564-.566 1.434-1.382 1.13-2.15-.45-1.13-1.456-.377-2.243-.153-.916.26-1.657-.41-2.505-.5-3.392-.355-.618 2.814-2.093 3.705-.66.4-.703 1.38.4 1.758.237.08.48.155.684.22z"></path><path id="path5850" d="M633.99 230.644c-.344 3.255 2.323 6.848 5.894 8.17-2.182-2.37-4.14-4.91-5.894-8.17z"></path><path id="path5846" d="M614.595 196.652c-1.6 2.38-4.126 2.97-6.725 3.58 2.963 1.975 5.975.485 6.725-3.58z"></path><path id="path5812" d="M668.022 228.1c-1.566-.425-2.163-1.58-3.172-.844-.675.495-.14 1.192.218 1.532.983.94 1.52-.233 2.954-.688z"></path><path id="path5806" d="M614.22 193.67c-.906-.638-1.63-1.175-2.652-.996.744.49 1.338 1.337 2.653.996z"></path><path id="path5804" d="M616.436 196.223c-.057-.457-.22-.727-.62-.695-.092.01-.226.24-.24.38-.04.37.164.648.518.703.105.017.257-.284.342-.386z"></path><path id="path5253" d="M568.205 268.9c.088-.32.183-.597.225-.88.008-.057-.18-.14-.28-.214-.145.276-.297.552-.426.837-.003.01.227.12.48.257z"></path></g>
                 </svg>
                 <ReactTooltip border={true} html={true} data-multiline={true} />
+              </div>
+              <div className="genderDistributionLabel">Gender view history distribution:</div>
+              <div className="genderDistributionChart">
+                <PieChart sectorStrokeWidth={5} expandPx={1} data={ genderData } expandedSector={expandedSector} onSectorHover={this.handleMouseEnterOnSector} sectorStrokeWidth={2} expandOnHover/>
+              </div>
+              <div className="genderDistributionValues">
+                {
+                genderData.map((element, i) => (
+                    <div key={i}>
+                        <span style={{background: element.color}}></span>
+                        <span style={{color:element.color, fontWeight: this.state.expandedSector === i ? "bold" : null}}>
+                            {element.label} : {element.value + '%'}
+                        </span>
+                    </div>
+                ))
+              }
               </div>
             </div>
           </div>
