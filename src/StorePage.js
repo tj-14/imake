@@ -25,7 +25,7 @@ class Product extends Component {
 
   render() {
     return (
-      <Link to={"/newproduct/"+this.props.value.uid}>
+      <Link to={"/products/"+this.props.value.uid}>
         <button className="Product" onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
           <img className="ImageGrid" src={this.props.value.media[0]}/>
           {this.state.hover ? (
