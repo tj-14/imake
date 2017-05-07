@@ -13,6 +13,47 @@ import image7 from './images/product_images/bag7.jpg'
 import image8 from './images/product_images/bag8.jpg'
 import image9 from './images/product_images/bag9.jpg'
 
+
+const popular_store_items = [
+    {
+      id: 1,
+      name: 'Straw Tote',
+      year: '2010',
+      model: 'Tote',
+      make: 'Straw',
+      media: image1,
+      price: '$98.00',
+      uid: 'bag1',
+      description: "Fancy shmancy straw for divas! Available only in beige and black, but fabulous with any outifts."
+
+    },
+    {
+      id: 2,
+      name: 'Handwoven Picnic Bag',
+      year: '2016',
+      model: 'Picnic Bag',
+      make: 'Straw',
+      media: image2,
+      price: '$87.00',
+      uid: 'bag2',
+      description: "Fancy shmancy straw for divas! Available only in beige and black, but fabulous with any outifts."
+
+
+    },
+    {
+      id: 3,
+      name: 'Red Glamour Bag',
+      year: '2017',
+      model: 'Glamour',
+      make: 'Straw',
+      media: image3,
+      price: '$76.00',
+      uid: 'bag3'
+    }
+];
+
+
+
 const data = [
     {
       id: 1,
@@ -147,8 +188,8 @@ class App extends Component {
           <div>
             <Route path="/" component={AppHeader} />
             <Route exact path="/" render={() => (<StorePage data={data}/>)}/>
-            <Route path="/newproduct/:sid" render={(props) => (<ProductPage {...props} />)}/>
-            <Route path="/products/:uid" render={(props) => (<ProductPage {...props} data={data}/>)}/>
+            <Route path="/newproduct/:sid" render={(props) => (<ProductPage {...props} data={data} pop={popular_store_items} />)}/>
+            <Route path="/products/:uid" render={(props) => (<ProductPage {...props} data={data} pop={popular_store_items}/>)}/>
             <Route path="/story" component={StoryPage} />
           </div>
         </Router>

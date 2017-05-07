@@ -4,13 +4,51 @@ import DropZone from 'react-dropzone';
 import './ProductPage.css';
 import CurrencyInput from 'react-currency-input';
 import ReactDOM from 'react-dom'
-
+import store_icon from './images/store-icon.gif'
+import store_icon_close from './images/store-icon-close.gif'
+import store_logo from './images/product_images/store-logo.jpg'
 // this thing sets what the drop zone for pictures accepts and looks like
 var componentConfig = {
     iconFiletypes: ['.jpg', '.png', '.gif'],
     showFiletypeIcon: true,
 };
 
+class Product extends Component {
+  constructor(props) {
+        super(props);
+        // 1. bind your functions in the constructor.
+        this.mouseOver = this.mouseOver.bind(this);
+        this.mouseOut = this.mouseOut.bind(this);
+        this.state = {
+            hover: false
+        };
+    }
+
+    // 2. bind it with fat arrows.
+    mouseOver = () => {
+        this.setState({hover: true});
+    }
+    mouseOut() {
+        this.setState({hover: false});
+    }
+
+  render() {
+    return (
+      <Link to={"/products/"+this.props.value.uid}>
+        <button className="Product_Left" onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
+          <img className="ImageGrid_Left" src={this.props.value.media}/>
+          {this.state.hover ? (
+            <div className="ImageOverlay"> 
+              <div className="TextOverlay">
+                <p><b>{this.props.value.name}</b></p>
+                <p>{this.props.value.price}</p>
+              </div>
+            </div>) : null}  
+        </button>
+      </Link>
+    );
+  }
+}
 
 class Cube extends Component {
   render() {
@@ -34,6 +72,8 @@ class Cube extends Component {
     );
   }
 }
+
+
 
 class NewProductPage extends Component {
   constructor() {
@@ -61,6 +101,8 @@ class NewProductPage extends Component {
       filter2: false,
       filter3: false,
     };
+
+
     this.onDrop = this.onDrop.bind(this);
     this.handleAddHotSpotDiv = 
       this.handleAddHotSpotDiv.bind(this);
@@ -72,8 +114,6 @@ class NewProductPage extends Component {
       this.hotspotMouseOut.bind(this);
   }
   
-
-    // 2. bind it with fat arrows.
   mouseOverOriginal = () => {
         this.setState({original: true, filter1: false, filter2: false, filter3: false});}
 
@@ -88,6 +128,7 @@ class NewProductPage extends Component {
 
   mouseOverDone = () => {
     this.setState({isChoosingFilter: false});}
+
 
   onDrop(acceptedFiles){
     const img = this.state.img.slice();
@@ -440,18 +481,67 @@ class ProductDetail extends Component {
   }
 }
 
+
+
 class ProductPage extends Component {
+  constructor(props) {
+    super(props);
+    this.peekClick = this.peekClick.bind(this);
+    this.peekHide = this.peekHide.bind(this);
+
+    this.state = {
+      peekaboo: false,
+      peekaboo_class: "cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left",
+      peekaboo_tab: "leftViewTabShow leftViewTabTransition",
+      peekaboo_text: "VIEW STORE",
+    };
+  }
+  
+  peekClick = () => {
+    this.setState({ peekaboo: true, 
+                    peekaboo_class: "cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left cbp-spmenu-open",
+                    peekaboo_tab: "leftViewTabTransition leftViewTabHide",
+                    peekaboo_text: "HIDE"});
+  }
+
+  peekHide = () => {
+    this.setState({ peekaboo: false, 
+                    peekaboo_class: "cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left",
+                    peekaboo_tab: "leftViewTabTransition leftViewTabShow",
+                    peekaboo_text: "Show Store"});
+  }
+
   render() {
+    const productNode = this.props.data.map((product) => {
+        return (
+          <Product value={product}/>
+        )
+    });
+
     return (
       <div className="ProductPage">
         <div className="ProductPage-Left">
-          <Link to="/">
-            <div className="leftViewTab">
-              <div className="leftViewText">
-                    View Store
+        {/* <Link to="/">*/}
+            {this.state.peekaboo ? (
+              <div className="leftViewTabHide" onClick={this.peekHide}>
+                <img className="storeIcon" src={store_icon_close} />
+                <div className="leftViewText">HIDE</div>
               </div>
+              ) : (
+              <div className="leftViewTabShow" onClick={this.peekClick}>
+                <img className="storeIcon" src={store_icon} />
+                <div className="leftViewText">VIEW STORE</div>
+              </div>
+              )};
+          <div className={this.state.peekaboo_class}>
+            <div>
+                <Link to={"/"}>
+                  <b>Spring Naturals</b>
+                </Link>
             </div>
-          </Link>
+            {productNode}
+          </div>
+         {/* </Link> */}
         </div>
         <div className="ProductPage-Mid">
           <Router>

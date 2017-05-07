@@ -1,3 +1,40 @@
+.Product_Left{
+  -webkit-transition: width 0.6s; /* Safari */
+  transition: width 0.6s;
+  flex: 0 0 25%;
+  border: 0px;
+  box-sizing: border-box;
+  background: white;
+  /*border: 1px solid #999;*/
+  height: 200px;
+  width: 200px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 8px;
+  padding-left:0px;
+  padding-right: 0px;
+  padding-top:0px;
+  padding-bottom: 0px;
+
+}
+
+.ProductPage-Left ::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+
+.ImageGrid_Left{
+  -webkit-transition: width 0.6s; /* Safari */
+  transition: width 0.6s;
+  align: top;
+  height:100%;
+  width: 100%;
+  padding-left:0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
 .ProductPage{
   display: flex;
 }
@@ -19,27 +56,6 @@
   flex: 1;
 }
 
-.leftViewTab {
-  position: relative;
-  top: 100px;
-  background-color: #FFE3C8;
-  height: 3em;
-  width: 80%;
-}
-
-.leftViewTab:hover {
-  background-color: #FFCE9F;
-  cursor: pointer;
-}
-
-.leftViewText {
-  position: absolute;
-  top: 50%;
-  line-height: 0;
-  left: 0;
-  right: 0;
-  color: #555;
-}
 
 .cubeDiv {
   zoom: 40%;
@@ -552,3 +568,163 @@ object:hover {
   margin: auto;
   filter: sepia(100%);
 }
+
+
+
+
+
+/* General styles for all menus */
+
+.cbp-spmenu {
+  background: #ff974f;
+  position: fixed;
+}
+
+.cbp-spmenu a {
+  display: block;
+  color: #fff;
+  font-size: 1.1em;
+  font-weight: 300;
+}
+
+.cbp-spmenu a:hover {
+  background: #ad3f00;
+}
+
+.cbp-spmenu a:active {
+  background: #ffb682;
+  color: #da8b47;
+}
+
+/* Orientation-dependent styles for the content of the menu */
+
+.cbp-spmenu-left {
+  left: -240px;
+}
+
+.cbp-spmenu-left.cbp-spmenu-open {
+  left: 0px;
+}
+
+
+.cbp-spmenu-vertical {
+  width: 240px;
+  height: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+.cbp-spmenu-vertical a {
+  border-bottom: 1px solid #cd6524;
+  padding: 1em;
+}
+
+
+/* Transitions */
+
+.cbp-spmenu {
+  overflow-y:auto;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+
+.leftStore {
+  position: relative;
+  top: 0px;
+  background-color: #D3D3D3;
+  height:100%;
+  width:100%;
+}
+
+
+.leftViewTabHide {
+  position: absolute;
+  top: 100px;
+  background-color: #FFE3C8;
+  height: 7em;
+  width: 50%;
+  left: 240px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  z-index: 500;
+
+}
+
+.leftViewTabShow {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  position: absolute;
+  top: 100px;
+  background-color: #FFE3C8;
+  height: 7em;
+  width: 50%;
+  left: -10px;
+  z-index: 500;
+
+};
+
+
+.storeIcon{
+  position: absolute;
+  
+}
+
+
+.leftViewTabHide:hover {
+  background-color: #FFCE9F;
+  cursor: pointer;
+}
+
+.leftViewTabShow:hover {
+  background-color: #FFCE9F;
+  cursor: pointer;
+  left:0px;
+}
+
+
+
+.leftViewText {
+  position: absolute;
+  top: 85%;
+  line-height: 0;
+  left: 0;
+  right: 0;
+  color: #555;
+}
+
+
+.StoreLogo{
+  height: 50px;
+  width: 50px;
+}
+
+
+
+.goHome a{
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  position: relative;
+  background: #ff974f;
+  height: 5em;
+  width: 100%;
+  left: 0px;
+  z-index: 500;
+  font-size: 14px;
+};
+
+
+.goHome a:hover {
+  background: #ad3f00;
+}
+
+.goHome a:active {
+  background: #ffb682;
+  color: #da8b47;
+}
+
+
