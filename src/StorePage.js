@@ -25,9 +25,9 @@ class Product extends Component {
 
   render() {
     return (
-      <Link to={"/products/"+this.props.value.uid}>
+      <Link to={"/newproduct/"+this.props.value.uid}>
         <button className="Product" onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
-          <img className="ImageGrid" src={this.props.value.media}/>
+          <img className="ImageGrid" src={this.props.value.media[0]}/>
           {this.state.hover ? (
             <div className="ImageOverlay"> 
               <div className="TextOverlay">
@@ -53,7 +53,7 @@ class NewProduct extends Component {
     }
 
     // 2. bind it with fat arrows.
-    mouseOver = () => {
+    mouseOver(){
         this.setState({hover: true});
     }
     mouseOut() {
@@ -61,7 +61,7 @@ class NewProduct extends Component {
     }
   render() {
     return (
-      <Link to="/newproduct/1">
+      <Link to="/newproduct">
         <button className="Product" onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
           <img className="ImageGrid" src={add_product} />
           {this.state.hover ? (
