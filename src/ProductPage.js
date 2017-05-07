@@ -10,7 +10,6 @@ import store_logo from './images/product_images/store-logo.jpg'
 import ReactTooltip from 'react-tooltip'
 import PieChart from "react-svg-piechart"
 
-
 // this thing sets what the drop zone for pictures accepts and looks like
 var componentConfig = {
     iconFiletypes: ['.jpg', '.png', '.gif'],
@@ -180,6 +179,7 @@ class NewProductPage extends Component {
         continentSalesTxt: product.continentSalesTxt || ['0', '0', '0', '0', '0', '0'],
         genderDistribution: product.genderDistribution || [50, 50],
         hotSpots: product.hotspots || Array(0),
+        heatMap: true,
       })
     }
   }
@@ -429,7 +429,87 @@ class NewProductPage extends Component {
     
     // Colors for continents:
     const colors=['0', '0', '0', '0', '0', '0'];
+    const ReactHeatmap = require('react-heatmap');
+    const heat_data = [ { x: 40, y: 30, value: 5}, 
+                        { x: 40, y: 30, value: 5}, 
+                        { x: 40, y: 30, value: 5}, 
+                        { x: 40, y: 30, value: 5},
+                        { x: 40, y: 35, value: 5}, 
+                        { x: 40, y: 35, value: 5}, 
+                        { x: 40, y: 35, value: 5},
+                        { x: 40, y: 35, value: 5}, 
+                        { x: 31, y: 35, value: 5}, 
+                        { x: 32, y: 25, value: 5}, 
+                        { x: 30, y: 24, value: 5},
+                        { x: 31, y: 23, value: 5}, 
+                        { x: 32, y: 25, value: 5}, 
+                        { x: 33, y: 25, value: 5},  
 
+                        { x: 60, y: 30, value: 5}, 
+                        { x: 60, y: 30, value: 5}, 
+                        { x: 60, y: 30, value: 5}, 
+                        { x: 60, y: 30, value: 5},
+                        { x: 60, y: 35, value: 5}, 
+                        { x: 60, y: 35, value: 5}, 
+                        { x: 60, y: 35, value: 5},
+                        { x: 60, y: 35, value: 5}, 
+                        { x: 61, y: 35, value: 5}, 
+                        { x: 62, y: 25, value: 5}, 
+                        { x: 60, y: 24, value: 5},
+                        { x: 61, y: 23, value: 5}, 
+                        { x: 70, y: 25, value: 5}, 
+                        { x: 75, y: 25, value: 5},  
+                        { x: 65, y: 35, value: 5}, 
+                        { x: 64, y: 35, value: 5}, 
+                        { x: 63, y: 35, value: 5},
+                        { x: 60, y: 35, value: 5}, 
+                        { x: 61, y: 35, value: 5}, 
+                        { x: 62, y: 25, value: 5}, 
+                        { x: 68, y: 24, value: 5},
+                        { x: 69, y: 23, value: 5}, 
+                        { x: 70, y: 25, value: 5}, 
+                        { x: 55, y: 25, value: 5},
+                        
+                        { x: 20, y: 20, value: 1},
+                        { x: 20, y: 20, value: 2},
+                        { x: 20, y: 27, value: 3},
+                        { x: 23, y: 22, value: 3},
+                        { x: 21, y: 21, value: 1},
+                        { x: 22, y: 22, value: 1},
+                        { x: 22, y: 21, value: 1},
+                        { x: 24, y: 22, value: 1},
+                        { x: 26, y: 24, value: 1},
+                        { x: 30, y: 24, value: 1},
+                        { x: 23, y: 25, value: 1},
+                        { x: 31, y: 23, value: 1},
+
+                        { x: 50, y: 50, value: 1},
+                        { x: 52, y: 54, value: 2},
+                        { x: 60, y: 53, value: 3},
+                        { x: 55, y: 56, value: 5},
+                        { x: 55, y: 56, value: 5},
+                        { x: 53, y: 53, value: 5},
+                        { x: 58, y: 54, value: 5},
+                        { x: 70, y: 55, value: 5},
+                        { x: 45, y: 52, value: 5},
+                        { x: 53, y: 64, value: 3},
+                        { x: 45, y: 44, value: 4},
+                        { x: 31, y: 23, value: 1},
+                        { x: 50, y: 50, value: 1},
+                        { x: 52, y: 54, value: 2},
+                        { x: 60, y: 53, value: 3},
+                        { x: 55, y: 56, value: 5},
+                        { x: 55, y: 56, value: 5},
+                        { x: 53, y: 53, value: 5},
+                        { x: 58, y: 54, value: 5},
+                        { x: 70, y: 55, value: 5},
+                        { x: 45, y: 52, value: 5},
+                        { x: 53, y: 64, value: 3},
+                        { x: 45, y: 44, value: 4},
+                        { x: 31, y: 23, value: 1},
+                        ];
+
+    const heatmap_insert = <ReactHeatmap max={5} data={heat_data} />
     // Set colors for continents:
     for (var i=0; i < 6; i++) {
         var salesCount =  this.state.continentSales[i]//product[0].continentSales[i]
@@ -465,6 +545,7 @@ class NewProductPage extends Component {
         <div className="detailRow">
           <div className="DropPicBox">
             {dropPicBoxChild}
+            <div className="heatMap">{heatmap_insert}</div>
             <div className="cubeDiv">
               <Cube sid={this.state.sid} img={this.state.img} lastsid={this.state.lastsid} picBoxClass={picBoxClass}/>
             </div>
@@ -624,8 +705,6 @@ class ReviewBlock extends Component {
   }
 }
 
-
-
 class ProductPage extends Component {
   constructor(props) {
     super(props);
@@ -664,7 +743,6 @@ class ProductPage extends Component {
     return (
       <div className="ProductPage">
         <div className="ProductPage-Left">
-        {/* <Link to="/">*/}
             {this.state.peekaboo ? (
               <div className="leftViewTabHide" onClick={this.peekHide}>
                 <img className="storeIcon" src={store_icon_close} />

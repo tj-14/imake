@@ -779,3 +779,10 @@ object:hover {
 .PicBoxSepiaSamePos{
   filter: sepia(100%);
 }
+
+
+.heatMap{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
