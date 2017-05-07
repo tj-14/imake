@@ -297,6 +297,10 @@ input.currency {
   margin: 5px;
 }
 
+.reviewBtn.reviewBtnClicked {
+  background-color: #FFDEC3;
+}
+
 .reviewBtn:hover, .reviewBtn:focus, .reviewBtn:active{
   background-color: #FFDEC3;
   color: #E88540;
