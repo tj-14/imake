@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {HashRouter as Router, Route, browserHistory, Link} from 'react-router-dom';
+import update from 'immutability-helper';
 import './App.css';
 import StorePage from './StorePage';
 import ProductPage from './ProductPage';
@@ -172,19 +173,48 @@ class App extends Component {
   
   addNewData(detail){
     const data = this.state.data.slice();
-    this.setState({
-      data: data.concat([{
-        name: detail.name,
-        media: detail.media,
-        price: detail.price,
-        uid: detail.uid,
-        filter: detail.filter,
-        continentSales: detail.continentSales,
-        continentSalesTxt: detail.continentSalesTxt,
-        genderDistribution: detail.genderDistribution,
-        hotspots: detail.hotspots,
-      }]),
-    });
+    const product = data.filter((elt) => {
+      if (elt.uid == detail.uid) {
+        return elt;
+      }
+    })[0];
+    const index = data.indexOf(product);
+    
+    if (index != -1) {
+      // if already existed (index found), update data
+      product.name = detail.name;
+      product.media = detail.media;
+      product.price = detail.price;
+      product.uid = detail.uid;
+      product.description = detail.description;
+      product.filter = detail.filter;
+      product.continentSales = detail.continentSales;
+      product.continentSalesTxt = detail.continentSalesTxt;
+      product.genderDistribution = detail.genderDistribution;
+      product.hotspots = detail.hotspots;
+      data[index] = product;
+      this.setState({
+        data: data
+      });
+      alert("Information updated!");
+    } else {
+      // if new product, add to data
+      this.setState({
+        data: data.concat([{
+          name: detail.name,
+          media: detail.media,
+          price: detail.price,
+          uid: detail.uid,
+          description: detail.description,
+          filter: detail.filter,
+          continentSales: detail.continentSales,
+          continentSalesTxt: detail.continentSalesTxt,
+          genderDistribution: detail.genderDistribution,
+          hotspots: detail.hotspots,
+        }]),
+      });
+      alert("New product added!");
+    }
   }
   
   render() {

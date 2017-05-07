@@ -89,7 +89,8 @@ class NewProductPage extends Component {
       continentSales: ['0', '0', '0', '0', '0', '0'],
       continentSalesTxt: ['0', '0', '0', '0', '0', '0'],
       genderDistribution: [50, 50],
-      expandedSector: null
+      expandedSector: null,
+      isExistingProduct: false,
     };
     
     this.onDrop = this.onDrop.bind(this);
@@ -116,6 +117,8 @@ class NewProductPage extends Component {
           }
       })[0];
       this.setState({
+        uid: uid,
+        isExistingProduct: true,
         isEditing: false,
         productNameInput: product.name,
         priceInput: product.price,
@@ -233,13 +236,14 @@ class NewProductPage extends Component {
   
   handleSave() {
     var randomInt = (Math.floor(Math.random() * 99) + 1).toString();
+    var uid = this.state.isExistingProduct ? this.state.uid : (this.state.productNameInput+'item' + randomInt);
 
     const newDataDetail = {
       name: this.state.productNameInput,
       media: this.state.img,
       price: this.state.priceInput,
       description: this.state.descriptionInput,
-      uid: this.state.productNameInput+'item' + randomInt,
+      uid: uid,
       hotspots: this.state.hotSpots,
       filter: this.state.filter,
       continentSales: this.state.continentSales,
@@ -247,9 +251,12 @@ class NewProductPage extends Component {
       genderDistribution: this.state.genderDistribution,
     };
     this.props.addNewData(newDataDetail);
-    this.setState({
-      redirect: "/newproduct/"+newDataDetail.uid,
-    })
+    
+    if (!this.state.isExistingProduct) {
+      this.setState({
+        redirect: "/newproduct/"+newDataDetail.uid,
+      })
+    }
   }
   
   render(){
