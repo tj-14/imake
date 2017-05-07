@@ -88,6 +88,7 @@ class NewProductPage extends Component {
       continentSalesTxt: ['0', '0', '0', '0', '0', '0'],
       genderDistribution: [ 50, 50]
     };
+    
     this.onDrop = this.onDrop.bind(this);
     this.handleAddHotSpotDiv = 
       this.handleAddHotSpotDiv.bind(this);
@@ -99,6 +100,27 @@ class NewProductPage extends Component {
       this.hotspotMouseOut.bind(this);
     this.handleSave =
       this.handleSave.bind(this);
+  }
+  
+  componentWillMount() {
+    if('uid' in this.props.match.params){
+      const uid = this.props.match.params.uid;
+      const products = this.props.data;
+      const product = products.filter(product => {
+          if(product.uid == uid) {
+            return product;
+          }
+      })[0];
+      this.setState({
+        isEditing: false,
+        productNameInput: product.name,
+        priceInput: product.price,
+        descriptionInput: product.description,
+        img: product.media,
+        filter: product.filter? product.filter: 0,
+        hotSpots: product.hotspots? product.hotspots: Array(0),
+      })
+    }
   }
   
   mouseOverFilter(sf){
@@ -203,7 +225,7 @@ class NewProductPage extends Component {
       filter: this.state.filter,
       continentSales: this.state.continentSales,
       continentSalesTxt: this.state.continentSalesTxt,
-      genderDistribution: this.state.genderDistribution
+      genderDistribution: this.state.genderDistribution,
     };
     this.props.addNewData(newDataDetail);
     this.setState({
@@ -439,12 +461,12 @@ class ReviewBlock extends Component {
     });
     
     const reviewData = this.props.reviewData;
-    const matchedReviews = reviewData.filter(review => {
+    const matchedReviews = reviewData.filter((review) => {
         if(review.stars == this.state.isShowing) {
           return review;
         }
     });
-    const reviewDivs = [];
+    var reviewDivs = [];
     for (var i=0; i < matchedReviews.length; i++) {
       reviewDivs.push(
         <div className="reviewText">
@@ -609,7 +631,8 @@ class ProductPage extends Component {
           <Router>
             <div style={{width: "100%"}}>
               <Route path="/products/:uid" render={(props) => (<ProductDetail {...props} data={this.props.data} reviewData={this.props.reviewData}/>)}/>
-              <Route path="/newproduct" render={(props) => (<NewProductPage {...props} addNewData={this.props.addNewData}/>)}/>
+              <Route exact path="/newproduct" render={(props) => (<NewProductPage {...props} addNewData={this.props.addNewData}/>)}/>
+              <Route path="/newproduct/:uid" render={(props) => (<NewProductPage {...props} addNewData={this.props.addNewData} data={this.props.data}/>)}/>
             </div>
           </Router>
         </div>

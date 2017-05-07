@@ -181,7 +181,8 @@ class App extends Component {
         filter: detail.filter,
         continentSales: detail.continentSales,
         continentSalesTxt: detail.continentSalesTxt,
-        genderDistribution: detail.genderDistribution
+        genderDistribution: detail.genderDistribution,
+        hotspots: detail.hotspots,
       }]),
     });
   }
@@ -194,7 +195,8 @@ class App extends Component {
           <div>
             <Route path="/" component={AppHeader} />
             <Route exact path="/" render={() => (<StorePage data={this.state.data}/>)}/>
-            <Route path="/newproduct" render={(props) => (<ProductPage {...props} addNewData={(detail) => this.addNewData(detail)}/>)}/>
+            <Route exact path="/newproduct" render={(props) => (<ProductPage {...props} addNewData={(detail) => this.addNewData(detail)}/>)}/>
+            <Route path="/newproduct/:uid" render={(props) => (<ProductPage {...props} addNewData={(detail) => this.addNewData(detail)} data={this.state.data}/>)}/>
             <Route path="/products/:uid" render={(props) => (<ProductPage {...props} data={this.state.data} reviewData={reviewData}/>)}/>
             <Route path="/story" component={StoryPage} />
           </div>
