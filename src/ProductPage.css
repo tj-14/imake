@@ -175,7 +175,7 @@
   right: 0;
 }
 
-.productNameRow, .reviewsRow {
+.productNameRow, .reviewsRow, .buttonsRow {
   display: flex;
   margin-top: 15px;
 }
@@ -291,7 +291,7 @@ input.currency {
   margin-right: 20px;
 }
 
-.reviews {
+.reviews, .buttons {
   flex: 2;
   position: relative;
 }
