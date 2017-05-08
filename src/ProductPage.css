@@ -27,6 +27,36 @@
 };
 
 
+.leftViewTabHide {
+  position: absolute;
+  top: 100px;
+  background-color: #FFE3C8;
+  height: 7em;
+  width: 50%;
+  left: 280px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  z-index: 500;
+
+}
+
+/*.leftViewTabShow {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  position: absolute;
+  top: 100px;
+  background-color: #FFE3C8;
+  height: 7em;
+  width: 50%;
+  left: -10px;
+  z-index: 500;
+
+};
+*/
+
+
 .Product_Left{
   -webkit-transition: width 0.6s; /* Safari */
   transition: width 0.6s;
@@ -496,7 +526,6 @@ body {
 /*
 .cube > div:hover {
   cursor: pointer; }
-
 .cube > div:active {
   cursor: pointer; }
 */
@@ -735,33 +764,6 @@ object:hover {
 }
 
 
-.leftViewTabHide {
-  position: absolute;
-  top: 100px;
-  background-color: #FFE3C8;
-  height: 7em;
-  width: 50%;
-  left: 280px;
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-  z-index: 500;
-
-}
-
-.leftViewTabShow {
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  transition: all 0.3s ease;
-  position: absolute;
-  top: 100px;
-  background-color: #FFE3C8;
-  height: 7em;
-  width: 50%;
-  left: -10px;
-  z-index: 500;
-
-};
 
 
 .storeIcon {
