@@ -73,18 +73,25 @@
   position: relative;
 }
 
-.ProductPage-Mid{
-  flex: 5;
+.ProductPage-Mid-Right{
+  flex: 3;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: left;
 }
 
-.ProductPage-Right{
-  flex: 1;
+.NewProductPage{
+  display: flex;
 }
 
+.NewProductPage-Mid {
+  flex: 3;
+}
+
+.NewProductPage-Right{
+  flex: 1;
+}
 
 .cubeDiv {
   zoom: 40%;
@@ -94,16 +101,17 @@
 }
 
 .DropPicBox{
-  flex: 2;
   display: flex;
-  border: 2px dashed grey;
   text-align: center;
   position: relative;
+  padding: 25px;
+  margin: 25px;
 }
 
 .DropZone {
   flex: 1;
   background-color: #EEE;
+  border: 2px dashed grey;
   position: relative;
   height: 570px;
   overflow: hidden;
@@ -129,8 +137,8 @@
 
 .ImgZone {
   flex: 1;
-  background-color: #EEE;
   position: relative;
+  border: 2px solid grey;
   height: 570px;
   overflow: hidden;
 }
@@ -179,7 +187,8 @@
 
 .arrowLeft, .arrowUp, .arrowRight, .arrowDown {
   color: #999;
-  font-size: 1.2em; 
+  font-size: 40px; 
+  position: absolute;
 }
 
 .arrowLeft:hover, .arrowUp:hover, .arrowRight:hover, .arrowDown:hover {
@@ -188,28 +197,23 @@
 }
 
 .arrowLeft {
-  position: absolute;
-  font-weight: 500;
-  left: 0;
-  top: 50%;
+  left: -20px;
+  top: 47%;
 }
 
 .arrowUp {
-  position: absolute;
-  left: 49%;
-  top: 0;
+  left: 47%;
+  top: -30px;
 }
 
 .arrowRight {
-  position: absolute;
-  right: 0;
-  top: 50%;
+  right: -20px;
+  top: 47%;
 }
 
 .arrowDown {
-  position: absolute;
-  bottom: 0;
-  left: 49%;
+  bottom: -30px;
+  left: 47%;
 }
 
 .hotspotButtonDiv{
@@ -221,25 +225,41 @@
   right: 0;
 }
 
-.productNameRow, .reviewsRow, .buttonsRow {
+.productNameRow {
   display: flex;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 .productName, .productNameInput {
+  flex: 5;
+  text-align: left;
   font-size: 24px;
-  font-weight: 500;
-  text-align: center;
+  font-weight: 600;
   padding: 10px;
-  flex: 2;
-}
-
-.productNameInput {
   margin: 4px;
 }
 
-.ProductPage-Right {
+.productName {
+  height: 46px;
+  line-height: 24px;
+  border: 1px solid transparent;
+}
+
+.priceLabel, .price, .priceInput {
+  font-size: 18px;
+  font-weight: 500;
+  padding: 10px;
+  margin: auto;
+}
+
+.price, .priceInput {
   flex: 1;
+  width: 100px;
+  text-align: right;
+}
+
+.price {
+  border: 1px solid transparent;
 }
 
 .dataBox {
@@ -248,15 +268,11 @@
   width: 100%
 }
 
-.detailRow {
-  display: flex;
-}
-
 .thumbnail {
   flex: 2;
 }
 
-.priceLabel, .priceDataDiv, .continentLabel, .genderDistributionLabel {
+.continentLabel, .genderDistributionLabel {
   color: black;
   font-size: 1em;
   font-weight: 700;
@@ -307,6 +323,7 @@ input.currency {
 
 .descriptionDiv {
   margin-top: 10px;
+  padding-top: 20px;
 }
 
 .descriptionInput {
@@ -338,8 +355,12 @@ input.currency {
 }
 
 .reviews, .buttons {
-  flex: 2;
   position: relative;
+  margin-top: 15px;
+}
+
+.reviews {
+  min-height: 400px;
 }
 
 .reviewTabs {
@@ -892,4 +913,10 @@ object:hover {
 
 .applyButton-clicked:hover {
   background-color: #542200;
+}
+
+
+.Original:hover, .Filter1:hover, .Filter2:hover, .Filter3:hover {
+  opacity:0.5;
+  cursor: pointer;
 }

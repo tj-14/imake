@@ -17,10 +17,11 @@
 
 .leftViewTab {
   position: relative;
-  top: 100px;
+  top: 108px;
+  height: 50px;
+  max-height: 50px;
   background-color: #FFE3C8;
-  height: 3em;
-  width: 80%;
+  margin:0 80px 0 0;
 }
 
 .leftViewTab:hover {
@@ -28,13 +29,18 @@
   cursor: pointer;
 }
 
-.leftViewText {
-  position: absolute;
-  top: 50%;
-  line-height: 0;
-  left: 0;
-  right: 0;
-  color: #555;
+.leftViewTextStorePage {
+  display: block;
+  text-align: center;
+  line-height: 50px;
+  color: black;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.leftViewTextStorePage:hover {
+  text-decoration: none;
+  color:black;
 }
 
 .ShopTitle{
@@ -48,60 +54,83 @@
   flex-flow: row wrap;
 }
 
-.Product{
-  flex: 0 0 25%;
-  border: 0px;
-  box-sizing: border-box;
-  background: white;
-  /*border: 1px solid #999;*/
+.ProductDiv{
+  cursor: default;
+
+    /*border: 1px solid #999;*/
   height: 200px;
   width: 200px;
-  margin-left: 5px;
-  margin-right: 5px;
-  margin-top: 10px;
+  max-width: 200px;
+  max-width: 200px;
+  width:100%;
+  height: 100%;
   padding-left:0px;
   padding-right: 0px;
   padding-top:0px;
   padding-bottom: 0px;
-
+  margin-bottom: 10px;
+  margin-right: 10px;
+  overflow: hidden;
 }
 
-.ImageGrid{
-  align: top;
-  height: 100%;
-  width: 100%;
-  padding-left:0px;
-  padding-right: 0px;
-  padding-top: 0px;
-  padding-bottom: 0px;
+.ProductDiv a:link {
+  display: block;
+  height: 200px;
+  max-height: 200px;
+  width:200px;
+  max-width: 200px;
+  overflow: hidden;
 }
 
-
-.ImageOverlay{
-  position: relative;
-  top: -200px;
+.Product {
+  flex: 0 0 25%;
+  border:none;
+  outline: none;
+/*  border:1px solid red;*/
+  background-color: white;
+  overflow: hidden;
+  padding: 0px 0px;
   height: 200px;
   width: 200px;
+  max-width: 200px;
+  max-width: 200px;
+}
+  
+.ImageOverlay {
+  opacity: 0.5;
+}
+
+.ImageGrid {
+/*  border:1px solid green;*/
+  background: white;
+/*  box-sizing: border-box;*/
+  margin:0px;
+  height:200px;
+  width: 200px;
+  max-width: 200px;
+  max-height: 200px;
+  margin:1px;
   padding-left:0px;
   padding-right: 0px;
   padding-top: 0px;
   padding-bottom: 0px;
-  opacity: 0.8;
-  background-color: white;
 }
 
-
 .TextOverlay{
+/*  border:1px solid green;*/
   font-size: 16px;
   color: #cc2900;
   position: relative;
-  top: 80px;
+  top: -120px;
   height: 50px;
-  width: 200px;
+  width: 195px;
+  max-width: 195px;
+  margin:0px;
   padding-left:0px;
   padding-right: 0px;
   padding-top: 0px;
   padding-bottom: 0px;
+  overflow: hidden;
 }
 
 .StoreLogo{

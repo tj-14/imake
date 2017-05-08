@@ -25,21 +25,26 @@ class Product extends Component {
 
   render() {
     return (
-      <Link to={"/products/"+this.props.value.uid}>
-        <button className="Product" onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
-          {this.state.hover ? (
-            <div className="ImageOverlay">
-              <img className="ImageGrid" src={this.props.value.media[0]}/>
-              <div className="TextOverlay">
-                <p><b>{this.props.value.name}</b></p>
-                <p>{this.props.value.price}</p>
-              </div>
-            </div>) 
-            : 
-            <img className="ImageGrid" src={this.props.value.media[0]}/>
-          }  
-        </button>
-      </Link>
+      <div className="ProductDiv">
+        <Link to={"/products/"+this.props.value.uid}>
+            <button className="Product" onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
+              {this.state.hover ? (
+                <div>
+                  <img className="ImageGrid ImageOverlay" src={this.props.value.media[0]}/>
+                  <div className="TextOverlay">
+                    <p><b>{this.props.value.name}</b></p>
+                    <p>{this.props.value.price}</p>
+                  </div>
+                </div>) 
+                : 
+                <div>
+                <img className="ImageGrid" src={this.props.value.media[0]}/>
+                </div>
+              }  
+            </button>
+          
+        </Link>
+      </div>
     );
   }
 }
@@ -64,20 +69,24 @@ class NewProduct extends Component {
     }
   render() {
     return (
-      <Link to="/newproduct">
-        <button className="Product" onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
-          {this.state.hover ? (
-            <div className="ImageOverlay">
-              <img className="ImageGrid" src={add_product} />
-              <div className="TextOverlay">
-                <p><b>Add Item</b></p>
-              </div>
-            </div>) 
-          :
-          <img className="ImageGrid" src={add_product} />
-        }
-        </button>
-      </Link>
+      <div className="ProductDiv">
+        <Link to="/newproduct">
+            <button className="Product" onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
+              {this.state.hover ? (
+                  <div>
+                    <img className="ImageGrid ImageOverlay" src={add_product} />
+                    <div className="TextOverlay">
+                      <p><b>Add Item</b></p>
+                    </div>
+                  </div>) 
+              :
+                <div>
+                <img className="ImageGrid" src={add_product} />
+                </div>
+            }
+            </button>
+        </Link>
+      </div>
     );
   }
 }
@@ -92,13 +101,11 @@ class StorePage extends Component {
     return (
       <div className="StorePage">
         <div className="StorePage-Left">
-          <Link to="/story">
-            <div className="leftViewTab">
-              <div className="leftViewText">
-                View Story
-              </div>
-            </div>
-          </Link>
+          <div className="leftViewTab">
+            <Link className="leftViewTextStorePage" to="/story">
+            View Story
+            </Link>
+          </div>
         </div>
         <div className="StorePage-Mid">
           <div>

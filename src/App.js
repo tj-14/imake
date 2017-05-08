@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {HashRouter as Router, Route, browserHistory, Link} from 'react-router-dom';
-import update from 'immutability-helper';
 import './App.css';
 import StorePage from './StorePage';
 import ProductPage from './ProductPage';
@@ -139,7 +138,6 @@ class App extends Component {
           uid: 'bag1',
           description: "Fancy shmancy straw for divas! Available only in beige and black, but fabulous with any outfits.",
           continentSales: ['1500', '50000', '3000', '0', '0', '200'],
-          continentSalesTxt: ['1.500', '50.000', '3.000', '0', '0', '200'],
           genderDistribution: [40, 60]
         }, {
           name: 'Handwoven Picnic Bag',
@@ -148,7 +146,6 @@ class App extends Component {
           uid: 'bag2',
           description: "Fancy shmancy straw for divas! Available only in beige and black, but fabulous with any outfits.",
           continentSales: ['20500', '5000', '1000', '500', '0', '20000'],
-          continentSalesTxt: ['25.000', '5.000', '1.000', '500', '0', '20.000'],
           genderDistribution: [30, 70]
         }, {
           name: 'Red Glamour Bag',
@@ -156,7 +153,6 @@ class App extends Component {
           price: '$76.00',
           uid: 'bag3',
           continentSales: ['65', '1000', '33000', '60000', '6000', '2500'],
-          continentSalesTxt: ['65', '1.000', '33.000', '60.000', '6.000', '2.500'],
           genderDistribution: [80, 20]
         }, {
           name: 'Brown Pull-Over Tote',
@@ -164,7 +160,6 @@ class App extends Component {
           price: '$55.00',
           uid: 'bag4',
           continentSales: ['15000', '500', '21000', '870', '0', '2000'],
-          continentSalesTxt: ['15.000', '500', '21.000', '870', '0', '2.000'],
           genderDistribution: [25, 75]
         }, {
           name: 'Blue Chic Handbag',
@@ -172,7 +167,6 @@ class App extends Component {
           price: '$76.00',
           uid: 'bag5',
           continentSales: ['1500', '50000', '3000', '0', '0', '200'],
-          continentSalesTxt: ['1.500', '50.000', '3.000', '0', '0', '200'],
           genderDistribution: [43, 57]
         }, {
           name: 'Summer Orange Handbag',
@@ -180,7 +174,6 @@ class App extends Component {
           price: '$88.00',
           uid: 'bag6',
           continentSales: ['80000', '900', '39000', '15500', '7700', '0'],
-          continentSalesTxt: ['80.000', '900', '39.000', '15.500', '7.700', '0'],
           genderDistribution: [35, 65]
         }, {
           name: 'Banana Picnic Bag',
@@ -188,7 +181,6 @@ class App extends Component {
           price: '$109.00',
           uid: 'bag7',
           continentSales: ['190', '50000', '30000', '5000', '150000', '2000'],
-          continentSalesTxt: ['190', '50.000', '30.000', '5.000', '150.000', '2.000'],
           genderDistribution: [41, 59]
         }, {
           name: 'Pretty and Purple Handbag',
@@ -196,7 +188,6 @@ class App extends Component {
           price: '$76.00',
           uid: 'bag8',
           continentSales: ['47000', '8000', '3500', '0', '2570', '53000'],
-          continentSalesTxt: ['47.000', '8.000', '3.500', '0', '2.570', '53.000'],
           genderDistribution: [19, 81]
         }, {
           name: 'Classic Picnic Bag',
@@ -204,7 +195,6 @@ class App extends Component {
           price: '$56.00',
           uid: 'bag9',
           continentSales: ['11500', '50', '300', '8000', '0', '2500'],
-          continentSalesTxt: ['11.500', '50', '3000', '8.000', '0', '2.500'],
           genderDistribution: [50, 50]
         }
       ],
@@ -229,7 +219,6 @@ class App extends Component {
       product.description = detail.description;
       product.filter = detail.filter;
       product.continentSales = detail.continentSales;
-      product.continentSalesTxt = detail.continentSalesTxt;
       product.genderDistribution = detail.genderDistribution;
       product.hotspots = detail.hotspots;
       data[index] = product;
@@ -248,7 +237,6 @@ class App extends Component {
           description: detail.description,
           filter: detail.filter,
           continentSales: detail.continentSales,
-          continentSalesTxt: detail.continentSalesTxt,
           genderDistribution: detail.genderDistribution,
           hotspots: detail.hotspots,
         }]),
