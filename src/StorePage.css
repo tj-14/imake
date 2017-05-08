@@ -176,3 +176,15 @@
   height: 100px;
   width: 100px;
 }
+
+.Grayscale{
+  filter: grayscale(100%);
+}
+
+.Brightness{
+  filter: brightness(3);
+}
+
+.Sepia{
+  filter: sepia(100%);
+}

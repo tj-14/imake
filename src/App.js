@@ -138,7 +138,8 @@ class App extends Component {
           uid: 'bag1',
           description: "Fancy shmancy straw for divas! Available only in beige and black, but fabulous with any outfits.",
           continentSales: ['1500', '50000', '3000', '0', '0', '200'],
-          genderDistribution: [40, 60]
+          genderDistribution: [40, 60],
+          filter: [1,0,0,0,0,0],
         }, {
           name: 'Handwoven Picnic Bag',
           media: [image2],
