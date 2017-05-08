@@ -17,10 +17,11 @@
 
 .leftViewTab {
   position: relative;
-  top: 100px;
+  top: 108px;
+  height: 50px;
+  max-height: 50px;
   background-color: #FFE3C8;
-  height: 3em;
-  width: 80%;
+  margin:0 80px 0 0;
 }
 
 .leftViewTab:hover {
@@ -28,13 +29,18 @@
   cursor: pointer;
 }
 
-.leftViewText {
-  position: absolute;
-  top: 50%;
-  line-height: 0;
-  left: 0;
-  right: 0;
-  color: #555;
+.leftViewTextStorePage {
+  display: block;
+  text-align: center;
+  line-height: 50px;
+  color: black;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.leftViewTextStorePage:hover {
+  text-decoration: none;
+  color:black;
 }
 
 .ShopTitle{
@@ -109,7 +115,6 @@
   padding-top: 0px;
   padding-bottom: 0px;
 }
-
 
 .TextOverlay{
 /*  border:1px solid green;*/

@@ -101,13 +101,11 @@ class StorePage extends Component {
     return (
       <div className="StorePage">
         <div className="StorePage-Left">
-          <Link to="/story">
-            <div className="leftViewTab">
-              <div className="leftViewText">
-                View Story
-              </div>
-            </div>
-          </Link>
+          <div className="leftViewTab">
+            <Link className="leftViewTextStorePage" to="/story">
+            View Story
+            </Link>
+          </div>
         </div>
         <div className="StorePage-Mid">
           <div>
