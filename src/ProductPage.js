@@ -102,13 +102,19 @@ class Cube extends Component {
 
 
 class NewProductPage extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.mouseOverFilter = this.mouseOverFilter.bind(this);
-    this.mouseOverDone = this.mouseOverDone.bind(this);
+    this.mouseOverAll = this.mouseOverAll.bind(this);
+    this.mouseOverOff = this.mouseOverOff.bind(this);
     this.arrowButton = this.arrowButton.bind(this);
     this.mouseOverMap = this.mouseOverMap.bind(this);
     this.handleMouseEnterOnSector = this.handleMouseEnterOnSector.bind(this);
+    this.peekClick = this.peekClick.bind(this);
+    this.peekHide = this.peekHide.bind(this);
+    this.filterClick = this.filterClick.bind(this);
+    this.filterHide = this.filterHide.bind(this);
+
 
     this.state = {
       img: Array(6).fill(null),
@@ -125,11 +131,17 @@ class NewProductPage extends Component {
       hoveredHotSpotImg: null,
       isChoosingFilter: false,
       filter: 0,
+      applyFilterAll: false,
       redirect: null,
       continentSales: ['0', '0', '0', '0', '0', '0'],
       genderDistribution: [50, 50],
       expandedSector: null,
       isExistingProduct: false,
+      peekaboo: false,
+      peekaboo_class: "cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left",
+      peekaboo_tab: "leftViewTabShow leftViewTabTransition",
+      peekaboo_text: "VIEW STORE",
+      filter_class:"cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left",
     };
 
 
@@ -146,7 +158,30 @@ class NewProductPage extends Component {
     this.handleSave =
       this.handleSave.bind(this);
   }
-  
+
+  peekClick = () => {
+    this.setState({ peekaboo: true, 
+                    peekaboo_class: "cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left cbp-spmenu-open",
+                    peekaboo_tab: "leftViewTabTransition leftViewTabHide",
+                    peekaboo_text: "HIDE"});
+  }
+
+  peekHide = () => {
+    this.setState({ peekaboo: false, 
+                    peekaboo_class: "cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left",
+                    peekaboo_tab: "leftViewTabTransition leftViewTabShow",
+                    peekaboo_text: "Show Store"});
+  }
+
+  filterClick = () => {
+    this.setState({ isChoosingFilter: true, 
+                    filter_class: "cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left cbp-spmenu-open"});
+  }
+
+  filterHide = () => {
+    this.setState({ isChoosingFilter: false, 
+                    filter_class: "cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"});
+  }
   mouseOverOriginal = () => {
         this.setState({original: true, filter1: false, filter2: false, filter3: false});}
 
@@ -199,8 +234,12 @@ class NewProductPage extends Component {
     })
   }
 
-  mouseOverDone(){
-    this.setState({isChoosingFilter: false});
+  mouseOverAll(){
+    this.setState({applyFilterAll: true});
+  }
+  
+  mouseOverOff(){
+    this.setState({applyFilterAll: false});
   }
   
   arrowButton(next_sid){
@@ -385,26 +424,6 @@ class NewProductPage extends Component {
     } else if (this.state.isChoosingFilter) {
       dropPicBoxChild = 
         <div className= "ImgZone">
-                  <div className = "WhiteColumn"> </div>
-                  <div className = "Original" onClick={this.mouseOverFilter.bind(this, 0)}>
-                    <img className="PicBox" src={this.state.img[sid-1]} />
-                  </div>
-
-                  <div className = "Filter1" onClick={this.mouseOverFilter.bind(this, 1)}>
-                    <img className="PicBoxGrayscale" src={this.state.img[sid-1]} />
-                  </div>
-
-                  <div className = "Filter2" onClick={this.mouseOverFilter.bind(this, 2)}>
-                    <img className="PicBoxBrightness" src={this.state.img[sid-1]} />
-                  </div>
-
-                  <div className = "Filter3" onClick={this.mouseOverFilter.bind(this, 3)}>
-                    <img className="PicBoxSepia" src={this.state.img[sid-1]} />
-                  </div>
-
-                  <button type="button" className="btn btn-secondary DoneFilter" onClick={this.mouseOverDone}>
-                    Done Editing
-                  </button>
                   <div>
                     <img className={picBoxClass} src={this.state.img[sid-1]} />
                   </div> 
@@ -513,6 +532,83 @@ class NewProductPage extends Component {
                         ];
 
     const heatmap_insert = <ReactHeatmap max={5} data={heat_data} />
+
+
+    const productNode = this.props.data.map((product) => {
+        return (
+          <Product value={product}/>
+        )
+    });
+
+    const peekabooFilter = <div className="layoutFilter">
+      {this.state.isChoosingFilter ? (
+              <div className="leftFilterHide" onClick={this.filterHide}>
+                  <img className="storeIcon" src={store_icon_close} />
+                <div className="leftViewText">CLOSE</div>
+              </div>
+              ) : (
+              <div className="leftFilterShow" onClick={this.filterClick}>
+                  <img className="storeIcon" src={store_icon} />
+                  <div className="leftViewText">EDIT</div>
+              </div>
+              )}
+      {<div className={this.state.filter_class}>
+              <div className="filterContainer">
+                  <div className = "Original" onClick={this.mouseOverFilter.bind(this, 0)}>
+                    <img className="PicBox" src={this.state.img[sid-1]} />
+                  </div>
+
+                  <div className = "Filter1" onClick={this.mouseOverFilter.bind(this, 1)}>
+                    <img className="PicBoxGrayscale" src={this.state.img[sid-1]} />
+                  </div>
+
+                  <div className = "Filter2" onClick={this.mouseOverFilter.bind(this, 2)}>
+                    <img className="PicBoxBrightness" src={this.state.img[sid-1]} />
+                  </div>
+
+                  <div className = "Filter3" onClick={this.mouseOverFilter.bind(this, 3)}>
+                    <img className="PicBoxSepia" src={this.state.img[sid-1]} />
+                  </div>
+                  {this.state.applyFilterAll? (
+                    <div className="applyButton-clicked" onClick={this.mouseOverOff}>
+                        Cancel Apply to All
+                      </div>):
+                    (<div className="applyButton" onClick={this.mouseOverAll}>
+                        Apply to All
+                      </div>)}
+              </div>
+      </div>}
+    </div>;
+
+    const peekabooStore = <div classname="layoutStore">
+            {this.state.peekaboo ? (
+              <div className="leftViewTabHide" onClick={this.peekHide}>
+                  <img className="storeIcon" src={store_icon_close} />
+                <div className="leftViewText">HIDE</div>
+              </div>
+              ) : (
+              <div className="leftViewTabShow" onClick={this.peekClick}>
+                  <img className="storeIcon" src={store_icon} />
+                  <div className="leftViewText">VIEW STORE</div>
+              </div>
+              )}
+          <div className={this.state.peekaboo_class}>
+            <div>
+                <Link to={"/"}>
+                  <b>Spring Naturals</b>
+                </Link>
+            </div>
+            {productNode}
+          </div>
+         {/* </Link> */}
+        </div>;
+
+    const peekabooAll = <div className="ProductPage-Left">
+      {peekabooStore}
+      {peekabooFilter}
+      </div>;
+
+
     // Set colors for continents:
     for (var i=0; i < 6; i++) {
         var salesCount =  this.state.continentSales[i]
@@ -539,7 +635,10 @@ class NewProductPage extends Component {
     const {expandedSector} = this.state
     
     return (
-      <div style={{width: "100%"}}>
+
+      <div className="ProductPage">
+      {peekabooAll}
+      <div style={{flex: 4, width: "100%"}}>
         <div className="productNameRow">
           {productNameDiv}
           <div className="ProductPage-Right"></div>
@@ -633,6 +732,7 @@ class NewProductPage extends Component {
           <div className="ProductPage-Right"></div>
         </div>
       </div>
+      </div>
     );
   }
 }
@@ -711,68 +811,15 @@ class ReviewBlock extends Component {
 }
 
 class ProductPage extends Component {
-  constructor(props) {
-    super(props);
-    this.peekClick = this.peekClick.bind(this);
-    this.peekHide = this.peekHide.bind(this);
-
-    this.state = {
-      peekaboo: false,
-      peekaboo_class: "cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left",
-      peekaboo_tab: "leftViewTabShow leftViewTabTransition",
-      peekaboo_text: "VIEW STORE",
-    };
-  }
-  
-  peekClick = () => {
-    this.setState({ peekaboo: true, 
-                    peekaboo_class: "cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left cbp-spmenu-open",
-                    peekaboo_tab: "leftViewTabTransition leftViewTabHide",
-                    peekaboo_text: "HIDE"});
-  }
-
-  peekHide = () => {
-    this.setState({ peekaboo: false, 
-                    peekaboo_class: "cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left",
-                    peekaboo_tab: "leftViewTabTransition leftViewTabShow",
-                    peekaboo_text: "Show Store"});
-  }
 
   render() {
-    const productNode = this.props.data.map((product) => {
-        return (
-          <Product value={product}/>
-        )
-    });
 
     return (
       <div className="ProductPage">
-        <div className="ProductPage-Left">
-            {this.state.peekaboo ? (
-              <div className="leftViewTabHide" onClick={this.peekHide}>
-                <img className="storeIcon" src={store_icon_close} />
-                <div className="leftViewText">HIDE</div>
-              </div>
-              ) : (
-              <div className="leftViewTabShow" onClick={this.peekClick}>
-                <img className="storeIcon" src={store_icon} />
-                <div className="leftViewText">VIEW STORE</div>
-              </div>
-              )};
-          <div className={this.state.peekaboo_class}>
-            <div>
-                <Link to={"/"}>
-                  <b>Spring Naturals</b>
-                </Link>
-            </div>
-            {productNode}
-          </div>
-         {/* </Link> */}
-        </div>
         <div className="ProductPage-Mid">
           <Router>
             <div style={{width: "100%"}}>
-              <Route exact path="/newproduct" render={(props) => (<NewProductPage {...props} addNewData={this.props.addNewData} reviewData={this.props.reviewData}/>)}/>
+              <Route exact path="/newproduct" render={(props) => (<NewProductPage {...props} addNewData={this.props.addNewData} data={this.props.data} reviewData={this.props.reviewData}/>)}/>
               <Route path="/products/:uid" render={(props) => (<NewProductPage {...props} addNewData={this.props.addNewData} data={this.props.data} reviewData={this.props.reviewData}/>)}/>
             </div>
           </Router>

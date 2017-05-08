@@ -1,3 +1,32 @@
+
+.leftFilterShow {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  position: absolute;
+  top: 300px;
+  background-color: #FFE3C8;
+  height: 7em;
+  width: 50%;
+  left: -10px;
+  z-index: 500;
+}
+
+
+.leftFilterHide {
+  position: absolute;
+  top: 300px;
+  background-color: #FFE3C8;
+  height: 7em;
+  width: 50%;
+  left: 280px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  z-index: 500;
+};
+
+
 .Product_Left{
   -webkit-transition: width 0.6s; /* Safari */
   transition: width 0.6s;
@@ -131,6 +160,7 @@
 
 .PicBox{
   width: 100%;
+  height: 100%;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -524,40 +554,42 @@ object:hover {
 }
 
 
+.filterContainer{
+  position: absolute;
+  width:100%;
+  height:100%;
+  background-color: white;
+}
+
 .Original{
-      top: 10px;
       position: absolute;
-      height: 100px;
-      left: 10px;
-      width: 150px;
+      height: 180px;
+      width: 100%;
       z-index:4;
     }
 
 
 .Filter1{
       position: absolute;
-      left: 10px;
-      top: 130px;
-      height: 100px;
-      width: 150px;
+      top: 180px;
+      height: 180px;
+      width: 100%;
       z-index:4;
     }
 
 .Filter2{
       position: absolute;
-      left: 10px;
-      top: 250px;
-      height: 100px;
-      width: 150px;
+      top: 360px;
+      height: 180px;
+      width: 100%;
       z-index:4;
     }
 
 .Filter3{
       position: absolute;
-      left: 10px;
-      top: 370px;
-      height: 100px;
-      width: 150px;
+      top: 540px;
+      height: 180px;
+      width: 100%;
       z-index:4;
     }
 
@@ -567,10 +599,10 @@ object:hover {
 
 .DoneFilter{
       position: absolute;
-      left: 10px;
-      top: 500px;
+      left: 0px;
+      top: 725px;
       height: 40px;
-      width: 150px;
+      width: 100%;
       background-color: #cc2900;
       z-index:4;
       text-align: center;
@@ -580,6 +612,7 @@ object:hover {
 
 .PicBoxGrayscale{
   width: 100%;
+  height: 100%;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -592,6 +625,7 @@ object:hover {
 
 .PicBoxBrightness{
   width: 100%;
+  height: 100%;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -603,6 +637,7 @@ object:hover {
 
 .PicBoxSepia{
   width: 100%;
+  height: 100%;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -708,16 +743,16 @@ object:hover {
 };
 
 
-.storeIcon{
+.storeIcon {
   position: absolute;
-  
-}
+  left: 20%;
+};
 
 
 .leftViewTabHide:hover {
   background-color: #FFCE9F;
   cursor: pointer;
-}
+};
 
 .leftViewTabShow:hover {
   background-color: #FFCE9F;
@@ -731,16 +766,15 @@ object:hover {
   position: absolute;
   top: 85%;
   line-height: 0;
-  left: 0;
-  right: 0;
   color: #555;
+  left: 20%;
 }
 
 
 .StoreLogo{
   height: 50px;
   width: 50px;
-}
+};
 
 
 
@@ -760,29 +794,102 @@ object:hover {
 
 .goHome a:hover {
   background: #ad3f00;
-}
+};
 
 .goHome a:active {
   background: #ffb682;
   color: #da8b47;
-}
+};
 
 
 .PicBoxGrayscaleSamePos{
   filter: grayscale(100%);
-}
+};
 
 .PicBoxBrightnessSamePos{
   filter: brightness(3);
-}
+};
 
 .PicBoxSepiaSamePos{
   filter: sepia(100%);
-}
+};
 
 
 .heatMap{
   position: absolute;
   width: 100%;
   height: 100%;
+};
+
+
+.layoutFilter {
+  position: absolute;
+  height:100%;
+  width:100%;
+  left: 0px;
+  right:0px;
+  background-color: red;
+};
+
+.layoutStore {
+  position: absolute;
+  height:100%;
+  width:100%;
+  top:0px;
+  left:0px;
+}
+
+
+.leftFilterHide:hover {
+  background-color: #FFCE9F;
+  cursor: pointer;
+}
+
+.leftFilterShow:hover {
+  background-color: #FFCE9F;
+  cursor: pointer;
+  left:0px;
+}
+
+.applyButton {
+      position: absolute;
+      left: 0px;
+      top: 720px;
+      height: 40px;
+      width: 100%;
+      text-align: center;
+      vertical-align: middle;
+      color: white;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  background: #ff974f;
+  font-size: 14px;
+  z-index:500;
+}
+
+
+.applyButton:hover {
+  background-color: #542200;
+}
+
+.applyButton-clicked {
+      position: absolute;
+      left: 0px;
+      top: 720px;
+      height: 40px;
+      width: 100%;
+      text-align: center;
+      vertical-align: middle;
+      color: white;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  background: #ad3f00;
+  font-size: 14px;
+  z-index:500;
+}
+
+.applyButton-clicked:hover {
+  background-color: #542200;
 }
