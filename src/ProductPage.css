@@ -45,7 +45,7 @@
 }
 
 .ProductPage-Mid-Right{
-  flex: 4;
+  flex: 3;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -57,7 +57,7 @@
 }
 
 .NewProductPage-Mid {
-  flex: ;
+  flex: 3;
 }
 
 .NewProductPage-Right{
@@ -73,14 +73,16 @@
 
 .DropPicBox{
   display: flex;
-  border: 2px dashed grey;
   text-align: center;
   position: relative;
+  padding: 25px;
+  margin: 25px;
 }
 
 .DropZone {
   flex: 1;
   background-color: #EEE;
+  border: 2px dashed grey;
   position: relative;
   height: 570px;
   overflow: hidden;
@@ -106,8 +108,8 @@
 
 .ImgZone {
   flex: 1;
-  background-color: #EEE;
   position: relative;
+  border: 2px solid grey;
   height: 570px;
   overflow: hidden;
 }
@@ -155,7 +157,8 @@
 
 .arrowLeft, .arrowUp, .arrowRight, .arrowDown {
   color: #999;
-  font-size: 1.2em; 
+  font-size: 40px; 
+  position: absolute;
 }
 
 .arrowLeft:hover, .arrowUp:hover, .arrowRight:hover, .arrowDown:hover {
@@ -164,28 +167,23 @@
 }
 
 .arrowLeft {
-  position: absolute;
-  font-weight: 500;
-  left: 0;
-  top: 50%;
+  left: -20px;
+  top: 47%;
 }
 
 .arrowUp {
-  position: absolute;
-  left: 49%;
-  top: 0;
+  left: 47%;
+  top: -30px;
 }
 
 .arrowRight {
-  position: absolute;
-  right: 0;
-  top: 50%;
+  right: -20px;
+  top: 47%;
 }
 
 .arrowDown {
-  position: absolute;
-  bottom: 0;
-  left: 49%;
+  bottom: -30px;
+  left: 47%;
 }
 
 .hotspotButtonDiv{
@@ -199,6 +197,7 @@
 
 .productNameRow {
   display: flex;
+  margin-top: 10px;
 }
 
 .productName, .productNameInput {
@@ -294,6 +293,7 @@ input.currency {
 
 .descriptionDiv {
   margin-top: 10px;
+  padding-top: 20px;
 }
 
 .descriptionInput {
@@ -325,9 +325,12 @@ input.currency {
 }
 
 .reviews, .buttons {
-  flex: 2;
   position: relative;
   margin-top: 15px;
+}
+
+.reviews {
+  min-height: 400px;
 }
 
 .reviewTabs {
