@@ -132,8 +132,6 @@ class NewProductPage extends Component {
       isExistingProduct: false,
     };
 
-
-    
     this.onDrop = this.onDrop.bind(this);
     this.handleAddHotSpotDiv = 
       this.handleAddHotSpotDiv.bind(this);
@@ -146,15 +144,6 @@ class NewProductPage extends Component {
     this.handleSave =
       this.handleSave.bind(this);
   }
-  
-  mouseOverOriginal = () => {
-        this.setState({original: true, filter1: false, filter2: false, filter3: false});}
-
-  mouseOverFilter1 = () => {
-        this.setState({original: false, filter1: true, filter2: false, filter3: false});}
-
-  mouseOverFilter2 = () => {
-        this.setState({original: false, filter1: false, filter2: true, filter3: false});}
 
   componentWillMount() {
     if('uid' in this.props.match.params){
@@ -758,7 +747,7 @@ class ProductPage extends Component {
                 <img className="storeIcon" src={store_icon} />
                 <div className="leftViewText">VIEW STORE</div>
               </div>
-              )};
+              )}
           <div className={this.state.peekaboo_class}>
             <div>
                 <Link to={"/"}>
