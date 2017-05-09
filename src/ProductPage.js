@@ -325,7 +325,7 @@ class NewProductPage extends Component {
   hotSpotOnDrop(acceptedFiles){
     const hotSpots = this.state.hotSpots.slice();
     const sid = this.state.sid;
-    hotSpots[sid] = hotSpots[sid].concat([{
+    hotSpots[sid-1] = hotSpots[sid-1].concat([{
         curX: this.state.curX,
         curY: this.state.curY,
         img: acceptedFiles[0].preview,
@@ -448,7 +448,7 @@ class NewProductPage extends Component {
     
 
 
-    const hotSpots = this.state.hotSpots[sid].map((hotSpot) => {
+    const hotSpots = this.state.hotSpots[sid-1].map((hotSpot) => {
       const styles = {
         top: hotSpot.curY,
         left: hotSpot.curX,
