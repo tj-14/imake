@@ -6,32 +6,31 @@ import store_logo from './images/product_images/store-logo.jpg'
 
 class Product extends Component {
   constructor(props) {
-        super(props);
-        // 1. bind your functions in the constructor.
-        this.mouseOver = this.mouseOver.bind(this);
-        this.mouseOut = this.mouseOut.bind(this);
-        this.state = {
-            hover: false
-        };
-    }
-
-    // 2. bind it with fat arrows.
-    mouseOver = () => {
-        this.setState({hover: true});
-    }
-    mouseOut() {
-        this.setState({hover: false});
-    }
+    super(props);
+    this.mouseOver = this.mouseOver.bind(this);
+    this.mouseOut = this.mouseOut.bind(this);
+    this.state = {
+      hover: false,
+    };
+  }
+  
+  mouseOver(){
+    this.setState({hover: true});
+  }
+  mouseOut() {
+    this.setState({hover: false});
+  }
 
   render() {
+    const picBoxClass = ["","Grayscale","Brightness","Sepia"][this.props.value.filter ? this.props.value.filter[0] : 0];
     return (
       <div className="ProductDiv">
         <Link to={"/products/"+this.props.value.uid}>
-            <button className="Product" onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
+            <button className={"Product "+picBoxClass} onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
               {this.state.hover ? (
                 <div>
-                  <img className="ImageGrid ImageOverlay" src={this.props.value.media[0]}/>
-                  <div className="TextOverlay">
+                  <img className="ImageGrid ImageOverlayStorePage" src={this.props.value.media[0]}/>
+                  <div className="TextOverlayStorePage">
                     <p><b>{this.props.value.name}</b></p>
                     <p>{this.props.value.price}</p>
                   </div>
@@ -51,22 +50,20 @@ class Product extends Component {
 
 class NewProduct extends Component {
   constructor(props) {
-        super(props);
-        // 1. bind your functions in the constructor.
-        this.mouseOver = this.mouseOver.bind(this);
-        this.mouseOut = this.mouseOut.bind(this);
-        this.state = {
-            hover: false
-        };
-    }
-
-    // 2. bind it with fat arrows.
-    mouseOver(){
-        this.setState({hover: true});
-    }
-    mouseOut() {
-        this.setState({hover: false});
-    }
+    super(props);
+    this.mouseOver = this.mouseOver.bind(this);
+    this.mouseOut = this.mouseOut.bind(this);
+    this.state = {
+        hover: false
+    };
+  }
+  
+  mouseOver(){
+    this.setState({hover: true});
+  }
+  mouseOut() {
+    this.setState({hover: false});
+  }
   render() {
     return (
       <div className="ProductDiv">
@@ -74,8 +71,8 @@ class NewProduct extends Component {
             <button className="Product" onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
               {this.state.hover ? (
                   <div>
-                    <img className="ImageGrid ImageOverlay" src={add_product} />
-                    <div className="TextOverlay">
+                    <img className="ImageGrid ImageOverlayStorePage" src={add_product} />
+                    <div className="TextOverlayStorePage">
                       <p><b>Add Item</b></p>
                     </div>
                   </div>) 
@@ -95,13 +92,13 @@ class StorePage extends Component {
   render() {
     const productNode = this.props.data.map((product) => {
         return (
-          <Product value={product}/>
+          <Product value={product} key={product.uid}/>
         )
     });
     return (
       <div className="StorePage">
         <div className="StorePage-Left">
-          <div className="leftViewTab">
+          <div className="leftViewTabStorePage">
             <Link className="leftViewTextStorePage" to="/story">
             View Story
             </Link>

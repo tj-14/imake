@@ -430,6 +430,8 @@ class App extends Component {
           continentSales: ['1500', '50000', '3000', '0', '0', '200'],
           genderDistribution: [40, 60],
           heatmap_data:   [heat_map3, heat_map2, null, null, null, generate_random_map()],
+          filter: [1,0,0,0,0,0],
+          hotspots: null,
         }, {
           name: 'Handwoven Picnic Bag',
           media: [image2],
@@ -439,6 +441,7 @@ class App extends Component {
           continentSales: ['20500', '5000', '1000', '500', '0', '20000'],
           genderDistribution: [30, 70],
           heatmap_data:   [generate_random_map()],
+          hotspots: null,
         }, {
           name: 'Red Glamour Bag',
           media: [image3],

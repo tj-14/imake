@@ -7,7 +7,7 @@
   top: 300px;
   background-color: #ffeba5;
   height: 7em;
-  width: 40%;
+  width: 125px;
   left: -10px;
   z-index: 500;
 }
@@ -18,7 +18,7 @@
   top: 300px;
   background-color: #ffeba5;
   height: 7em;
-  width: 15%;
+  width: 42px;
   left: 280px;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
@@ -35,7 +35,7 @@
   top: 400px;
   background-color: #c8caff;
   height: 7em;
-  width: 40%;
+  width: 125px;
   left: -10px;
   z-index: 500;
 }
@@ -46,7 +46,7 @@
   top: 400px;
   background-color: #c8caff;
   height: 7em;
-  width: 15%;
+  width: 42px;
   left: 280px;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
@@ -76,6 +76,36 @@
   cursor: pointer;
   left:0px;
 }
+
+
+.leftViewTabHide {
+  position: absolute;
+  top: 100px;
+  background-color: #FFE3C8;
+  height: 7em;
+  width: 50%;
+  left: 280px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  z-index: 500;
+
+}
+
+/*.leftViewTabShow {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  position: absolute;
+  top: 100px;
+  background-color: #FFE3C8;
+  height: 7em;
+  width: 50%;
+  left: -10px;
+  z-index: 500;
+
+};
+*/
 
 
 .Product_Left{
@@ -145,7 +175,7 @@
 }
 
 .cubeDiv {
-  zoom: 40%;
+  zoom: 50%;
   position: absolute;
   right: 0px;
   bottom: 0px;
@@ -635,7 +665,6 @@ body {
 /*
 .cube > div:hover {
   cursor: pointer; }
-
 .cube > div:active {
   cursor: pointer; }
 */
@@ -884,7 +913,7 @@ object:hover {
   top: 100px;
   background-color: #FFE3C8;
   height: 7em;
-  width: 15%;
+  width: 42px;
   left: 280px;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
@@ -901,12 +930,11 @@ object:hover {
   top: 100px;
   background-color: #FFE3C8;
   height: 7em;
-  width: 40%;
+  width: 125px;
   left: -10px;
   z-index: 500;
 
 }
-
 
 .storeIcon {
   position: absolute;

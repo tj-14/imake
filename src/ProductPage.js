@@ -134,12 +134,12 @@ class NewProductPage extends Component {
       descriptionInput: "",
       isEditing: true,
       isAddingHotspot: false,
-      hotSpots: Array(0),
+      hotSpots: Array(6).fill(Array(0)),
       curX: null,
       curY: null,
       hoveredHotSpotImg: null,
       isChoosingFilter: false,
-      filter: 0,
+      filter: Array(6).fill(0),
       applyFilterAll: false,
       redirect: null,
       continentSales: ['0', '0', '0', '0', '0', '0'],
@@ -228,8 +228,8 @@ class NewProductPage extends Component {
 
   mouseOverFilter2 = () => {
         this.setState({original: false, filter1: false, filter2: true, filter3: false});}
-
-  componentWillMount() {
+  
+  checkIfProductExisted() {
     if('uid' in this.props.match.params){
       const uid = this.props.match.params.uid;
       const products = this.props.data;
@@ -246,13 +246,22 @@ class NewProductPage extends Component {
         priceInput: product.price,
         descriptionInput: product.description,
         img: product.media,
-        filter: product.filter || 0,
+        filter: product.filter || Array(6).fill(0),
         continentSales: product.continentSales || ['0', '0', '0', '0', '0', '0'],
         genderDistribution: product.genderDistribution || [50, 50],
-        hotSpots: product.hotspots || Array(0),
         heatmap_data: product.heatmap_data || [],
+        hotSpots: product.hotspots || Array(6).fill(Array(0)),
+        heatMap: true,
       })
     }
+  }
+
+  componentWillMount() {
+    this.checkIfProductExisted();
+  }
+
+  componentWillReceiveProps() {
+    this.checkIfProductExisted();
   }
 
   mouseOverMap(){
@@ -267,13 +276,19 @@ class NewProductPage extends Component {
   }
   
   mouseOverFilter(sf){
+    const filter = this.state.filter.slice()
+    filter[this.state.sid-1] = sf
     this.setState({
-      filter: sf,
+      filter: filter,
     })
   }
 
   mouseOverAll(){
-    this.setState({applyFilterAll: true});
+    const filter = Array(6).fill(this.state.filter[this.state.sid-1]);
+    this.setState({
+      applyFilterAll: true,
+      filter: filter,
+    });
   }
   
   mouseOverOff(){
@@ -309,12 +324,14 @@ class NewProductPage extends Component {
   
   hotSpotOnDrop(acceptedFiles){
     const hotSpots = this.state.hotSpots.slice();
-    this.setState({
-      hotSpots: hotSpots.concat([{
+    const sid = this.state.sid;
+    hotSpots[sid] = hotSpots[sid].concat([{
         curX: this.state.curX,
         curY: this.state.curY,
         img: acceptedFiles[0].preview,
-      }]),
+      }]);
+    this.setState({
+      hotSpots: hotSpots,
     })
   }
   
@@ -402,7 +419,9 @@ class NewProductPage extends Component {
 
     let heat_data
     if (this.state.heatmap_data !== undefined){
-      heat_data =  this.state.heatmap_data[sid-1]
+      if(this.state.heatmap_data[sid-1] !==null){
+        heat_data =  this.state.heatmap_data[sid-1]
+      }
     } else {
       heat_data = []
     }
@@ -427,7 +446,9 @@ class NewProductPage extends Component {
     
     const submitButtonLabel = this.state.isEditing ? "Preview" : "Edit";
     
-    const hotSpots = this.state.hotSpots.map((hotSpot) => {
+
+
+    const hotSpots = this.state.hotSpots[sid].map((hotSpot) => {
       const styles = {
         top: hotSpot.curY,
         left: hotSpot.curX,
@@ -454,7 +475,7 @@ class NewProductPage extends Component {
     
     let isSubmitButtonDisable = (this.state.productNameInput == "") || (this.state.descriptionInput == "");
     
-    const picBoxClass = ["PicBox","PicBoxGrayscale","PicBoxBrightness","PicBoxSepia"][this.state.filter];
+    const picBoxClass = ["PicBox","PicBoxGrayscale","PicBoxBrightness","PicBoxSepia"][this.state.filter[sid-1]];
     let dropPicBoxChild;
     if (!this.state.isEditing) {
       dropPicBoxChild = 
@@ -724,7 +745,6 @@ class NewProductPage extends Component {
 }
 
 class ReviewButton extends Component {
-  
   render() {
     const reviewBtnClassName = "btn btn-secondary reviewBtn " + (this.props.isClicked ? "reviewBtnClicked" : "");
     return (
