@@ -95,6 +95,15 @@ class StorePage extends Component {
           <Product value={product} key={product.uid}/>
         )
     });
+    
+    // expected max number of items in a row is six
+    // this is a bit hacky for aligning items in the last row to grid (left, not center)
+    const emptyNode = [1,2,3,4,5,6].map(() => {
+      return(
+        <div className="emptyChild"></div>
+      )
+    });
+    
     return (
       <div className="StorePage">
         <div className="StorePage-Left">
@@ -114,6 +123,7 @@ class StorePage extends Component {
           <div className="Listing">
             <NewProduct />
             {productNode}
+            {emptyNode}
           </div>
         </div>
         <div className="StorePage-Right">
