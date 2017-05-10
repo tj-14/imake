@@ -122,7 +122,6 @@ class NewProductPage extends Component {
     super(props);
     this.mouseOverFilter = this.mouseOverFilter.bind(this);
     this.mouseOverAll = this.mouseOverAll.bind(this);
-    this.mouseOverOff = this.mouseOverOff.bind(this);
     this.arrowButton = this.arrowButton.bind(this);
     this.mouseOverMap = this.mouseOverMap.bind(this);
     this.handleMouseEnterOnSector = this.handleMouseEnterOnSector.bind(this);
@@ -162,7 +161,6 @@ class NewProductPage extends Component {
       hoveredHotSpotImg: null,
       isChoosingFilter: false,
       filter: Array(6).fill(0),
-      applyFilterAll: false,
       redirect: null,
       hotspotZoneClass: "HotSpotZone",
       continentSales: ['0', '0', '0', '0', '0', '0'],
@@ -197,6 +195,8 @@ class NewProductPage extends Component {
       this.hotspotMouseOut.bind(this);
     this.handleSave =
       this.handleSave.bind(this);
+    this.handleClickRemoveImageBtn =
+      this.handleClickRemoveImageBtn.bind(this);
   }
     mouseOverHover = () => {
         this.setState({hover_heatmap: true});
@@ -317,10 +317,15 @@ class NewProductPage extends Component {
       const uid = this.props.match.params.uid;
       const products = this.props.data;
       const product = products.filter(product => {
-          if(product.uid == uid) {
-            return product;
-          }
+        if(product.uid == uid) {
+          return product;
+        }
       })[0];
+      const sid = [1,2,3,4,5,6].filter(i => {
+        if(product.media[i-1] !== null){
+          return i;
+        }
+      })[0] || 1;
       this.setState({
         uid: uid,
         isExistingProduct: true,
@@ -335,6 +340,7 @@ class NewProductPage extends Component {
         heatmap_data: product.heatmap_data || [],
         hotSpots: product.hotspots || Array(6).fill(Array(0)),
         heatMap: true,
+        sid: sid,
       })
     }
   }
@@ -369,13 +375,8 @@ class NewProductPage extends Component {
   mouseOverAll(){
     const filter = Array(6).fill(this.state.filter[this.state.sid-1]);
     this.setState({
-      applyFilterAll: true,
       filter: filter,
     });
-  }
-  
-  mouseOverOff(){
-    this.setState({applyFilterAll: false});
   }
   
   arrowButton(next_sid){
@@ -495,6 +496,14 @@ class NewProductPage extends Component {
       })
     }
   }
+
+  handleClickRemoveImageBtn() {
+    const newImg = this.state.img.slice();
+    newImg[this.state.sid-1] = null;
+    this.setState({
+      img: newImg,
+    });
+  }
   
   render(){
     if (this.state.redirect != null) {
@@ -571,6 +580,11 @@ class NewProductPage extends Component {
       isHotspotButtonDisable = false;
     }
     
+    const removeImageButton = (this.state.isEditing && !this.state.isAddingHotspot && (this.state.img[sid-1] != null)) ? 
+      <div className="btn removeImageBtn" onClick={() => {if(confirm("Are you sure you want to delete this image and its hotspots?")) {this.handleClickRemoveImageBtn()};}}>
+        <div className="removeImageBtnLabel">{"\u00D7"}</div>
+      </div> : null;
+    
     const picBoxClass = ["PicBox","PicBoxGrayscale","PicBoxBrightness","PicBoxSepia"][this.state.filter[sid-1]];
     let dropPicBoxChild;
     if (!this.state.isEditing) {
@@ -598,9 +612,10 @@ class NewProductPage extends Component {
         <DropZone className="DropZone" onDrop={this.onDrop} accept='image/*'>
           {
             this.state.img[sid-1] ? (
-            <div>
+            <div className="DropZoneChild">
               <img className={picBoxClass} src={this.state.img[sid-1]} />
               {hotSpots}
+              
             </div>) 
             : 
             <div className="plusSign">+</div>
@@ -791,13 +806,9 @@ class NewProductPage extends Component {
                   <div className = "Filter3" onClick={this.mouseOverFilter.bind(this, 3)}>
                     <img className="PicBoxSepia" src={this.state.img[sid-1]} />
                   </div>
-                  {this.state.applyFilterAll? (
-                    <div className="applyButton-clicked" onClick={this.mouseOverOff}>
-                        Cancel Apply to All
-                      </div>):
-                    (<div className="applyButton" onClick={this.mouseOverAll}>
-                        Apply to All
-                      </div>)}
+                  <div className="btn btn-secondary applyButton" onClick={this.mouseOverAll}>
+                    Apply to All
+                  </div>
               </div>
       </div>}
     </div>;
@@ -846,14 +857,15 @@ class NewProductPage extends Component {
             <div className="cubeDiv">
               <Cube sid={this.state.sid} img={this.state.img} lastsid={this.state.lastsid} filter={this.state.filter}/>
             </div>
+            {removeImageButton}
 
             {
               !this.state.isAddingHotspot ?
                 <div>
-                  {next_sid[0] != null ? <div className="arrowLeft" onClick={this.arrowButton.bind(this, next_sid[0])}>{"\u25c0"}</div> : null}
-                  {next_sid[1] != null ? <div className="arrowUp" onClick={this.arrowButton.bind(this, next_sid[1])}>{"\u25b2"}</div> : null}
-                  {next_sid[2] != null ? <div className="arrowRight" onClick={this.arrowButton.bind(this, next_sid[2])}>{"\u25b6"}</div> : null}
-                  {next_sid[3] != null ? <div className="arrowDown" onClick={this.arrowButton.bind(this, next_sid[3])}>{"\u25bc"}</div> : null}
+                  {next_sid[0] != null ? <div className="arrowLeft noselect" onClick={this.arrowButton.bind(this, next_sid[0])}>{"\u25c0"}</div> : null}
+                  {next_sid[1] != null ? <div className="arrowUp noselect" onClick={this.arrowButton.bind(this, next_sid[1])}>{"\u25b2"}</div> : null}
+                  {next_sid[2] != null ? <div className="arrowRight noselect" onClick={this.arrowButton.bind(this, next_sid[2])}>{"\u25b6"}</div> : null}
+                  {next_sid[3] != null ? <div className="arrowDown noselect" onClick={this.arrowButton.bind(this, next_sid[3])}>{"\u25bc"}</div> : null}
                 </div>
               : null
             }
@@ -955,7 +967,7 @@ class ReviewBlock extends Component {
     
     return (
       <div className="reviews">
-        Reviews
+        <p>Reviews</p>
         <div className="reviewTabs">{reviewTabs}</div>
         {reviewDivs}
       </div>

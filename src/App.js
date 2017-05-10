@@ -434,7 +434,7 @@ class AppHeader extends Component {
           <div className="searchBtn" ref="search">
             <Dropdown options={this.options} onChange={this.callme} value={this.temp[0]} placeholder="" />    
           </div>
-          <div className="downArrow" onClick={this._handleClick.bind(this)}><p>▼</p></div>
+          <div className="downArrow" onClick={this._handleClick.bind(this)}><span>▼</span></div>
          </div>
         <div className="headerRightColumn"></div>
       </div>
@@ -574,6 +574,21 @@ class App extends Component {
     }
   }
   
+  removeItem(value) {
+    const data = this.state.data.slice();
+    const product = data.filter((elt) => {
+      if (elt == value) {
+        return elt;
+      }
+    })[0];
+    const index = data.indexOf(product);
+    data.splice(index, 1)
+    
+    this.setState({
+      data: data,
+    });
+  }
+  
   render() {
     
     return (
@@ -582,7 +597,7 @@ class App extends Component {
           <div>
             <Route path="/" component={AppHeader} />
 
-            <Route exact path="/" render={() => (<StorePage data={this.state.data}/>)}/>
+            <Route exact path="/" render={() => (<StorePage data={this.state.data} removeItem={(value) => this.removeItem(value)}/>)}/>
             <Route exact path="/newproduct" render={(props) => (<ProductPage {...props} data={this.state.data} addNewData={(detail) => this.addNewData(detail)} reviewData={reviewData}/>)}/>
             <Route path="/products/:uid" render={(props) => (<ProductPage {...props} data={this.state.data} addNewData={(detail) => this.addNewData(detail)} data={this.state.data} reviewData={reviewData}/>)}/>
             <Route path="/story" component={StoryPage} />

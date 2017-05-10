@@ -247,6 +247,7 @@
   border: 2px solid grey;
   height: 570px;
   overflow: hidden;
+
 }
 
 
@@ -331,14 +332,43 @@
   color: #999
 }
 
+.removeImageBtn {
+  font-size: 44px;
+  font-weight: 100;
+  line-height: 0;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  text-align: left;
+  color: rgba(100,100,100,0.8);
+  height: 40px;
+  width: 40px;
+  border: 2px solid rgba(100,100,100,0.8);
+  border-radius: 20px;
+  background-color: rgba(255,255,255,1.0);
+  z-index: 2;
+}
+
+.removeImageBtnLabel {
+  position: absolute;
+  top: 14px;
+  right: 3px;
+}
+
+.removeImageBtn:hover {
+  color: rgba(100,100,100,0.8);
+  background-color: #CCC;
+}
+
 .arrowLeft, .arrowUp, .arrowRight, .arrowDown {
-  color: #999;
+  color: #a04d25;
   font-size: 40px; 
   position: absolute;
 }
 
 .arrowLeft:hover, .arrowUp:hover, .arrowRight:hover, .arrowDown:hover {
-  color: #333;
+  color: #a04d25;
+  opacity: 0.6;
   cursor: pointer;
 }
 
@@ -362,7 +392,7 @@
   left: 47%;
 }
 
-.hotspotButtonDiv{
+.hotspotButtonDiv {
   position: absolute;
   left: 20px;
 }
@@ -451,6 +481,7 @@
 }
 
 .genderBox{
+  cursor: pointer;
   position: absolute;
   width: 100%;
   height:400px;
@@ -523,6 +554,7 @@ input.currency {
 }
 
 .continentDiv {
+  cursor: pointer;
   position: absolute;
   width:100%;
   z-index:500;
@@ -534,6 +566,7 @@ input.currency {
 
 .HeatMapButton {
   position: absolute;
+  cursor: pointer;
   top: 640px;
   width: 100%;
   z-index:505;
@@ -599,11 +632,17 @@ input.currency {
 
 .submitBtn {
   width: 100px;
+  border: 2px solid #a94d25;
+  background-color: rgba(255,222,195,0.3);
+  font-weight: bold;
 }
 
 .hotspotBtn {
   width: 180px;
   margin-right: 20px;
+  border: 2px solid #a94d25;
+  background-color: rgba(255,222,195,0.3);
+  font-weight: bold;
 }
 
 .reviews, .buttons {
@@ -617,6 +656,7 @@ input.currency {
 
 .reviewTabs {
   display: flex;
+  margin-bottom: 5px;
 }
 
 .reviewTab {
@@ -625,9 +665,9 @@ input.currency {
 }
 
 .reviewBtn {
+  border: 1px solid #a94d25;
   background-color: white;
   border-radius: 5px;
-  border: 1px solid grey;
   margin: auto;
   padding: 1px;
   width: 80%;
@@ -637,25 +677,39 @@ input.currency {
 }
 
 .reviewBtn.reviewBtnClicked {
-  background-color: #FFDEC3;
+  background-color: rgba(255,222,195,0.3);
+  border: 2px solid #a94d25;
+  outline:none;
 }
 
 .reviewBtn:hover, .reviewBtn:focus, .reviewBtn:active{
-  background-color: #FFDEC3;
+  background-color: rgba(255,222,195,0.3);
   color: #E88540;
+  border: 2px solid #a94d25;
 }
 
 .reviewText {
-  border: 1px solid #666;
+  border: 1px solid #a94d25;
+  border-radius: 5px;
   margin: auto;
   margin-bottom: 10px;
   padding: 5px;
-  width: 95%;
+  width: 96%;
   text-align: left;
+  background-color: rgba(255,222,195,0.3);
+}
+
+.reviews {
+  margin-top:30px;
+}
+
+.reviews p {
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .cubeimg {
-  border: 2px solid orange;
+  border: 3px solid #a94d25;
   max-height: 100%;
   width: auto;
   position: center;
@@ -727,6 +781,7 @@ body {
   user-select: none; }
 
 .cube > div > div.cube-image {
+  border: 3px solid #a94d25;
   width: 200px;
   height: 200px;
   -webkit-transform: rotate(180deg);
@@ -1178,14 +1233,14 @@ object:hover {
 }
 
 .applyButton {
-      position: absolute;
-      left: 0px;
-      top: 720px;
-      height: 40px;
-      width: 100%;
-      text-align: center;
-      vertical-align: middle;
-      color: white;
+  position: absolute;
+  left: 0px;
+  top: 720px;
+  height: 40px;
+  width: 100%;
+  text-align: center;
+  vertical-align: middle;
+  color: white;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   transition: all 0.3s ease;
@@ -1197,6 +1252,7 @@ object:hover {
 
 .applyButton:hover {
   background-color: #542200;
+  color: white;
 }
 
 .applyButton-clicked {
@@ -1472,4 +1528,13 @@ object:hover {
     background-color: #8bbfa3;
     opacity: 0.7;
     cursor: pointer;
+}
+
+.noselect {
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }
