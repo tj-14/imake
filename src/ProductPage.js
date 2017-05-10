@@ -313,10 +313,15 @@ class NewProductPage extends Component {
       const uid = this.props.match.params.uid;
       const products = this.props.data;
       const product = products.filter(product => {
-          if(product.uid == uid) {
-            return product;
-          }
+        if(product.uid == uid) {
+          return product;
+        }
       })[0];
+      const sid = [1,2,3,4,5,6].filter(i => {
+        if(product.media[i-1] !== null){
+          return i;
+        }
+      })[0] || 1;
       this.setState({
         uid: uid,
         isExistingProduct: true,
@@ -331,6 +336,7 @@ class NewProductPage extends Component {
         heatmap_data: product.heatmap_data || [],
         hotSpots: product.hotspots || Array(6).fill(Array(0)),
         heatMap: true,
+        sid: sid,
       })
     }
   }
