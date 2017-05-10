@@ -466,7 +466,6 @@ class App extends Component {
           continentSales: ['20500', '5000', '1000', '500', '0', '20000'],
           genderDistribution: [30, 70],
           heatmap_data:   [generate_random_map()],
-          hotspots: null,
         }, {
           name: 'Red Glamour Bag',
           media: [image3],
@@ -475,6 +474,7 @@ class App extends Component {
           continentSales: ['65', '1000', '33000', '60000', '6000', '2500'],
           genderDistribution: [80, 20],
           heatmap_data:   [generate_random_map()],
+
         }, {
           name: 'Brown Pull-Over Tote',
           media: [image4],

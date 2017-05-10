@@ -249,12 +249,52 @@
   overflow: hidden;
 }
 
+
+.HotSpotInvisible {
+ position: absolute;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  border-width: 0px;
+}
+
+
 .HotSpot {
   position: absolute;
-  width: 20px;
-  height: 20px;
-  background: black;
-  animation: HotSpotBlink 1s infinite; /* IE 10+, Fx 29+ */
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  opacity: .8;
+  border-width: 0px;
+}
+
+@-webkit-keyframes glowing {
+  0% {  -webkit-box-shadow: 0 0 5px #ffffff; }
+  50% {  -webkit-box-shadow: 0 0 40px #faff84; }
+  100% { -webkit-box-shadow: 0 0 5px #ffffff; }
+}
+
+@-moz-keyframes glowing {
+  0% {  -moz-box-shadow: 0 0 5px #ffffff; }
+  50% {  -moz-box-shadow: 0 0 40px #faff84; }
+  100% {  -moz-box-shadow: 0 0 5px #ffffff; }
+}
+
+@-o-keyframes glowing {
+  0% {  box-shadow: 0 0 5px #ffffff; }
+  50% { box-shadow: 0 0 40px #faff84; }
+  100% { box-shadow: 0 0 5px #ffffff; }
+}
+
+@keyframes glowing {
+  0% { box-shadow: 0 0 5px #ffffff; }
+  50% {  box-shadow: 0 0 40px #faff84; }
+  100% {  box-shadow: 0 0 5px #ffffff; }
+}
+
+.HotSpot {
+  -webkit-animation: glowing 2500ms infinite;
+  -moz-animation: glowing 2500ms infinite;
+  -o-animation: glowing 2500ms infinite;
+  animation: glowing 2500ms infinite;
 }
 
 .HotSpotImg {
@@ -1275,6 +1315,26 @@ object:hover {
   background-color: #435b34;
 }
 
+.errorWindow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 40%;
+  text-align: center;
+  font-size: 2em;
+  vertical-align: middle;
+}
+
+.errorWindow2 {
+  position: absolute;
+  width: 100%;
+  height: 350px;
+  top: 300px;
+  text-align: center;
+  font-size: 2em;
+  vertical-align: middle;
+  border-bottom: 1px solid #052b68;
+}
 
 
 .smallHotspot{
@@ -1286,6 +1346,15 @@ object:hover {
       border-bottom: 1px solid #052b68;
     }
 
+.smallHotspotSelected{
+      position: absolute;
+      top: 190px;
+      height: 120px;
+      width: 100%;
+      z-index:4;
+      border-bottom: 1px solid #052b68;
+      background-color: #8bbfa3;
+    }
 
 .mediumHotspot{
       position: absolute;
@@ -1294,6 +1363,16 @@ object:hover {
       width: 100%;
       z-index:4;
       border-bottom: 1px solid #052b68; 
+    }
+
+.mediumHotspotSelected{
+      position: absolute;
+      top: 310px;
+      height: 160px;
+      width: 100%;
+      z-index:4;
+      border-bottom: 1px solid #052b68; 
+      background-color: #8bbfa3;
     }
 
 .largeHotspot{
@@ -1305,7 +1384,24 @@ object:hover {
       border-bottom: 1px solid #052b68;
     }
 
+.largeHotspotSelected{
+      position: absolute;
+      top: 470px;
+      height: 180px;
+      width: 100%;
+      z-index:4;
+      border-bottom: 1px solid #052b68;
+      background-color: #8bbfa3;
+    }
+
+
 .smallHotspot:hover, .mediumHotspot:hover, .largeHotspot:hover {
+    background-color: #8bbfa3;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.smallHotspotSelected:hover, .mediumHotspotSelected:hover, .largeHotspotSelected:hover {
     background-color: #8bbfa3;
     opacity: 0.7;
     cursor: pointer;
@@ -1321,6 +1417,7 @@ object:hover {
       z-index:4;
       border: 2px dashed #052b68;
     }
+
 
   .mediumBox {
       position: absolute;

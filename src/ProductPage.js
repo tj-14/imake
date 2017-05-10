@@ -153,14 +153,18 @@ class NewProductPage extends Component {
       descriptionInput: "",
       isEditing: true,
       isAddingHotspot: false,
+      isDisabled: true,
       hotSpots: Array(6).fill(Array(0)),
       curX: null,
       curY: null,
+      height: null,
+      width: null,
       hoveredHotSpotImg: null,
       isChoosingFilter: false,
       filter: Array(6).fill(0),
       applyFilterAll: false,
       redirect: null,
+      hotspotZoneClass: "HotSpotZone",
       continentSales: ['0', '0', '0', '0', '0', '0'],
       genderDistribution: [50, 50],
       expandedSector: null,
@@ -205,24 +209,25 @@ class NewProductPage extends Component {
     }
 
   smallClick = () => {
-    this.state.hotspot_size == 1 ? 
-    (this.setState({ hotspot_size: 0}))
-    :
-    (this.setState({ hotspot_size: 1}))
+      this.state.hotspot_size == 1 ? 
+      (this.setState({ hotspot_size: 0, isAddingHotspot: false}))
+      :
+      (this.setState({ hotspot_size: 1, isAddingHotspot: true, hotspotZoneClass: "HotSpotZone"})
+    )
   }
 
   mediumClick = () => {
     this.state.hotspot_size == 2 ? 
-    (this.setState({ hotspot_size: 0}))
+    (this.setState({ hotspot_size: 0, isAddingHotspot: false}))
     :
-    (this.setState({ hotspot_size: 2}))
+    (this.setState({ hotspot_size: 2, isAddingHotspot: true, hotspotZoneClass: "HotSpotZone1"}))
   }
 
   largeClick = () => {
     this.state.hotspot_size == 3 ? 
-    (this.setState({ hotspot_size: 0}))
+    (this.setState({ hotspot_size: 0, isAddingHotspot: false}))
     :
-    (this.setState({ hotspot_size: 3}))
+    (this.setState({ hotspot_size: 3, isAddingHotspot: true, hotspotZoneClass: "HotSpotZone"}))
   }
 
 
@@ -247,6 +252,7 @@ class NewProductPage extends Component {
 
   hotspotHide = () => {
     this.setState({ peekaboo_hotspot: false, 
+                    hotspot_size: 0, isAddingHotspot: false,
                     hotspot_class: "cbp-spmenu-hotspot cbp-spmenu-vertical cbp-spmenu-left"});
   }
 
@@ -277,7 +283,7 @@ class NewProductPage extends Component {
   }
 
  mouseClickHotspot = () => {
-    this.state.hotspotButton ? this.setState({hotspotButton: false}) : this.setState({hotspotButton: true});
+    this.setState({hotspotButton: !this.state.hotspotButton});
   }
 
   mouseHotspotHover = () => {  
@@ -396,6 +402,8 @@ class NewProductPage extends Component {
     this.setState({
       curX: event.nativeEvent.pageX - (rect.left + window.scrollX),
       curY: event.nativeEvent.pageY - (rect.top + window.scrollY),
+      width: this.state.hotspot_size == 1 ? (70) : (this.state.hotspot_size == 2? 150 : 200),
+      height: this.state.hotspot_size == 1 ? (70) : (this.state.hotspot_size == 2? 100 :150),
     })
   }
   
@@ -405,6 +413,8 @@ class NewProductPage extends Component {
     hotSpots[sid-1] = hotSpots[sid-1].concat([{
         curX: this.state.curX,
         curY: this.state.curY,
+        width: this.state.width,
+        height: this.state.height,
         img: acceptedFiles[0].preview,
       }]);
     this.setState({
@@ -537,11 +547,14 @@ class NewProductPage extends Component {
       const styles = {
         top: hotSpot.curY,
         left: hotSpot.curX,
+        width: hotSpot.width,
+        height:hotSpot.height,
       }
       return (
         <div className="HotSpot" style={styles} onMouseEnter={this.hotspotMouseOver.bind(this, hotSpot.img)} onMouseLeave={this.hotspotMouseOut}/>
       )
     });
+
     
     var hotspotHint = null;
     let hotspotButtonLabel;
@@ -550,11 +563,11 @@ class NewProductPage extends Component {
       hotspotButtonLabel = "Add photo first!";
       isHotspotButtonDisable = true;
     } else if (this.state.isAddingHotspot) {
-      hotspotButtonLabel = "Done adding hotspots";
+      //hotspotButtonLabel = "Done adding hotspots";
       hotspotHint = "Click on image to add hotspot!";
       isHotspotButtonDisable = false;
     } else {
-      hotspotButtonLabel = "Add hotspots";
+      //hotspotButtonLabel = "Add hotspots";
       isHotspotButtonDisable = false;
     }
     
@@ -565,7 +578,7 @@ class NewProductPage extends Component {
         <div className="ImgZone">
           {this.state.heatmap_show? (<div className="heatMapShow">{heatmap_insert}</div>) : null}
           <img className={picBoxClass} src={this.state.img[sid-1]} />
-        {hotSpots}
+          {hotSpots}
       </div> 
     } else if (this.state.isAddingHotspot) {
       dropPicBoxChild = 
@@ -648,7 +661,11 @@ class NewProductPage extends Component {
                   <img className="analyticsIcon" src={hotspot_icon} />
               </div>
               )}
-      {<div className={this.state.hotspot_class}>
+      {isHotspotButtonDisable ? <div className={this.state.hotspot_class}>
+                                  <div className="errorWindow"> Please add an image to the right to use the hotspot menu! </div> </div>
+      :
+      
+      <div className={this.state.hotspot_class}>
                   <div className="hotspotHeader"><b>HOTSPOT MENU</b></div>
                   <div className="hotspotDetails">
                   iMake lets you add details to any part of the image by adding hotspots! Choose a size and then hover
@@ -656,17 +673,21 @@ class NewProductPage extends Component {
                   asking you to upload a photo. Add the detailed photo and then add a description. Hovering or clicking
                   a hotspot will reveal the details!
                   </div>
-                  <div className = "smallHotspot" onClick={this.smallClick.bind(this)}>
-                    <div className="smallBox"> </div>
+                  {this.state.isEditing ? 
+                  (<div><div className = {this.state.hotspot_size == 1 ? "smallHotspotSelected" : "smallHotspot"} onClick={this.smallClick.bind(this)} disabled={isHotspotButtonDisable}>
+                    <div className="smallBox"></div>
                   </div>
 
-                  <div className = "mediumHotspot" onClick={this.mediumClick.bind(this)}>
+                  <div className = {this.state.hotspot_size == 2 ? "mediumHotspotSelected" : "mediumHotspot"} onClick={this.mediumClick.bind(this)}>
                     <div className="mediumBox"> </div>
                   </div>
 
-                  <div className = "largeHotspot" onClick={this.largeClick.bind(this)}>
+                  <div className ={this.state.hotspot_size == 3 ? "largeHotspotSelected" : "largeHotspot"} onClick={this.largeClick.bind(this)}>
                     <div className="largeBox"> </div>
-                  </div>
+                  </div></div>) 
+                  :
+                  (<div className="errorWindow2"> Please enter editing mode to use hotspot editor. </div>)
+                }
 
                 <div className={this.state.hotspotButton? "hotspotVisibilityClick" : "hotspotVisibilityButton"} onMouseEnter={this.mouseHotspotHover.bind(this)} onMouseLeave={this.mouseHotspotOut.bind(this)} onClick={this.mouseClickHotspot.bind(this)}>
                   {this.state.hover_heatmap? (
@@ -840,12 +861,6 @@ class NewProductPage extends Component {
           
           {descriptionDiv}
           <div className="buttons">
-            <div className="hotspotButtonDiv">
-              <button type="button" className="btn btn-secondary hotspotBtn" onClick={() => this.handleClickHotspotBtn()} disabled={isHotspotButtonDisable}>
-                {hotspotButtonLabel}
-              </button>
-              {hotspotHint}
-            </div>
             {
               hasImgUploaded ?
               <div className="submitButtonDiv">
