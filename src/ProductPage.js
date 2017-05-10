@@ -193,6 +193,8 @@ class NewProductPage extends Component {
       this.hotspotMouseOut.bind(this);
     this.handleSave =
       this.handleSave.bind(this);
+    this.handleClickRemoveImageBtn =
+      this.handleClickRemoveImageBtn.bind(this);
   }
     mouseOverHover = () => {
         this.setState({hover_heatmap: true});
@@ -485,6 +487,14 @@ class NewProductPage extends Component {
       })
     }
   }
+
+  handleClickRemoveImageBtn() {
+    const newImg = this.state.img.slice();
+    newImg[this.state.sid-1] = null;
+    this.setState({
+      img: newImg,
+    });
+  }
   
   render(){
     if (this.state.redirect != null) {
@@ -558,6 +568,11 @@ class NewProductPage extends Component {
       isHotspotButtonDisable = false;
     }
     
+    const removeImageButton = (this.state.isEditing && (this.state.img[sid-1] != null)) ? 
+      <div className="btn removeImageBtn" onClick={() => this.handleClickRemoveImageBtn()}>
+        <div className="removeImageBtnLabel">{"\u00D7"}</div>
+      </div> : null;
+    
     const picBoxClass = ["PicBox","PicBoxGrayscale","PicBoxBrightness","PicBoxSepia"][this.state.filter[sid-1]];
     let dropPicBoxChild;
     if (!this.state.isEditing) {
@@ -585,9 +600,10 @@ class NewProductPage extends Component {
         <DropZone className="DropZone" onDrop={this.onDrop} accept='image/*'>
           {
             this.state.img[sid-1] ? (
-            <div>
+            <div className="DropZoneChild">
               <img className={picBoxClass} src={this.state.img[sid-1]} />
               {hotSpots}
+              
             </div>) 
             : 
             <div className="plusSign">+</div>
@@ -825,6 +841,7 @@ class NewProductPage extends Component {
             <div className="cubeDiv">
               <Cube sid={this.state.sid} img={this.state.img} lastsid={this.state.lastsid} filter={this.state.filter}/>
             </div>
+            {removeImageButton}
 
             {
               !this.state.isAddingHotspot ?
