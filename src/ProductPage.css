@@ -175,9 +175,9 @@
 }
 
 .cubeDiv {
-  zoom: 50%;
+  zoom: 80%;
   position: absolute;
-  right: 0px;
+  right: -170px;
   bottom: 0px;
 }
 
@@ -298,12 +298,13 @@
 }
 
 .hotspotButtonDiv{
-  flex: 1;
+  position: absolute;
+  left: 20px;
 }
 
 .submitButtonDiv{
   position: absolute;
-  right: 0;
+  right: 20px;
 }
 
 .productNameRow {
@@ -531,12 +532,6 @@ input.currency {
   height: "315px";
 }
 
-.okButtonDiv {
-  flex: 2;
-  text-align: center;
-  padding: 10px;
-}
-
 .submitBtn {
   width: 100px;
 }
@@ -595,6 +590,7 @@ input.currency {
 }
 
 .cubeimg {
+  border: 2px solid orange;
   max-height: 100%;
   width: auto;
   position: center;
@@ -1338,15 +1334,15 @@ object:hover {
 
 .hotspotVisibilityClick {
   position: absolute;
-  top: 640px;
+  top: 650px;
   width: 100%;
   z-index:505;
   color: black;
   font-size: 1.1em;
   font-weight: 300;
   border-bottom: 1px solid #052b68;
-  height:120px;
-  padding-top: 10px;
+  height:115px;
+  padding-top: 5px
 }
 
 

@@ -26,10 +26,10 @@ class Product extends Component {
     return (
       <div className="ProductDiv">
         <Link to={"/products/"+this.props.value.uid}>
-            <button className={"Product "+picBoxClass} onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
+            <button className="Product" onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
               {this.state.hover ? (
                 <div>
-                  <img className="ImageGrid ImageOverlayStorePage" src={this.props.value.media[0]}/>
+                  <img className={"ImageGrid ImageOverlayStorePage "+picBoxClass} src={this.props.value.media[0]}/>
                   <div className="TextOverlayStorePage">
                     <p><b>{this.props.value.name}</b></p>
                     <p>{this.props.value.price}</p>
@@ -37,7 +37,7 @@ class Product extends Component {
                 </div>) 
                 : 
                 <div>
-                <img className="ImageGrid" src={this.props.value.media[0]}/>
+                <img className={"ImageGrid "+picBoxClass} src={this.props.value.media[0]}/>
                 </div>
               }  
             </button>
@@ -95,6 +95,15 @@ class StorePage extends Component {
           <Product value={product} key={product.uid}/>
         )
     });
+    
+    // expected max number of items in a row is six
+    // this is a bit hacky for aligning items in the last row to grid (left, not center)
+    const emptyNode = [1,2,3,4,5,6].map(() => {
+      return(
+        <div className="emptyChild"></div>
+      )
+    });
+    
     return (
       <div className="StorePage">
         <div className="StorePage-Left">
@@ -114,6 +123,7 @@ class StorePage extends Component {
           <div className="Listing">
             <NewProduct />
             {productNode}
+            {emptyNode}
           </div>
         </div>
         <div className="StorePage-Right">
