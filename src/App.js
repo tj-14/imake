@@ -419,16 +419,22 @@ class AppHeader extends Component {
       }
     }
 
+    _handleClick(event) {
+        var input = this.refs.search;
+        event.preventDefault();
+        input.click();
+      }
+
     render(){
     return (
       <div className="App-header">
         <Link to="/" className="Logo"><img src={require('./images/logo-search.png')} /></Link>
         <div className="SearchBox">
           <input className="searchInput form-control" placeholder="Search for items or shops" type="text" />
-          <div className="searchBtn">
+          <div className="searchBtn" ref="search">
             <Dropdown options={this.options} onChange={this.callme} value={this.temp[0]} placeholder="" />    
           </div>
-          <div className="downArrow"><p>▼</p></div>
+          <div className="downArrow" onClick={this._handleClick.bind(this)}><p>▼</p></div>
          </div>
         <div className="headerRightColumn"></div>
       </div>
