@@ -708,7 +708,7 @@ class NewProductPage extends Component {
                     <div className="largeBox"> </div>
                   </div></div>) 
                   :
-                  (<div className="errorWindow2"> Please enter editing mode to use hotspot editor. </div>)
+                  (<div className="errorWindow2"> Please enter editing mode to use the hotspot menu. </div>)
                 }
 
                 <div className={this.state.hotspotButton? "hotspotVisibilityClick" : "hotspotVisibilityButton"} onMouseEnter={this.mouseHotspotHover.bind(this)} onMouseLeave={this.mouseHotspotOut.bind(this)} onClick={this.mouseClickHotspot.bind(this)}>
@@ -796,7 +796,10 @@ class NewProductPage extends Component {
                   <img className="filterIcon noselect" src={filter_icon} />
               </div>
               )}
-      {<div className={this.state.filter_class}>
+      {isHotspotButtonDisable ? <div className={this.state.filter_class}>
+                                  <div className="errorWindow"> Please add an image to the right to use the filter menu! </div> </div>
+      : <div className={this.state.filter_class}>
+        {this.state.isEditing ?
               <div className="filterContainer">
                   <div className = "Original" onClick={this.mouseOverFilter.bind(this, 0)}>
                     <img className="PicBox" src={this.state.img[sid-1]} />
@@ -817,6 +820,7 @@ class NewProductPage extends Component {
                     Apply to All
                   </div>
               </div>
+        : (<div className="errorWindow2"> Please enter editing mode to use the filter menu. </div>)}
       </div>}
     </div>;
 

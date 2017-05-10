@@ -1372,9 +1372,7 @@ object:hover {
   text-align: center;
   font-size: 2em;
   vertical-align: middle;
-  border-bottom: 1px solid #052b68;
 }
-
 
 .smallHotspot{
       position: absolute;
@@ -1488,6 +1486,7 @@ object:hover {
   color: black;
   font-size: 1.1em;
   font-weight: 300;
+  border-top: 1px solid #052b68;
   border-bottom: 1px solid #052b68;
   height:115px;
   padding-top: 5px
