@@ -51,7 +51,9 @@ class Product extends Component {
       </div> : null;
     
     const link = this.state.hoverRemove ? "/" : ("/products/"+this.props.value.uid)
-          
+    const picToShow = this.props.value.media.filter(value => {
+          return value !== null;
+    })[0];
     return (
       <div className="ProductDiv">
         <Link to={link}>
@@ -59,7 +61,7 @@ class Product extends Component {
               {this.state.hover ? (
                 <div className="ProductOverlay">
                   {removeItemButton}
-                  <img className={"ImageGrid ImageOverlayStorePage "+picBoxClass} src={this.props.value.media[0]}/>
+                  <img className={"ImageGrid ImageOverlayStorePage "+picBoxClass} src={picToShow}/>
                   <div className="TextOverlayStorePage">
                     <p><b>{this.props.value.name}</b></p>
                     <p>{this.props.value.price}</p>
@@ -67,7 +69,7 @@ class Product extends Component {
                 </div>) 
                 : 
                 <div>
-                <img className={"ImageGrid "+picBoxClass} src={this.props.value.media[0]}/>
+                <img className={"ImageGrid "+picBoxClass} src={picToShow}/>
                 </div>
               }  
             </button>
