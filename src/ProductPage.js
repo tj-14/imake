@@ -568,8 +568,8 @@ class NewProductPage extends Component {
       isHotspotButtonDisable = false;
     }
     
-    const removeImageButton = (this.state.isEditing && (this.state.img[sid-1] != null)) ? 
-      <div className="btn removeImageBtn" onClick={() => this.handleClickRemoveImageBtn()}>
+    const removeImageButton = (this.state.isEditing && !this.state.isAddingHotspot && (this.state.img[sid-1] != null)) ? 
+      <div className="btn removeImageBtn" onClick={() => {if(confirm("Are you sure you want to delete this image and its hotspots?")) {this.handleClickRemoveImageBtn()};}}>
         <div className="removeImageBtnLabel">{"\u00D7"}</div>
       </div> : null;
     
@@ -846,10 +846,10 @@ class NewProductPage extends Component {
             {
               !this.state.isAddingHotspot ?
                 <div>
-                  {next_sid[0] != null ? <div className="arrowLeft" onClick={this.arrowButton.bind(this, next_sid[0])}>{"\u25c0"}</div> : null}
-                  {next_sid[1] != null ? <div className="arrowUp" onClick={this.arrowButton.bind(this, next_sid[1])}>{"\u25b2"}</div> : null}
-                  {next_sid[2] != null ? <div className="arrowRight" onClick={this.arrowButton.bind(this, next_sid[2])}>{"\u25b6"}</div> : null}
-                  {next_sid[3] != null ? <div className="arrowDown" onClick={this.arrowButton.bind(this, next_sid[3])}>{"\u25bc"}</div> : null}
+                  {next_sid[0] != null ? <div className="arrowLeft noselect" onClick={this.arrowButton.bind(this, next_sid[0])}>{"\u25c0"}</div> : null}
+                  {next_sid[1] != null ? <div className="arrowUp noselect" onClick={this.arrowButton.bind(this, next_sid[1])}>{"\u25b2"}</div> : null}
+                  {next_sid[2] != null ? <div className="arrowRight noselect" onClick={this.arrowButton.bind(this, next_sid[2])}>{"\u25b6"}</div> : null}
+                  {next_sid[3] != null ? <div className="arrowDown noselect" onClick={this.arrowButton.bind(this, next_sid[3])}>{"\u25bc"}</div> : null}
                 </div>
               : null
             }
