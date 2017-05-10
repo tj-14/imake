@@ -122,7 +122,6 @@ class NewProductPage extends Component {
     super(props);
     this.mouseOverFilter = this.mouseOverFilter.bind(this);
     this.mouseOverAll = this.mouseOverAll.bind(this);
-    this.mouseOverOff = this.mouseOverOff.bind(this);
     this.arrowButton = this.arrowButton.bind(this);
     this.mouseOverMap = this.mouseOverMap.bind(this);
     this.handleMouseEnterOnSector = this.handleMouseEnterOnSector.bind(this);
@@ -159,7 +158,6 @@ class NewProductPage extends Component {
       hoveredHotSpotImg: null,
       isChoosingFilter: false,
       filter: Array(6).fill(0),
-      applyFilterAll: false,
       redirect: null,
       continentSales: ['0', '0', '0', '0', '0', '0'],
       genderDistribution: [50, 50],
@@ -371,13 +369,8 @@ class NewProductPage extends Component {
   mouseOverAll(){
     const filter = Array(6).fill(this.state.filter[this.state.sid-1]);
     this.setState({
-      applyFilterAll: true,
       filter: filter,
     });
-  }
-  
-  mouseOverOff(){
-    this.setState({applyFilterAll: false});
   }
   
   arrowButton(next_sid){
@@ -792,13 +785,9 @@ class NewProductPage extends Component {
                   <div className = "Filter3" onClick={this.mouseOverFilter.bind(this, 3)}>
                     <img className="PicBoxSepia" src={this.state.img[sid-1]} />
                   </div>
-                  {this.state.applyFilterAll? (
-                    <div className="applyButton-clicked" onClick={this.mouseOverOff}>
-                        Cancel Apply to All
-                      </div>):
-                    (<div className="applyButton" onClick={this.mouseOverAll}>
-                        Apply to All
-                      </div>)}
+                  <div className="btn btn-secondary applyButton" onClick={this.mouseOverAll}>
+                    Apply to All
+                  </div>
               </div>
       </div>}
     </div>;
