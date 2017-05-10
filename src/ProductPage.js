@@ -849,6 +849,24 @@ class NewProductPage extends Component {
       {peekabooHotspot}
       </div>;
 
+    let arrows;
+    if (!this.state.isAddingHotspot) {
+      arrows = <div>
+        {((next_sid[0] != null) && (this.state.isEditing || this.state.img[next_sid[0]-1] != null)) ? 
+          <div className="arrowLeft arrowEnabled noselect" onClick={this.arrowButton.bind(this, next_sid[0])}>{"\u25c0"}</div> : 
+          <div className="arrowLeft arrowDisabled noselect">{"\u25c0"}</div>}
+        {((next_sid[1] != null) && (this.state.isEditing || this.state.img[next_sid[1]-1] != null)) ?
+          <div className="arrowUp arrowEnabled noselect" onClick={this.arrowButton.bind(this, next_sid[1])}>{"\u25b2"}</div> : 
+          <div className="arrowUp arrowDisabled noselect">{"\u25b2"}</div>}
+        {((next_sid[2] != null) && (this.state.isEditing || this.state.img[next_sid[2]-1] != null)) ?
+          <div className="arrowRight arrowEnabled noselect" onClick={this.arrowButton.bind(this, next_sid[2])}>{"\u25b6"}</div> : 
+          <div className="arrowRight arrowDisabled noselect">{"\u25b6"}</div>}
+        {((next_sid[3] != null) && (this.state.isEditing || this.state.img[next_sid[3]-1] != null)) ?
+          <div className="arrowDown arrowEnabled noselect" onClick={this.arrowButton.bind(this, next_sid[3])}>{"\u25bc"}</div> : 
+          <div className="arrowDown arrowDisabled noselect">{"\u25bc"}</div>}
+      </div>
+    }
+    
     return (
       <div>
       <div style={{width: "100%"}} className="NewProductPage">
@@ -865,17 +883,7 @@ class NewProductPage extends Component {
               <Cube sid={this.state.sid} img={this.state.img} lastsid={this.state.lastsid} filter={this.state.filter}/>
             </div>
             {removeImageButton}
-
-            {
-              !this.state.isAddingHotspot ?
-                <div>
-                  {next_sid[0] != null ? <div className="arrowLeft noselect" onClick={this.arrowButton.bind(this, next_sid[0])}>{"\u25c0"}</div> : null}
-                  {next_sid[1] != null ? <div className="arrowUp noselect" onClick={this.arrowButton.bind(this, next_sid[1])}>{"\u25b2"}</div> : null}
-                  {next_sid[2] != null ? <div className="arrowRight noselect" onClick={this.arrowButton.bind(this, next_sid[2])}>{"\u25b6"}</div> : null}
-                  {next_sid[3] != null ? <div className="arrowDown noselect" onClick={this.arrowButton.bind(this, next_sid[3])}>{"\u25bc"}</div> : null}
-                </div>
-              : null
-            }
+            {arrows}
           </div>
           
           {descriptionDiv}

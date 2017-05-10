@@ -227,7 +227,7 @@
 }
 
 .ImgZone {
-  border: 2px solid grey;
+/*  border: 2px solid grey;*/
   margin: 0px;
 }
 
@@ -376,10 +376,14 @@
   position: absolute;
 }
 
-.arrowLeft:hover, .arrowUp:hover, .arrowRight:hover, .arrowDown:hover {
+.arrowEnabled:hover {
   color: #a04d25;
   opacity: 0.6;
   cursor: pointer;
+}
+
+.arrowDisabled {
+  color: grey;
 }
 
 .arrowLeft {
@@ -414,6 +418,7 @@
 
 .productNameRow {
   margin-top: 10px;
+  height: 60px;
 }
 
 .productName, .productNameInput {
