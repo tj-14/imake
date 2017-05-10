@@ -540,8 +540,14 @@ class NewProductPage extends Component {
       : <div className="productName">{this.state.productNameInput}</div>;
     
     const priceDiv = this.state.isEditing ? 
-      <CurrencyInput className="priceInput form-control input-lg" prefix="$" value={this.state.priceInput} onChange={this.handleChangePrice.bind(this)}/>
-      : <div className="price">{this.state.priceInput}</div>
+          <div className="priceSet">
+            <div className="priceLabel">Price: </div>
+            <CurrencyInput className="priceInput form-control input-lg" prefix="$" value={this.state.priceInput} onChange={this.handleChangePrice.bind(this)}/>
+          </div>
+        : <div className="priceSet">
+            <div className="priceLabel">Price: </div>
+            <div className="price">{this.state.priceInput}</div>
+          </div>
     
     const descriptionDiv = this.state.isEditing ?
       <div className="descriptionDiv">
@@ -670,11 +676,11 @@ class NewProductPage extends Component {
     const peekabooHotspot = <div className="layoutFilter">
       {this.state.peekaboo_hotspot ? (
               <div className="leftHotspotHide" onClick={this.hotspotHide}>
-                  <img className="analyticsIconClose" src={hotspot_icon_close} />
+                  <img className="analyticsIconClose noselect" src={hotspot_icon_close} />
               </div>
               ) : (
               <div className="leftHotspotShow" onClick={this.hotspotClick}>
-                  <img className="analyticsIcon" src={hotspot_icon} />
+                  <img className="analyticsIcon noselect" src={hotspot_icon} />
               </div>
               )}
       {isHotspotButtonDisable ? <div className={this.state.hotspot_class}>
@@ -712,7 +718,7 @@ class NewProductPage extends Component {
                     null
                     )
                 }
-                  {this.state.hotspotButton? <img className="heatMapIcon" src={hide_all}/> : <img className="heatMapIcon" src={show_all}/> }
+                  {this.state.hotspotButton? <img className="heatMapIcon noselect" src={hide_all}/> : <img className="heatMapIcon noselect" src={show_all}/> }
             </div>
       </div>}
     </div>;
@@ -721,11 +727,11 @@ class NewProductPage extends Component {
     const peekabooAnalytics= <div className="layoutFilter">
       {this.state.peekaboo_analytics ? (
               <div className="leftAnalyticsHide" onClick={this.analyticsHide}>
-                  <img className="analyticsIconClose" src={analytics_icon_close} />
+                  <img className="analyticsIconClose noselect" src={analytics_icon_close} />
               </div>
               ) : (
               <div className="leftAnalyticsShow" onClick={this.analyticsClick}>
-                  <img className="analyticsIcon" src={analytics_icon} />
+                  <img className="analyticsIcon noselect" src={analytics_icon} />
               </div>
               )}
       {<div className={this.state.analytics_class}>
@@ -773,7 +779,7 @@ class NewProductPage extends Component {
                     null
                     )
                 };
-                  <img className="heatMapIcon" src={heatmap_icon}/>
+                  <img className="heatMapIcon noselect" src={heatmap_icon}/>
             </div>
 
       </div>}
@@ -783,11 +789,11 @@ class NewProductPage extends Component {
     const peekabooFilter = <div className="layoutFilter">
       {this.state.isChoosingFilter ? (
               <div className="leftFilterHide" onClick={this.filterHide}>
-                  <img className="filterIconClose" src={filter_icon_close} />
+                  <img className="filterIconClose noselect" src={filter_icon_close} />
               </div>
               ) : (
               <div className="leftFilterShow" onClick={this.filterClick}>
-                  <img className="filterIcon" src={filter_icon} />
+                  <img className="filterIcon noselect" src={filter_icon} />
               </div>
               )}
       {<div className={this.state.filter_class}>
@@ -818,11 +824,11 @@ class NewProductPage extends Component {
           <div className="layoutStore">
             {this.state.peekaboo ? (
               <div className="leftViewTabHide" onClick={this.peekHide}>
-                  <img className="storeIconClose" src={store_icon_close} />
+                  <img className="storeIconClose noselect" src={store_icon_close} />
               </div>
               ) : (
               <div className="leftViewTabShow" onClick={this.peekClick}>
-                  <img className="storeIcon" src={store_icon} />
+                  <img className="storeIcon noselect" src={store_icon} />
               </div>
               )}
           <div className={this.state.peekaboo_class}>
@@ -850,7 +856,7 @@ class NewProductPage extends Component {
         <div className="NewProductPage-Mid">
           <div className="productNameRow">
             {productNameDiv}
-            <div className="priceLabel">Price: </div>
+            
             {priceDiv}
           </div>
           <div className="DropPicBox">
