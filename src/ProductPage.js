@@ -51,8 +51,8 @@ class Product extends Component {
         <button className="Product_Left" onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
           <img className="ImageGrid_Left" src={this.props.value.media[0]}/>
           {this.state.hover ? (
-            <div className="ImageOverlay"> 
-              <div className="TextOverlay">
+            <div className="ImageOverlay_Left"> 
+              <div className="TextOverlay_Left">
                 <p><b>{this.props.value.name}</b></p>
                 <p>{this.props.value.price}</p>
               </div>
@@ -809,7 +809,7 @@ class NewProductPage extends Component {
       {peekabooAnalytics}
       {peekabooHotspot}
       </div>;
-      
+
     return (
       <div>
       <div style={{width: "100%"}} className="NewProductPage">
