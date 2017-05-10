@@ -87,9 +87,15 @@ class Cube extends Component {
             this.nextside(lsid,2)]]
     const cubeSides = [0,1,2,3,4,5].map((i) => {
         const j = cubeOrder[sid-1][i];
+        const ft = this.props.filter[j-1] ? ["PicBox","PicBoxGrayscale","PicBoxBrightness","PicBoxSepia"][this.props.filter[j-1]] : "PicBox";
         return (
           <div className="side">
-            <div className="cube-image"><img src={this.props.img[j-1]} alt={j} className={"cubeimg "+this.props.picBoxClass}/></div>
+            <div className="cube-image">
+             { this.props.img[j-1] ?
+              <img src={this.props.img[j-1]} alt={j} className={"cubeimg "+ft}/>
+                : j
+              }
+            </div>
           </div>
         )
     });
@@ -705,7 +711,7 @@ class NewProductPage extends Component {
           <div className="DropPicBox">
             {dropPicBoxChild}
             <div className="cubeDiv">
-              <Cube sid={this.state.sid} img={this.state.img} lastsid={this.state.lastsid} picBoxClass={picBoxClass}/>
+              <Cube sid={this.state.sid} img={this.state.img} lastsid={this.state.lastsid} filter={this.state.filter}/>
             </div>
 
             {

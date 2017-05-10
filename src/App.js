@@ -15,7 +15,7 @@ import image9 from './images/product_images/bag9.jpg'
 import purse1_front from './images/product_images/purse1/purse-front.jpg'
 import purse1_right from './images/product_images/purse1/purse-right.jpg'
 import purse1_top from './images/product_images/purse1/purse-top.jpg'
-
+import Dropdown from 'react-dropdown'
 
 
 function random_generator() {
@@ -401,16 +401,35 @@ class StoryPage extends Component {
 }
 
 class AppHeader extends Component {
-  render(){
+
+    constructor() {
+      super();
+
+      this.options = ['Search store']
+
+      // Used to dynamically change the title:
+      this.temp = ['Search all']
+    }
+
+    callme() {
+      if (this.options[0] == 'Search all') {
+        this.options[0] ='Search store'
+      } else {
+        this.options[0] ='Search all'
+      }
+    }
+
+    render(){
     return (
       <div className="App-header">
         <Link to="/" className="Logo"><img src={require('./images/logo-search.png')} /></Link>
         <div className="SearchBox">
           <input className="searchInput form-control" placeholder="Search for items or shops" type="text" />
-          <button type="button" className="searchBtn btn btn-secondary">
-            Search
-          </button>
-        </div>
+          <div className="searchBtn">
+            <Dropdown options={this.options} onChange={this.callme} value={this.temp[0]} placeholder="" />    
+          </div>
+          <div className="downArrow"><p>▼</p></div>
+         </div>
         <div className="headerRightColumn"></div>
       </div>
     );
