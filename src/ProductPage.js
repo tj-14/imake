@@ -903,7 +903,7 @@ class NewProductPage extends Component {
             }
           </div>
           <br/><br/>
-          <ReviewBlock reviewData={this.props.reviewData}/>
+          <ReviewBlock reviewData={this.props.reviewData} show={this.state.isExistingProduct}/>
         </div>
         <div className="NewProductPage-Right">
           {
@@ -987,8 +987,13 @@ class ReviewBlock extends Component {
     return (
       <div className="reviews">
         <p>Reviews</p>
-        <div className="reviewTabs">{reviewTabs}</div>
-        {reviewDivs}
+        {
+          this.props.show? 
+            <div>
+              <div className="reviewTabs">{reviewTabs}</div>
+              {reviewDivs}
+            </div>
+            : <div className="reviewText">----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------</div>}
       </div>
     );
   }
