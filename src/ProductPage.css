@@ -175,9 +175,9 @@
 }
 
 .cubeDiv {
-  zoom: 50%;
+  zoom: 80%;
   position: absolute;
-  right: 0px;
+  right: -170px;
   bottom: 0px;
 }
 
@@ -298,12 +298,13 @@
 }
 
 .hotspotButtonDiv{
-  flex: 1;
+  position: absolute;
+  left: 20px;
 }
 
 .submitButtonDiv{
   position: absolute;
-  right: 0;
+  right: 20px;
 }
 
 .productNameRow {
@@ -506,12 +507,6 @@ input.currency {
 .continentMap {
   width: "672px"; 
   height: "315px";
-}
-
-.okButtonDiv {
-  flex: 2;
-  text-align: center;
-  padding: 10px;
 }
 
 .submitBtn {
