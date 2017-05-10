@@ -716,6 +716,7 @@ input.currency {
   width: 96%;
   text-align: left;
   background-color: rgba(255,222,195,0.3);
+  min-width: 784px;
 }
 
 .reviews {

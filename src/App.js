@@ -389,6 +389,21 @@ const reviewData = [
     stars: 1,
     text: "Color is totally off from online pic. It's much whiter than expected"
   },
+  {
+    id: 10,
+    stars: 3,
+    text: "For the price, the bag is not bad, but ultimately it's not well made. The two major complaints I have with the bag are the following: 1) There is no shape or structure to the bag when nothing is in it so it collapses in on itself. 2) The straps are flimsy and feel cheap and they also shed bits of \"leather\" throughout the day. Again, for the price I paid I wasn't expecting a high end bag, but had I known these two points I may not have purchased the bag."
+  },
+  {
+    id: 11,
+    stars: 2,
+    text: "The zipper keeps breaking and the handle sheds and started coming apart. I got one vacation (1 week) out of it. I ended up leaving it at the hotel and took home a great bag that I bought on the trip. Took this bag to Jamaica as I thought it would make a great bag for both the plane and the beach. Unfortunately, the zipper broke a few days into the trip. Didn't attempt to return it since I had used it at the beach and it was sandy."
+  },
+  {
+    id: 12,
+    stars: 1,
+    text: "Don't get this unless you don't plan to use it for anything other than a towel or two. I brought it on a trip to the Virgin Islands and the straps broke off. I used it as a carry on since it was going to be my beach bag and I wanted to save room in my luggage. BIG MISTAKE. You should have seen me in the airport toting it in my arms while pulling my luggage in the burning up heat. I swore I'd write a review. I rarely write reviews and this is my first bad review but I mean come on. POOR QUALITY."
+  },
 ];
 
 class StoryPage extends Component {
