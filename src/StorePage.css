@@ -218,6 +218,10 @@
   right: 3px;
 }
 
+.removeItemBtnLabel:hover {
+  color: rgba(255,0,0,0.8);
+}
+
 .removeItemBtn:hover {
   background-color: rgba(150,150,150,0.5);
 }
