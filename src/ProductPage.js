@@ -438,7 +438,8 @@ class NewProductPage extends Component {
   handleClickOkBtn() {
     const isSubmitButtonDisable = (this.state.productNameInput == "");
     if (isSubmitButtonDisable){
-      this.productNameInput.focus(); 
+      this.productNameInput.focus();
+      alert("Please insert product name."); 
     }
     else{
       this.setState({
@@ -539,8 +540,14 @@ class NewProductPage extends Component {
       : <div className="productName">{this.state.productNameInput}</div>;
     
     const priceDiv = this.state.isEditing ? 
-      <CurrencyInput className="priceInput form-control input-lg" prefix="$" value={this.state.priceInput} onChange={this.handleChangePrice.bind(this)}/>
-      : <div className="price">{this.state.priceInput}</div>
+          <div className="priceSet">
+            <div className="priceLabel">Price: </div>
+            <CurrencyInput className="priceInput form-control input-lg" prefix="$" value={this.state.priceInput} onChange={this.handleChangePrice.bind(this)}/>
+          </div>
+        : <div className="priceSet">
+            <div className="priceLabel">Price: </div>
+            <div className="price">{this.state.priceInput}</div>
+          </div>
     
     const descriptionDiv = this.state.isEditing ?
       <div className="descriptionDiv">
@@ -557,7 +564,7 @@ class NewProductPage extends Component {
         top: hotSpot.curY,
         left: hotSpot.curX,
         width: hotSpot.width,
-        height:hotSpot.height,
+        height: hotSpot.height,
       }
       return (
         <div className="HotSpot" style={styles} onMouseEnter={this.hotspotMouseOver.bind(this, hotSpot.img)} onMouseLeave={this.hotspotMouseOut}/>
@@ -669,11 +676,11 @@ class NewProductPage extends Component {
     const peekabooHotspot = <div className="layoutFilter">
       {this.state.peekaboo_hotspot ? (
               <div className="leftHotspotHide" onClick={this.hotspotHide}>
-                  <img className="analyticsIconClose" src={hotspot_icon_close} />
+                  <img className="analyticsIconClose noselect" src={hotspot_icon_close} />
               </div>
               ) : (
               <div className="leftHotspotShow" onClick={this.hotspotClick}>
-                  <img className="analyticsIcon" src={hotspot_icon} />
+                  <img className="analyticsIcon noselect" src={hotspot_icon} />
               </div>
               )}
       {isHotspotButtonDisable ? <div className={this.state.hotspot_class}>
@@ -701,7 +708,7 @@ class NewProductPage extends Component {
                     <div className="largeBox"> </div>
                   </div></div>) 
                   :
-                  (<div className="errorWindow2"> Please enter editing mode to use hotspot editor. </div>)
+                  (<div className="errorWindow2"> Please enter editing mode to use the hotspot menu. </div>)
                 }
 
                 <div className={this.state.hotspotButton? "hotspotVisibilityClick" : "hotspotVisibilityButton"} onMouseEnter={this.mouseHotspotHover.bind(this)} onMouseLeave={this.mouseHotspotOut.bind(this)} onClick={this.mouseClickHotspot.bind(this)}>
@@ -711,7 +718,7 @@ class NewProductPage extends Component {
                     null
                     )
                 }
-                  {this.state.hotspotButton? <img className="heatMapIcon" src={hide_all}/> : <img className="heatMapIcon" src={show_all}/> }
+                  {this.state.hotspotButton? <img className="heatMapIcon noselect" src={hide_all}/> : <img className="heatMapIcon noselect" src={show_all}/> }
             </div>
       </div>}
     </div>;
@@ -720,11 +727,11 @@ class NewProductPage extends Component {
     const peekabooAnalytics= <div className="layoutFilter">
       {this.state.peekaboo_analytics ? (
               <div className="leftAnalyticsHide" onClick={this.analyticsHide}>
-                  <img className="analyticsIconClose" src={analytics_icon_close} />
+                  <img className="analyticsIconClose noselect" src={analytics_icon_close} />
               </div>
               ) : (
               <div className="leftAnalyticsShow" onClick={this.analyticsClick}>
-                  <img className="analyticsIcon" src={analytics_icon} />
+                  <img className="analyticsIcon noselect" src={analytics_icon} />
               </div>
               )}
       {<div className={this.state.analytics_class}>
@@ -772,7 +779,7 @@ class NewProductPage extends Component {
                     null
                     )
                 };
-                  <img className="heatMapIcon" src={heatmap_icon}/>
+                  <img className="heatMapIcon noselect" src={heatmap_icon}/>
             </div>
 
       </div>}
@@ -782,14 +789,17 @@ class NewProductPage extends Component {
     const peekabooFilter = <div className="layoutFilter">
       {this.state.isChoosingFilter ? (
               <div className="leftFilterHide" onClick={this.filterHide}>
-                  <img className="filterIconClose" src={filter_icon_close} />
+                  <img className="filterIconClose noselect" src={filter_icon_close} />
               </div>
               ) : (
               <div className="leftFilterShow" onClick={this.filterClick}>
-                  <img className="filterIcon" src={filter_icon} />
+                  <img className="filterIcon noselect" src={filter_icon} />
               </div>
               )}
-      {<div className={this.state.filter_class}>
+      {isHotspotButtonDisable ? <div className={this.state.filter_class}>
+                                  <div className="errorWindow"> Please add an image to the right to use the filter menu! </div> </div>
+      : <div className={this.state.filter_class}>
+        {this.state.isEditing ?
               <div className="filterContainer">
                   <div className = "Original" onClick={this.mouseOverFilter.bind(this, 0)}>
                     <img className="PicBox" src={this.state.img[sid-1]} />
@@ -810,6 +820,7 @@ class NewProductPage extends Component {
                     Apply to All
                   </div>
               </div>
+        : (<div className="errorWindow2"> Please enter editing mode to use the filter menu. </div>)}
       </div>}
     </div>;
 
@@ -817,11 +828,11 @@ class NewProductPage extends Component {
           <div className="layoutStore">
             {this.state.peekaboo ? (
               <div className="leftViewTabHide" onClick={this.peekHide}>
-                  <img className="storeIconClose" src={store_icon_close} />
+                  <img className="storeIconClose noselect" src={store_icon_close} />
               </div>
               ) : (
               <div className="leftViewTabShow" onClick={this.peekClick}>
-                  <img className="storeIcon" src={store_icon} />
+                  <img className="storeIcon noselect" src={store_icon} />
               </div>
               )}
           <div className={this.state.peekaboo_class}>
@@ -842,6 +853,24 @@ class NewProductPage extends Component {
       {peekabooHotspot}
       </div>;
 
+    let arrows;
+    if (!this.state.isAddingHotspot) {
+      arrows = <div>
+        {((next_sid[0] != null) && (this.state.isEditing || this.state.img[next_sid[0]-1] != null)) ? 
+          <div className="arrowLeft arrowEnabled noselect" onClick={this.arrowButton.bind(this, next_sid[0])}>{"\u25c0"}</div> : 
+          <div className="arrowLeft arrowDisabled noselect">{"\u25c0"}</div>}
+        {((next_sid[1] != null) && (this.state.isEditing || this.state.img[next_sid[1]-1] != null)) ?
+          <div className="arrowUp arrowEnabled noselect" onClick={this.arrowButton.bind(this, next_sid[1])}>{"\u25b2"}</div> : 
+          <div className="arrowUp arrowDisabled noselect">{"\u25b2"}</div>}
+        {((next_sid[2] != null) && (this.state.isEditing || this.state.img[next_sid[2]-1] != null)) ?
+          <div className="arrowRight arrowEnabled noselect" onClick={this.arrowButton.bind(this, next_sid[2])}>{"\u25b6"}</div> : 
+          <div className="arrowRight arrowDisabled noselect">{"\u25b6"}</div>}
+        {((next_sid[3] != null) && (this.state.isEditing || this.state.img[next_sid[3]-1] != null)) ?
+          <div className="arrowDown arrowEnabled noselect" onClick={this.arrowButton.bind(this, next_sid[3])}>{"\u25bc"}</div> : 
+          <div className="arrowDown arrowDisabled noselect">{"\u25bc"}</div>}
+      </div>
+    }
+    
     return (
       <div>
       <div style={{width: "100%"}} className="NewProductPage">
@@ -849,7 +878,7 @@ class NewProductPage extends Component {
         <div className="NewProductPage-Mid">
           <div className="productNameRow">
             {productNameDiv}
-            <div className="priceLabel">Price: </div>
+            
             {priceDiv}
           </div>
           <div className="DropPicBox">
@@ -858,17 +887,7 @@ class NewProductPage extends Component {
               <Cube sid={this.state.sid} img={this.state.img} lastsid={this.state.lastsid} filter={this.state.filter}/>
             </div>
             {removeImageButton}
-
-            {
-              !this.state.isAddingHotspot ?
-                <div>
-                  {next_sid[0] != null ? <div className="arrowLeft noselect" onClick={this.arrowButton.bind(this, next_sid[0])}>{"\u25c0"}</div> : null}
-                  {next_sid[1] != null ? <div className="arrowUp noselect" onClick={this.arrowButton.bind(this, next_sid[1])}>{"\u25b2"}</div> : null}
-                  {next_sid[2] != null ? <div className="arrowRight noselect" onClick={this.arrowButton.bind(this, next_sid[2])}>{"\u25b6"}</div> : null}
-                  {next_sid[3] != null ? <div className="arrowDown noselect" onClick={this.arrowButton.bind(this, next_sid[3])}>{"\u25bc"}</div> : null}
-                </div>
-              : null
-            }
+            {arrows}
           </div>
           
           {descriptionDiv}

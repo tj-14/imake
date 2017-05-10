@@ -181,7 +181,7 @@
 }
 
 .Brightness{
-  filter: brightness(3);
+  filter: brightness(130%) contrast(120%);
 }
 
 .Sepia{

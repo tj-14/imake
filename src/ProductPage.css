@@ -197,6 +197,8 @@
 
 .NewProductPage-Right{
   flex: 1;
+  padding-right: 10px;
+  padding-top: 10px;
 }
 
 .cubeDiv {
@@ -211,16 +213,30 @@
   text-align: center;
   position: relative;
   padding: 25px;
-  margin: 25px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  width: 722px;
 }
 
 .DropZone {
   flex: 1;
   background-color: #EEE;
   border: 2px dashed grey;
+}
+
+.ImgZone {
+/*  border: 2px solid grey;*/
+  margin: 0px;
+}
+
+.ImgZone, .DropZone {
+  flex: 1;
   position: relative;
-  height: 570px;
+  height: 530px;
   overflow: hidden;
+  margin: auto;
 }
 
 .DropZone:hover {
@@ -232,7 +248,7 @@
   flex: 1;
   background-color: #EEE;
   position: relative;
-  height: 570px;
+  height: 530px;
   overflow: hidden;
 }
 
@@ -241,14 +257,7 @@
   cursor: url('images/cursor.png'), auto; 
 }
 
-.ImgZone {
-  flex: 1;
-  position: relative;
-  border: 2px solid grey;
-  height: 570px;
-  overflow: hidden;
 
-}
 
 
 .HotSpotInvisible {
@@ -300,6 +309,7 @@
 
 .HotSpotImg {
   width: 100%;
+  margin-top: 60px;
 }
 
 @-webkit-keyframes HotSpotBlink {
@@ -313,9 +323,9 @@
   }
 }
 
-.PicBox{
+.PicBox, .PicBoxGrayscale, .PicBoxBrightness, .PicBoxSepia{
   width: 100%;
-  height: 100%;
+/*  height: 100%;*/
   position: absolute;
   top: 0;
   bottom: 0;
@@ -366,10 +376,14 @@
   position: absolute;
 }
 
-.arrowLeft:hover, .arrowUp:hover, .arrowRight:hover, .arrowDown:hover {
+.arrowEnabled:hover {
   color: #a04d25;
   opacity: 0.6;
   cursor: pointer;
+}
+
+.arrowDisabled {
+  color: grey;
 }
 
 .arrowLeft {
@@ -403,12 +417,14 @@
 }
 
 .productNameRow {
-  display: flex;
   margin-top: 10px;
+  height: 60px;
 }
 
 .productName, .productNameInput {
-  flex: 5;
+  display: inline-block;
+  width: 600px;
+  float: left;
   text-align: left;
   font-size: 24px;
   font-weight: 600;
@@ -423,16 +439,28 @@
 }
 
 .priceLabel, .price, .priceInput {
+  display: inline-block;
   font-size: 18px;
   font-weight: 500;
   padding: 10px;
   margin: auto;
+  margin-top: 6px;
+}
+
+.priceSet {
+  position: relative;
+}
+
+.priceLabel {
+  position: absolute;
+  right: 105px;
 }
 
 .price, .priceInput {
-  flex: 1;
-  width: 100px;
-  text-align: right;
+  float: right;
+  margin-right: 0px;
+  width: 105px;
+  text-align: left;
 }
 
 .price {
@@ -529,10 +557,6 @@
 
 .priceLabel {
   padding-right: 0.5em;
-}
-
-.priceInput {
-  width: 6em;
 }
 
 input.currency {
@@ -697,6 +721,7 @@ input.currency {
   width: 96%;
   text-align: left;
   background-color: rgba(255,222,195,0.3);
+  min-width: 784px;
 }
 
 .reviews {
@@ -709,7 +734,7 @@ input.currency {
 }
 
 .cubeimg {
-  border: 3px solid #a94d25;
+/*  border: 3px solid #a94d25;*/
   max-height: 100%;
   width: auto;
   position: center;
@@ -792,7 +817,7 @@ body {
   line-height: 200px;
   font-size: 80px;
   text-align: center;
-  color: #1b9bd8;
+  color: #a04d25; /*#1b9bd8;*/
   -webkit-transition: color 600ms;
   -moz-transition: color 600ms;
   -ms-transition: color 600ms;
@@ -886,12 +911,13 @@ object:hover {
   position: absolute;
   width:100%;
   height:100%;
-  background-color: white;
+  background-color: rgb(255,250,181);
 }
 
 .Original{
       position: absolute;
-      height: 180px;
+      top: 0px;
+      height: 210px;
       width: 100%;
       z-index:4;
     }
@@ -899,27 +925,31 @@ object:hover {
 
 .Filter1{
       position: absolute;
-      top: 180px;
-      height: 180px;
+      top: 210px;
+      height: 210px;
       width: 100%;
       z-index:4;
     }
 
 .Filter2{
       position: absolute;
-      top: 360px;
-      height: 180px;
+      top: 420px;
+      height: 210px;
       width: 100%;
       z-index:4;
     }
 
 .Filter3{
       position: absolute;
-      top: 540px;
-      height: 180px;
+      top: 630px;
+      height: 210px;
       width: 100%;
       z-index:4;
     }
+
+.Original, .Filter1, .Filter2, .Filter3{
+  overflow: hidden;
+}
 
 .Original:hover, .Filter1:hover, .Filter2:hover, .Filter3:hover{
   cursor: pointer;
@@ -938,43 +968,18 @@ object:hover {
       color: white;
 }
 
-.PicBoxGrayscale{
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
+.PicBoxGrayscale, .PicBoxGrayscaleSamePos{
   filter: grayscale(100%);
 }
 
 
-.PicBoxBrightness{
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  filter: brightness(3);
+.PicBoxBrightness, .PicBoxBrightnessSamePos{
+  filter: brightness(130%) contrast(120%);
 }
 
-.PicBoxSepia{
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
+.PicBoxSepia, .PicBoxSepiaSamePos{
   filter: sepia(100%);
 }
-
 
 /* General styles for all menus */
 .cbp-spmenu-hotspot {
@@ -1172,19 +1177,6 @@ object:hover {
 }
 
 
-.PicBoxGrayscaleSamePos{
-  filter: grayscale(100%);
-}
-
-.PicBoxBrightnessSamePos{
-  filter: brightness(3);
-}
-
-.PicBoxSepiaSamePos{
-  filter: sepia(100%);
-}
-
-
 .heatMapHide {
   position: absolute;
   width: 100%;
@@ -1232,21 +1224,25 @@ object:hover {
   left:0px;
 }
 
-.applyButton {
-  position: absolute;
-  left: 0px;
-  top: 720px;
-  height: 40px;
-  width: 100%;
-  text-align: center;
-  vertical-align: middle;
-  color: white;
+
+.applyButton, .applyButton-clicked {
+      position: absolute;
+      left: 0px;
+      top: 840px;
+      height: 40px;
+      width: 100%;
+      text-align: center;
+      vertical-align: middle;
+      color: white;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   transition: all 0.3s ease;
-  background: #ff974f;
   font-size: 14px;
   z-index:500;
+}
+
+.applyButton {
+  background: #ff974f;
 }
 
 
@@ -1256,20 +1252,7 @@ object:hover {
 }
 
 .applyButton-clicked {
-      position: absolute;
-      left: 0px;
-      top: 720px;
-      height: 40px;
-      width: 100%;
-      text-align: center;
-      vertical-align: middle;
-      color: white;
-  -webkit-transition: all 0.3s ease;
-  -moz-transition: all 0.3s ease;
-  transition: all 0.3s ease;
   background: #ad3f00;
-  font-size: 14px;
-  z-index:500;
 }
 
 .applyButton-clicked:hover {
@@ -1389,9 +1372,7 @@ object:hover {
   text-align: center;
   font-size: 2em;
   vertical-align: middle;
-  border-bottom: 1px solid #052b68;
 }
-
 
 .smallHotspot{
       position: absolute;
@@ -1505,6 +1486,7 @@ object:hover {
   color: black;
   font-size: 1.1em;
   font-weight: 300;
+  border-top: 1px solid #052b68;
   border-bottom: 1px solid #052b68;
   height:115px;
   padding-top: 5px
