@@ -29,7 +29,7 @@ class Product extends Component {
             <button className="Product" onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
               {this.state.hover ? (
                 <div>
-                  <img className="ImageGrid ImageOverlayStorePage" src={this.props.value.media[0]}/>
+                  <img className={"ImageGrid ImageOverlayStorePage "+picBoxClass} src={this.props.value.media[0]}/>
                   <div className="TextOverlayStorePage">
                     <p><b>{this.props.value.name}</b></p>
                     <p>{this.props.value.price}</p>
