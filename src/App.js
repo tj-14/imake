@@ -434,7 +434,7 @@ class AppHeader extends Component {
           <div className="searchBtn" ref="search">
             <Dropdown options={this.options} onChange={this.callme} value={this.temp[0]} placeholder="" />    
           </div>
-          <div className="downArrow" onClick={this._handleClick.bind(this)}><p>▼</p></div>
+          <div className="downArrow" onClick={this._handleClick.bind(this)}><span>▼</span></div>
          </div>
         <div className="headerRightColumn"></div>
       </div>
