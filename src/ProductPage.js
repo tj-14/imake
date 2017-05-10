@@ -348,9 +348,17 @@ class NewProductPage extends Component {
   }
   
   handleClickOkBtn() {
-    this.setState({
-      isEditing: !this.state.isEditing,
-    });
+    const isSubmitButtonDisable = (this.state.productNameInput == "");
+    if (isSubmitButtonDisable){
+      this.productNameInput.focus(); 
+    }
+    else{
+      this.setState({
+        isEditing: !this.state.isEditing,
+      });
+      if(this.state.isEditing == true)
+        this.handleSave();
+    }
   }
   
   handleClickHotspotBtn() {
@@ -431,7 +439,7 @@ class NewProductPage extends Component {
     const heatmap_insert = <ReactHeatmap max={5} data={heat_data} />
 
     const productNameDiv = this.state.isEditing ? 
-      <input className="productNameInput form-control input-lg" placeholder="Product name" type="text" value={this.state.productNameInput} onChange={this.handleChangeProductName.bind(this)} />
+      <input className="productNameInput form-control input-lg" placeholder="Product name" type="text" value={this.state.productNameInput} onChange={this.handleChangeProductName.bind(this)} ref={(input) => { this.productNameInput = input; }} />
       : <div className="productName">{this.state.productNameInput}</div>;
     
     const priceDiv = this.state.isEditing ? 
@@ -444,7 +452,7 @@ class NewProductPage extends Component {
       </div>
       : <div className="descriptionDiv">{this.state.descriptionInput}</div>
     
-    const submitButtonLabel = this.state.isEditing ? "Preview" : "Edit";
+    const submitButtonLabel = this.state.isEditing ? "Save" : "Edit";
     
 
 
@@ -472,8 +480,6 @@ class NewProductPage extends Component {
       hotspotButtonLabel = "Add hotspots";
       isHotspotButtonDisable = false;
     }
-    
-    let isSubmitButtonDisable = (this.state.productNameInput == "") || (this.state.descriptionInput == "");
     
     const picBoxClass = ["PicBox","PicBoxGrayscale","PicBoxBrightness","PicBoxSepia"][this.state.filter[sid-1]];
     let dropPicBoxChild;
@@ -511,6 +517,8 @@ class NewProductPage extends Component {
           }
         </DropZone>
     }
+    
+    const hasImgUploaded = this.state.img.some(function(i) { return i !== null; })
     
     var salesTxt = ['0', '0', '0', '0', '0', '0']
 
@@ -654,7 +662,8 @@ class NewProductPage extends Component {
       </div>}
     </div>;
 
-    const peekabooStore = <div className="layoutStore">
+    const peekabooStore = 
+          <div className="layoutStore">
             {this.state.peekaboo ? (
               <div className="leftViewTabHide" onClick={this.peekHide}>
                   <img className="storeIconClose" src={store_icon_close} />
@@ -675,11 +684,12 @@ class NewProductPage extends Component {
          {/* </Link> */}
         </div>;
 
-    const peekabooAll = <div className="ProductPage-Left">
-      {peekabooStore}
-      {peekabooFilter}
-      {peekabooAnalytics}
-      </div>;
+    const peekabooAll = 
+          <div className="ProductPage-Left">
+            {peekabooStore}
+            {peekabooFilter}
+            {peekabooAnalytics}
+          </div>;
     
     
     return (
@@ -698,10 +708,16 @@ class NewProductPage extends Component {
               <Cube sid={this.state.sid} img={this.state.img} lastsid={this.state.lastsid} picBoxClass={picBoxClass}/>
             </div>
 
-            {next_sid[0] != null ? <div className="arrowLeft" onClick={this.arrowButton.bind(this, next_sid[0])}>{"\u25c0"}</div> : null}
-            {next_sid[1] != null ? <div className="arrowUp" onClick={this.arrowButton.bind(this, next_sid[1])}>{"\u25b2"}</div> : null}
-            {next_sid[2] != null ? <div className="arrowRight" onClick={this.arrowButton.bind(this, next_sid[2])}>{"\u25b6"}</div> : null}
-            {next_sid[3] != null ? <div className="arrowDown" onClick={this.arrowButton.bind(this, next_sid[3])}>{"\u25bc"}</div> : null}
+            {
+              !this.state.isAddingHotspot ?
+                <div>
+                  {next_sid[0] != null ? <div className="arrowLeft" onClick={this.arrowButton.bind(this, next_sid[0])}>{"\u25c0"}</div> : null}
+                  {next_sid[1] != null ? <div className="arrowUp" onClick={this.arrowButton.bind(this, next_sid[1])}>{"\u25b2"}</div> : null}
+                  {next_sid[2] != null ? <div className="arrowRight" onClick={this.arrowButton.bind(this, next_sid[2])}>{"\u25b6"}</div> : null}
+                  {next_sid[3] != null ? <div className="arrowDown" onClick={this.arrowButton.bind(this, next_sid[3])}>{"\u25bc"}</div> : null}
+                </div>
+              : null
+            }
           </div>
           
           {descriptionDiv}
@@ -712,19 +728,17 @@ class NewProductPage extends Component {
               </button>
               {hotspotHint}
             </div>
-            <div className="submitButtonDiv">
-              <button type="button" className="btn btn-secondary submitBtn" onClick={() => this.handleClickOkBtn()} disabled={isSubmitButtonDisable}>
-                {submitButtonLabel}
-              </button>
-            </div>
-            <div>
-             <br/><br/>
-              <button type="button" className="btn btn-secondary submitBtn" onClick={() => this.handleSave()}> 
-                Save
-              </button>
-            </div>
+            {
+              hasImgUploaded ?
+              <div className="submitButtonDiv">
+                <button type="button" className="btn btn-secondary submitBtn" onClick={() => this.handleClickOkBtn()}>
+                  {submitButtonLabel}
+                </button>
+              </div>
+              : null
+            }
           </div>
-          
+          <br/><br/>
           <ReviewBlock reviewData={this.props.reviewData}/>
         </div>
         <div className="NewProductPage-Right">

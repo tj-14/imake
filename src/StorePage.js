@@ -26,7 +26,7 @@ class Product extends Component {
     return (
       <div className="ProductDiv">
         <Link to={"/products/"+this.props.value.uid}>
-            <button className={"Product "+picBoxClass} onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
+            <button className="Product" onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
               {this.state.hover ? (
                 <div>
                   <img className="ImageGrid ImageOverlayStorePage" src={this.props.value.media[0]}/>
@@ -37,7 +37,7 @@ class Product extends Component {
                 </div>) 
                 : 
                 <div>
-                <img className="ImageGrid" src={this.props.value.media[0]}/>
+                <img className={"ImageGrid "+picBoxClass} src={this.props.value.media[0]}/>
                 </div>
               }  
             </button>
