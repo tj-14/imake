@@ -9,8 +9,13 @@ class Product extends Component {
     super(props);
     this.mouseOver = this.mouseOver.bind(this);
     this.mouseOut = this.mouseOut.bind(this);
+    this.mouseOverRemove = this.mouseOverRemove.bind(this);
+    this.mouseOutRemove = this.mouseOutRemove.bind(this);
+    this.handleClickRemoveItemBtn = this.handleClickRemoveItemBtn.bind(this);
     this.state = {
       hover: false,
+      isEditing: true,
+      hoverRemove: false,
     };
   }
   
@@ -20,15 +25,40 @@ class Product extends Component {
   mouseOut() {
     this.setState({hover: false});
   }
+  
+  mouseOverRemove(){
+    this.setState({hoverRemove: true});
+  }
+  mouseOutRemove() {
+    this.setState({hoverRemove: false});
+  }
+  
+  handleClickRemoveItemBtn() {
+    this.props.removeItem(this.props.value);
+  }
 
   render() {
     const picBoxClass = ["","Grayscale","Brightness","Sepia"][this.props.value.filter ? this.props.value.filter[0] : 0];
+    
+    const removeItemButton = (this.state.isEditing) ? 
+      <div className="btn removeItemBtn" onClick={(event) => {
+              if(confirm("Are you sure you want to delete this item?")) {
+                this.handleClickRemoveItemBtn();
+              }
+            }} onMouseEnter={this.mouseOverRemove.bind(this)}
+            onMouseLeave={this.mouseOutRemove.bind(this)}>
+        <div className="removeItemBtnLabel">{"\u00D7"}</div>
+      </div> : null;
+    
+    const link = this.state.hoverRemove ? "/" : ("/products/"+this.props.value.uid)
+          
     return (
       <div className="ProductDiv">
-        <Link to={"/products/"+this.props.value.uid}>
+        <Link to={link}>
             <button className="Product" onMouseEnter={this.mouseOver.bind(this)} onMouseLeave={this.mouseOut.bind(this)}>
               {this.state.hover ? (
-                <div>
+                <div className="ProductOverlay">
+                  {removeItemButton}
                   <img className={"ImageGrid ImageOverlayStorePage "+picBoxClass} src={this.props.value.media[0]}/>
                   <div className="TextOverlayStorePage">
                     <p><b>{this.props.value.name}</b></p>
@@ -92,7 +122,7 @@ class StorePage extends Component {
   render() {
     const productNode = this.props.data.map((product) => {
         return (
-          <Product value={product} key={product.uid}/>
+          <Product value={product} key={product.uid} removeItem={this.props.removeItem}/>
         )
     });
     
