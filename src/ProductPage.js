@@ -552,7 +552,7 @@ class NewProductPage extends Component {
     
 
 
-    const hotSpots = this.state.hotSpots[sid-1].map((hotSpot) => {
+    const hotSpots = !this.state.hotspotButton ? (this.state.hotSpots[sid-1].map((hotSpot) => {
       const styles = {
         top: hotSpot.curY,
         left: hotSpot.curX,
@@ -562,7 +562,7 @@ class NewProductPage extends Component {
       return (
         <div className="HotSpot" style={styles} onMouseEnter={this.hotspotMouseOver.bind(this, hotSpot.img)} onMouseLeave={this.hotspotMouseOut}/>
       )
-    });
+    })) : null;
 
     
     var hotspotHint = null;
