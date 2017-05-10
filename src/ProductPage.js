@@ -957,7 +957,7 @@ class ReviewBlock extends Component {
     
     return (
       <div className="reviews">
-        Reviews
+        <p>Reviews</p>
         <div className="reviewTabs">{reviewTabs}</div>
         {reviewDivs}
       </div>

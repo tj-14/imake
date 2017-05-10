@@ -350,7 +350,7 @@
   left: 47%;
 }
 
-.hotspotButtonDiv{
+.hotspotButtonDiv {
   position: absolute;
   left: 20px;
 }
@@ -590,11 +590,17 @@ input.currency {
 
 .submitBtn {
   width: 100px;
+  border: 2px solid #a94d25;
+  background-color: rgba(255,222,195,0.3);
+  font-weight: bold;
 }
 
 .hotspotBtn {
   width: 180px;
   margin-right: 20px;
+  border: 2px solid #a94d25;
+  background-color: rgba(255,222,195,0.3);
+  font-weight: bold;
 }
 
 .reviews, .buttons {
@@ -608,6 +614,7 @@ input.currency {
 
 .reviewTabs {
   display: flex;
+  margin-bottom: 5px;
 }
 
 .reviewTab {
@@ -616,9 +623,9 @@ input.currency {
 }
 
 .reviewBtn {
+  border: 1px solid #a94d25;
   background-color: white;
   border-radius: 5px;
-  border: 1px solid grey;
   margin: auto;
   padding: 1px;
   width: 80%;
@@ -628,21 +635,35 @@ input.currency {
 }
 
 .reviewBtn.reviewBtnClicked {
-  background-color: #FFDEC3;
+  background-color: rgba(255,222,195,0.3);
+  border: 2px solid #a94d25;
+  outline:none;
 }
 
 .reviewBtn:hover, .reviewBtn:focus, .reviewBtn:active{
-  background-color: #FFDEC3;
+  background-color: rgba(255,222,195,0.3);
   color: #E88540;
+  border: 2px solid #a94d25;
 }
 
 .reviewText {
-  border: 1px solid #666;
+  border: 1px solid #a94d25;
+  border-radius: 5px;
   margin: auto;
   margin-bottom: 10px;
   padding: 5px;
-  width: 95%;
+  width: 96%;
   text-align: left;
+  background-color: rgba(255,222,195,0.3);
+}
+
+.reviews {
+  margin-top:30px;
+}
+
+.reviews p {
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .cubeimg {
