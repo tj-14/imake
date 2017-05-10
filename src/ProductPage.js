@@ -13,8 +13,12 @@ import filter_icon from './images/icons/filter.gif'
 import filter_icon_close from './images/icons/hide-filter.gif'
 import analytics_icon from './images/icons/analytics.gif'
 import analytics_icon_close from './images/icons/hide-analytics.gif'
+import hotspot_icon from './images/icons/hotspot.gif'
+import hotspot_icon_close from './images/icons/hide-hotspot.gif'
 import store_logo from './images/product_images/store-logo.jpg'
 import heatmap_icon from './images/heatmap.png'
+import show_all from './images/icons/show.gif'
+import hide_all from './images/icons/hide.gif'
 
 // this thing sets what the drop zone for pictures accepts and looks like
 var componentConfig = {
@@ -120,11 +124,20 @@ class NewProductPage extends Component {
     this.peekHide = this.peekHide.bind(this);
     this.filterClick = this.filterClick.bind(this);
     this.filterHide = this.filterHide.bind(this);
+    this.hotspotClick = this.hotspotClick.bind(this);
+    this.hotspotHide = this.hotspotHide.bind(this);
     this.analyticsHide = this.analyticsHide.bind(this);
     this.analyticsClick = this.analyticsClick.bind(this);
     this.mouseOverHover = this.mouseOverHover.bind(this);
     this.mouseOutHover = this.mouseOutHover.bind(this);
     this.mouseClickHeat = this.mouseClickHeat.bind(this);
+    this.smallClick = this.smallClick.bind(this);
+    this.mediumClick = this.mediumClick.bind(this);
+    this.largeClick = this.largeClick.bind(this);
+
+    this.mouseHotspotHover = this.mouseHotspotHover.bind(this);
+    this.mouseClickHotspot = this.mouseClickHotspot.bind(this);
+    this.mouseHotspotOut = this.mouseHotspotOut.bind(this);
     this.state = {
       img: Array(6).fill(null),
       lastsid: null,
@@ -148,6 +161,8 @@ class NewProductPage extends Component {
       isExistingProduct: false,
       peekaboo: false,
       peekaboo_analytics: false,
+      peekaboo_hotspot: false,
+      hotspot_class: "cbp-spmenu-hotspot cbp-spmenu-vertical cbp-spmenu-left",
       peekaboo_class: "cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left",
       peekaboo_tab: "leftViewTabShow leftViewTabTransition",
       peekaboo_text: "VIEW STORE",
@@ -156,6 +171,9 @@ class NewProductPage extends Component {
       hover_heatmap: false,
       heat_click: false,
       heatmap_show: false,
+      hotspot_size: 0,
+      hotspotButton: false,
+      hotspotHover: false,
     };
 
     this.onDrop = this.onDrop.bind(this);
@@ -180,6 +198,28 @@ class NewProductPage extends Component {
         this.state.heat_click ? null: this.setState({heatmap_show:false});
     }
 
+  smallClick = () => {
+    this.state.hotspot_size == 1 ? 
+    (this.setState({ hotspot_size: 0}))
+    :
+    (this.setState({ hotspot_size: 1}))
+  }
+
+  mediumClick = () => {
+    this.state.hotspot_size == 2 ? 
+    (this.setState({ hotspot_size: 0}))
+    :
+    (this.setState({ hotspot_size: 2}))
+  }
+
+  largeClick = () => {
+    this.state.hotspot_size == 3 ? 
+    (this.setState({ hotspot_size: 0}))
+    :
+    (this.setState({ hotspot_size: 3}))
+  }
+
+
   peekClick = () => {
     this.setState({ peekaboo: true, 
                     peekaboo_class: "cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left cbp-spmenu-open",
@@ -192,6 +232,16 @@ class NewProductPage extends Component {
                     peekaboo_class: "cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left",
                     peekaboo_tab: "leftViewTabTransition leftViewTabShow",
                     peekaboo_text: "Show Store"});
+  }
+
+  hotspotClick = () => {
+    this.setState({ peekaboo_hotspot: true, 
+                    hotspot_class: "cbp-spmenu-hotspot cbp-spmenu-vertical cbp-spmenu-left cbp-spmenu-open"});
+  }
+
+  hotspotHide = () => {
+    this.setState({ peekaboo_hotspot: false, 
+                    hotspot_class: "cbp-spmenu-hotspot cbp-spmenu-vertical cbp-spmenu-left"});
   }
 
   filterClick = () => {
@@ -219,6 +269,27 @@ class NewProductPage extends Component {
   mouseClickHeat = () => {
     this.state.heat_click ? this.setState({heat_click: false, heatmap_show: false}) : this.setState({heat_click: true, heatmap_show: true});
   }
+
+ mouseClickHotspot = () => {
+    this.state.hotspotButton ? this.setState({hotspotButton: false}) : this.setState({hotspotButton: true});
+  }
+
+  mouseHotspotHover = () => {  
+    this.setState({hover_heatmap: true});
+    this.state.heat_click ? null : null;
+  }
+
+  mouseHotspotOut = () => {  
+    this.setState({hover_heatmap: false});
+    this.state.heat_click ? null : null;
+  }
+
+
+ 
+
+
+
+
 
   mouseOverOriginal = () => {
         this.setState({original: true, filter1: false, filter2: false, filter3: false});}
@@ -553,6 +624,48 @@ class NewProductPage extends Component {
         }
     }
 
+    const peekabooHotspot = <div className="layoutFilter">
+      {this.state.peekaboo_hotspot ? (
+              <div className="leftHotspotHide" onClick={this.hotspotHide}>
+                  <img className="analyticsIconClose" src={hotspot_icon_close} />
+              </div>
+              ) : (
+              <div className="leftHotspotShow" onClick={this.hotspotClick}>
+                  <img className="analyticsIcon" src={hotspot_icon} />
+              </div>
+              )}
+      {<div className={this.state.hotspot_class}>
+                  <div className="hotspotHeader"><b>HOTSPOT MENU</b></div>
+                  <div className="hotspotDetails">
+                  iMake lets you add details to any part of the image by adding hotspots! Choose a size and then hover
+                  over the image you uploaded. Press on the part that you want to add details to! A window will show up,
+                  asking you to upload a photo. Add the detailed photo and then add a description. Hovering or clicking
+                  a hotspot will reveal the details!
+                  </div>
+                  <div className = "smallHotspot" onClick={this.smallClick.bind(this)}>
+                    <div className="smallBox"> </div>
+                  </div>
+
+                  <div className = "mediumHotspot" onClick={this.mediumClick.bind(this)}>
+                    <div className="mediumBox"> </div>
+                  </div>
+
+                  <div className = "largeHotspot" onClick={this.largeClick.bind(this)}>
+                    <div className="largeBox"> </div>
+                  </div>
+
+                <div className={this.state.hotspotButton? "hotspotVisibilityClick" : "hotspotVisibilityButton"} onMouseEnter={this.mouseHotspotHover.bind(this)} onMouseLeave={this.mouseHotspotOut.bind(this)} onClick={this.mouseClickHotspot.bind(this)}>
+                  {this.state.hover_heatmap? (
+                    null
+                    ):(
+                    null
+                    )
+                }
+                  {this.state.hotspotButton? <img className="heatMapIcon" src={hide_all}/> : <img className="heatMapIcon" src={show_all}/> }
+            </div>
+      </div>}
+    </div>;
+
 
     const peekabooAnalytics= <div className="layoutFilter">
       {this.state.peekaboo_analytics ? (
@@ -679,6 +792,7 @@ class NewProductPage extends Component {
       {peekabooStore}
       {peekabooFilter}
       {peekabooAnalytics}
+      {peekabooHotspot}
       </div>;
     
     

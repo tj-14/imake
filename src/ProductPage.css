@@ -32,7 +32,7 @@
   -moz-transition: all 0.3s ease;
   transition: all 0.3s ease;
   position: absolute;
-  top: 400px;
+  top: 500px;
   background-color: #c8caff;
   height: 7em;
   width: 125px;
@@ -43,7 +43,7 @@
 
 .leftAnalyticsHide {
   position: absolute;
-  top: 400px;
+  top: 500px;
   background-color: #c8caff;
   height: 7em;
   width: 42px;
@@ -359,6 +359,29 @@
   color: white;
   padding-top: 10px;
   background-color:#204072;
+}
+
+
+.hotspotHeader {
+  position: absolute;
+  width: 100%;
+  border-bottom: 1px solid #052b68;
+  height: 40px;
+  font-size: 1.1em;
+  color: white;
+  padding-top: 10px;
+  background-color:#294f41;
+}
+
+.hotspotDetails {
+  position: absolute;
+  width: 100%;
+  border-bottom: 1px solid #052b68;
+  height: 150px;
+  top: 40px;
+  font-size: .9em;
+  color: black;
+  padding-top: 5px;
 }
 
 .genderBox{
@@ -838,6 +861,11 @@ object:hover {
 
 
 /* General styles for all menus */
+.cbp-spmenu-hotspot {
+  background: #e3f9d6;
+  position: fixed;
+}
+
 .cbp-spmenu-analytics {
   background: #d7e2f4;
   position: fixed;
@@ -891,7 +919,7 @@ object:hover {
 
 /* Transitions */
 
-.cbp-spmenu-analytics, .cbp-spmenu {
+.cbp-spmenu-analytics,.cbp-spmenu-hotspot, .cbp-spmenu {
   overflow-y:auto;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
@@ -1135,4 +1163,195 @@ object:hover {
 .Original:hover, .Filter1:hover, .Filter2:hover, .Filter3:hover {
   opacity:0.5;
   cursor: pointer;
+}
+
+
+
+
+.leftHotspotShow {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  position: absolute;
+  top: 400px;
+  background-color: #ddffbf;
+  height: 7em;
+  width: 125px;
+  left: -10px;
+  z-index: 500;
+}
+
+
+.leftHotspotHide {
+  position: absolute;
+  top: 400px;
+  background-color: #ddffbf;
+  height: 7em;
+  width: 42px;
+  left: 280px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  z-index: 500;
+}
+
+
+.leftHotspotHide:hover {
+  background-color: #b9ff91;
+  cursor: pointer;
+}
+
+.leftHotspotShow:hover {
+  background-color: #b9ff91;
+  cursor: pointer;
+  left:0px;
+}
+
+
+
+
+.hotspotButton {
+      position: absolute;
+      left: 0px;
+      top: 720px;
+      height: 40px;
+      width: 100%;
+      text-align: center;
+      vertical-align: middle;
+      color: black;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  background: #ddffbf;
+  font-size: 14px;
+  z-index:500;
+}
+
+
+.hotspotButton:hover {
+  background-color: #435b34;
+  color: white;
+}
+
+.hotspotButton-clicked {
+      position: absolute;
+      left: 0px;
+      top: 720px;
+      height: 40px;
+      width: 100%;
+      text-align: center;
+      vertical-align: middle;
+      color: white;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  background: #294f41;
+  font-size: 14px;
+  z-index:500;
+}
+
+.hotspotButton-clicked:hover {
+  background-color: #435b34;
+}
+
+
+
+.smallHotspot{
+      position: absolute;
+      top: 190px;
+      height: 120px;
+      width: 100%;
+      z-index:4;
+      border-bottom: 1px solid #052b68;
+    }
+
+
+.mediumHotspot{
+      position: absolute;
+      top: 310px;
+      height: 160px;
+      width: 100%;
+      z-index:4;
+      border-bottom: 1px solid #052b68; 
+    }
+
+.largeHotspot{
+      position: absolute;
+      top: 470px;
+      height: 180px;
+      width: 100%;
+      z-index:4;
+      border-bottom: 1px solid #052b68;
+    }
+
+.smallHotspot:hover, .mediumHotspot:hover, .largeHotspot:hover {
+    background-color: #8bbfa3;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+
+  .smallBox {
+      position: absolute;
+      top: 25px;
+      height: 70px;
+      width: 70px;
+      left: 105px;
+      z-index:4;
+      border: 2px dashed #052b68;
+    }
+
+  .mediumBox {
+      position: absolute;
+      top: 30px;
+      height: 100px;
+      width: 150px;
+      left: 65px;
+      z-index:4;
+      border: 2px dashed #052b68;
+    }
+
+  .largeBox {
+      position: absolute;
+      top: 15px;
+      height: 150px;
+      width: 200px;
+      left: 40px;
+      z-index:4;
+      border: 2px dashed #052b68;
+    }
+
+
+
+.hotspotVisibilityButton {
+  position: absolute;
+  top: 650px;
+  width: 100%;
+  z-index:505;
+  color: black;
+  font-size: 1.1em;
+  font-weight: 300;
+  border-bottom: 1px solid #052b68;
+  height:115px;
+  padding-top: 5px
+}
+
+.hotspotVisibilityClick {
+  position: absolute;
+  top: 640px;
+  width: 100%;
+  z-index:505;
+  color: black;
+  font-size: 1.1em;
+  font-weight: 300;
+  border-bottom: 1px solid #052b68;
+  height:120px;
+  padding-top: 10px;
+}
+
+
+.hotspotVisibilityClick:hover, .hotspotVisibilityButton:hover {
+    background-color: #8bbfa3;
+    opacity: 0.7;
+    cursor: pointer;
 }
