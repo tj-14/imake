@@ -438,7 +438,8 @@ class NewProductPage extends Component {
   handleClickOkBtn() {
     const isSubmitButtonDisable = (this.state.productNameInput == "");
     if (isSubmitButtonDisable){
-      this.productNameInput.focus(); 
+      this.productNameInput.focus();
+      alert("Please insert product name."); 
     }
     else{
       this.setState({
@@ -557,7 +558,7 @@ class NewProductPage extends Component {
         top: hotSpot.curY,
         left: hotSpot.curX,
         width: hotSpot.width,
-        height:hotSpot.height,
+        height: hotSpot.height,
       }
       return (
         <div className="HotSpot" style={styles} onMouseEnter={this.hotspotMouseOver.bind(this, hotSpot.img)} onMouseLeave={this.hotspotMouseOut}/>
